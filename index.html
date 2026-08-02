@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Irvin Chiu | Writing &amp; Media Portfolio</title>
+<meta name="description" content="Sports writing, analytics and media production by Irvin Chiu. Australian Baseball League, DEF Promotions.">
+<style>
+  :root{
+    --bg:#fbfaf8; --surface:#fff; --ink:#1a1d21; --muted:#5b6470;
+    --line:#e3e0da; --accent:#1f3864; --accent-soft:#eef1f7;
+    --max:820px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14161a; --surface:#1b1e24; --ink:#eceef1; --muted:#9aa3b0;
+           --line:#2a2f38; --accent:#8fb4ee; --accent-soft:#1e2634; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+  h1{margin:0 0 6px;font-size:clamp(2rem,5vw,2.9rem);letter-spacing:-.02em;line-height:1.1}
+  .tagline{margin:0 0 20px;color:var(--muted);font-size:1.05rem}
+  .contact{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.92rem}
+  .contact a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+  .contact a:hover{border-bottom-color:var(--accent)}
+
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  h2{margin:0 0 4px;font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent)}
+  .lede{margin:0 0 26px;color:var(--muted);font-size:.95rem;max-width:62ch}
+
+  .feature{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:22px 24px;margin-bottom:14px;transition:border-color .15s, transform .15s}
+  .feature:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .feature a.t{display:block;font-weight:640;font-size:1.06rem;color:var(--ink);
+    text-decoration:none;letter-spacing:-.01em;margin-bottom:6px}
+  .feature a.t:hover{color:var(--accent)}
+  .feature p{margin:0;color:var(--muted);font-size:.9rem}
+  .feature.lead{border-color:var(--accent);border-width:1.5px;
+    background:linear-gradient(180deg,var(--accent-soft),var(--surface) 70%);padding:26px 26px 24px}
+  .feature.lead a.t{font-size:1.28rem;line-height:1.25;margin-bottom:8px}
+  .feature.lead p{font-size:.95rem}
+  .meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+    font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+  .pill{background:var(--accent-soft);color:var(--accent);padding:2px 9px;border-radius:99px;
+    font-weight:600;letter-spacing:.05em}
+
+  ul.list{list-style:none;margin:0;padding:0}
+  ul.list li{padding:11px 0;border-bottom:1px dashed var(--line);display:flex;
+    gap:14px;align-items:baseline}
+  ul.list li:last-child{border-bottom:0}
+  ul.list .d{flex:0 0 74px;font-size:.76rem;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+  ul.list a{color:var(--ink);text-decoration:none;font-size:.96rem}
+  ul.list a:hover{color:var(--accent);text-decoration:underline}
+
+  blockquote{margin:0;padding:18px 22px;background:var(--accent-soft);
+    border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.95rem}
+  blockquote p{margin:0 0 8px}
+  blockquote cite{font-style:normal;font-size:.82rem;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .stat b{display:block;font-size:1.6rem;letter-spacing:-.02em;color:var(--accent);line-height:1.1}
+  .stat span{font-size:.84rem;color:var(--muted)}
+
+  .videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:4px}
+  .vid figure{margin:0}
+  .vid .frame{position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden;
+    background:#000;border:1px solid var(--line)}
+  .vid .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .vid figcaption{margin-top:7px;font-size:.88rem;font-weight:600}
+  .vid .sub{font-size:.79rem;color:var(--muted);font-weight:400;display:block;margin-top:1px}
+
+  footer{padding:32px 0 60px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Irvin Chiu</h1>
+  <p class="tagline">Sports writing, analytics, and media production.</p>
+  <div class="contact">
+    <a href="mailto:irvinchiu.yf@gmail.com">irvinchiu.yf@gmail.com</a>
+    <a href="https://www.linkedin.com/in/irvinchiu/">LinkedIn</a>
+    <span>London, UK</span>
+  </div>
+</header>
+
+<section>
+  <h2>At a glance</h2>
+  <div class="grid">
+    <div class="stat"><b>54</b><span>published articles</span></div>
+    <div class="stat"><b>3</b><span>ABL seasons covered</span></div>
+    <div class="stat"><b>4M</b><span>impressions, single weekend</span></div>
+    <div class="stat"><b>3</b><span>languages researched in</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Selected work</h2>
+  <p class="lede">Long-form analysis for the Australian Baseball League, written for both casual readers and dedicated followers of the sport.</p>
+
+  <div class="feature lead">
+    <div class="meta"><span class="pill">Championship preview</span><span>22 Jan 2026</span></div>
+    <a class="t" href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a>
+    <p>Season-defining preview of the ABL Championship Series, weighing a first title against a repeat dynasty through matchup analysis and advanced statistics.</p>
+  </div>
+
+  <div class="feature">
+    <div class="meta"><span class="pill">Feature</span><span>12 Jan 2024</span></div>
+    <a class="t" href="https://theabl.com.au/news/shota/">How time in Australia played a role in turning Japanese pitcher Shota Imanaga into a global baseball star</a>
+    <p>Published the same month Imanaga signed with the Chicago Cubs, tracing his Australian stint through to the majors. Research conducted in Japanese and English.</p>
+  </div>
+
+  <div class="feature">
+    <div class="meta"><span class="pill">Analytics</span><span>27 Dec 2023</span></div>
+    <a class="t" href="https://theabl.com.au/news/skepton-rising/">Analysis: Where does rookie Queenslander Alex Skepton's incredible baseball season rank? Let's look at the numbers</a>
+    <p>Advanced-statistics treatment of a breakout rookie season, benchmarked against historical ABL performance.</p>
+  </div>
+
+  <div class="feature">
+    <div class="meta"><span class="pill">Power rankings</span><span>9 Nov 2023</span></div>
+    <a class="t" href="https://theabl.com.au/news/top-5-aussies/">POWER RANKINGS: The top five Australian players in the ABL for the 2023-24 season</a>
+    <p>Commissioned ranking of the league's best Australian players, built from research and analytics rather than reputation.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Editorial note</h2>
+  <blockquote>
+    <p>"We gave our new reporter Irvin Chiu a difficult task: Tell us who the best five Australian baseball players are in the ABL right now. Irvin is a great writer, loves his baseball, and has a particularly keen eye for stats and analytics."</p>
+    <cite>theABL.com.au editorial, November 2023</cite>
+  </blockquote>
+</section>
+
+<section>
+  <h2>Australian Baseball League &middot; 2025-26 season</h2>
+  <p class="lede">Weekly <em>Fire Form</em> column tracking in-form players across the league, plus the championship preview.</p>
+  <ul class="list">
+    <li><span class="d">22 Jan 26</span><a href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a></li>
+    <li><span class="d">15 Jan 26</span><a href="https://theabl.com.au/news/whose-hot-going-into-round-10/">Who's hot going into Round 10?</a></li>
+    <li><span class="d">7 Jan 26</span><a href="https://theabl.com.au/news/fire-form-who-is-hot-heading-into-round-9/">Fire Form: Who is hot heading into Round 9</a></li>
+    <li><span class="d">31 Dec 25</span><a href="https://theabl.com.au/news/fire-form8/">Fire Form: One key player from each ABL team important to Round 8 success</a></li>
+    <li><span class="d">23 Dec 25</span><a href="https://theabl.com.au/news/fireform7/">Fire Form Round 7: Four key players to watch this week in the Australian Baseball League</a></li>
+    <li><span class="d">18 Dec 25</span><a href="https://theabl.com.au/news/fire-form/?network=14">Fire Form: The most important player on each ABL team at the half-way point</a></li>
+    <li><span class="d">10 Dec 25</span><a href="https://theabl.com.au/news/fire-form-5/">Fire Form Round 5: A quick ABL catch up and who is hot entering Round 5</a></li>
+    <li><span class="d">3 Dec 25</span><a href="https://theabl.com.au/news/fireform3/">Fire Form Round 4: A quick ABL catch up and who is hot entering Round 4</a></li>
+    <li><span class="d">26 Nov 25</span><a href="https://theabl.com.au/news/fireform-round3/">Fire Form: One ABL player on each team on fire ahead of Round 3</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Australian Baseball League &middot; 2023-24 season</h2>
+  <ul class="list">
+    <li><span class="d">31 Jan 24</span><a href="https://theabl.com.au/news/heat-ablcs/">ABLCS Preview &amp; Analysis: How a balanced Heat batting attack could win them the Claxton Shield</a></li>
+    <li><span class="d">24 Jan 24</span><a href="https://theabl.com.au/news/aces-playoffs/">Playoff Preview: Why the Melbourne Aces can win the Championship</a></li>
+    <li><span class="d">12 Jan 24</span><a href="https://theabl.com.au/news/shota/">How time in Australia played a role in turning Japanese pitcher Shota Imanaga into a global baseball star</a></li>
+    <li><span class="d">10 Jan 24</span><a href="https://theabl.com.au/news/round-9-preview-2/">Round 9 Preview &amp; Notes: Who is winning the Helms Award as the ABL's MVP?</a></li>
+    <li><span class="d">27 Dec 23</span><a href="https://theabl.com.au/news/skepton-rising/">Analysis: Where does rookie Queenslander Alex Skepton's incredible baseball season rank?</a></li>
+    <li><span class="d">19 Dec 23</span><a href="https://theabl.com.au/news/analysis-midway_report/">Analysis: A look at how runs are generated at the midway point of ABL 2023-24</a></li>
+    <li><span class="d">20 Nov 23</span><a href="https://theabl.com.au/news/10-things-rd1/">Ya Gotta Know: 10 Things from Round 1 of the ABL's 2023-24 season</a></li>
+    <li><span class="d">9 Nov 23</span><a href="https://theabl.com.au/news/top-5-aussies/">POWER RANKINGS: The top five Australian players in the ABL for the 2023-24 season</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Video production &middot; DEF Promotions, Hong Kong</h2>
+  <p class="lede">Promotional video for boxing events and fighters, produced in Final Cut Pro X and aired at The Venetian Macao, Hong Kong-Macau Ferries, and the Hong Kong Convention and Exhibition Centre. Includes work for collaborations with Top Rank Inc. (USA) and Watanabe Promotions (Japan).</p>
+
+  <div class="videos">
+    <div class="vid"><figure>
+      <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/lqPZUTim54U"
+        title="Clash of Champions III Promo" allowfullscreen
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+      <figcaption>Clash of Champions III Promo
+        <span class="sub">Also directed replay selection and camera angles for the live broadcast</span></figcaption>
+    </figure></div>
+
+    <div class="vid"><figure>
+      <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/tvOpBT2BQrE"
+        title="Clash of Champions II Promo" allowfullscreen
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+      <figcaption>Clash of Champions II Promo
+        <span class="sub">Event promotional spot</span></figcaption>
+    </figure></div>
+
+    <div class="vid"><figure>
+      <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VT4b0u7vuhQ"
+        title="Battle Of Victors Promo" allowfullscreen
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+      <figcaption>Battle Of Victors Promo
+        <span class="sub">Event promotional spot</span></figcaption>
+    </figure></div>
+
+    <div class="vid"><figure>
+      <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VJiTXASPP9s"
+        title="Takuya Watanabe Promo" allowfullscreen
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+      <figcaption>Takuya Watanabe Promo
+        <span class="sub">Fighter promo, produced with Watanabe Promotions (Japan)</span></figcaption>
+    </figure></div>
+  </div>
+</section>
+
+<section>
+  <h2>Writing &middot; DEF Promotions, Hong Kong</h2>
+  <p class="lede">37 articles on professional boxing, fighters, predictions, and fight analysis, published 2017 to 2019.</p>
+  <ul class="list">
+    <li><span class="d">2017-19</span><a href="https://www.dropbox.com/scl/fi/89uxi66i5rm9fmlgcfa95/DEF-Articles.txt?rlkey=d6sauu2iwp73h2q85gb0z6dvh&amp;st=zprswf5u&amp;dl=0">Full index of all 37 boxing articles</a></li>
+  </ul>
+</section>
+
+<footer>
+  Irvin Chiu &middot; Sports writing, analytics, and media production &middot;
+  <a href="mailto:irvinchiu.yf@gmail.com" style="color:var(--accent)">irvinchiu.yf@gmail.com</a>
+</footer>
+
+</div>
+</body>
+</html>
