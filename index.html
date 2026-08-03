@@ -11,6 +11,7 @@
   --ink:#14161a; --ink-2:#3d444e; --muted:#767e8a;
   --line:#e6e2da; --line-2:#f0ede7;
   --accent:#1d3f73; --accent-2:#2f6fbf; --tint:#eef2f9;
+  --quote-bg:#fdf8ed; --quote-bg-2:#fffdf9; --quote-line:#e7d9b6; --quote-accent:#9a6f16;
   --shadow:0 1px 2px rgba(20,22,26,.04), 0 8px 24px rgba(20,22,26,.06);
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
   --w:720px;
@@ -21,6 +22,7 @@
     --ink:#eceef2; --ink-2:#c3c9d2; --muted:#8d96a3;
     --line:#252a33; --line-2:#1c2129;
     --accent:#8ab0ea; --accent-2:#a8c5f2; --tint:#161c26;
+    --quote-bg:#1d1a13; --quote-bg-2:#16150f; --quote-line:#3a3324; --quote-accent:#dcb45f;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
   }
 }
@@ -61,37 +63,44 @@ h1{font-size:clamp(2.5rem,6.6vw,3.7rem);line-height:1.04;
 .contact span{color:var(--muted)}
 
 /* ---------- hero pull quote ---------- */
-.hero-quote{margin-top:30px;padding:26px 0 0;border-top:1px solid var(--line)}
-.hero-quote blockquote{position:relative;padding-left:20px}
-.hero-quote blockquote:before{content:"";position:absolute;left:0;top:4px;bottom:4px;
-  width:3px;border-radius:2px;background:var(--accent)}
-.hero-quote p{font-size:clamp(1.02rem,2.1vw,1.16rem);line-height:1.55;color:var(--ink);
-  font-weight:420;letter-spacing:-.008em}
-.hero-quote .attr{margin-top:12px;padding-left:20px;font-size:.81rem;color:var(--muted);
-  letter-spacing:.02em}
-.hero-quote .attr a{color:var(--muted);text-decoration:none;
-  border-bottom:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
-.hero-quote .attr a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.hero-quote{position:relative;margin-top:34px;padding:32px 36px 28px;
+  background:linear-gradient(158deg,var(--quote-bg),var(--quote-bg-2) 82%);
+  border:1px solid var(--quote-line);border-radius:18px;overflow:hidden}
+.hero-quote:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--quote-accent),
+    color-mix(in srgb,var(--quote-accent) 30%,transparent))}
+.hero-quote .mark{position:absolute;top:-16px;right:18px;font-size:7.5rem;line-height:1;
+  font-weight:700;color:var(--quote-accent);opacity:.13;pointer-events:none;user-select:none}
+.hero-quote blockquote{position:relative}
+.hero-quote p{font-size:clamp(1.04rem,2.1vw,1.2rem);line-height:1.6;color:var(--ink);
+  font-weight:430;letter-spacing:-.01em}
+.hero-quote .attr{margin-top:22px;font-size:.79rem;color:var(--muted);letter-spacing:.04em;
+  text-transform:uppercase}
+.hero-quote .attr a{color:var(--quote-accent);text-decoration:none;font-weight:600;
+  border-bottom:1px solid color-mix(in srgb,var(--quote-accent) 40%,transparent)}
+.hero-quote .attr a:hover{border-bottom-color:var(--quote-accent)}
 
 /* ---------- sections ---------- */
-section{padding:46px 0 4px;scroll-margin-top:70px}
+section.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;
+  padding:30px 32px 34px;margin-bottom:20px;scroll-margin-top:78px}
+section.panel:last-child{margin-bottom:0}
 
 /* major divider between the two bodies of work */
-.part{margin-top:26px;padding-top:46px;border-top:2px solid var(--accent);scroll-margin-top:70px}
-.part:first-of-type{margin-top:0}
+.part{margin-top:34px;padding-top:40px;border-top:2px solid var(--accent);scroll-margin-top:78px}
+.part:first-of-type{margin-top:44px}
 .part-kicker{font-size:.68rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
   color:var(--accent);margin-bottom:9px}
 .part-name{font-size:clamp(1.5rem,3.4vw,1.9rem);font-weight:680;letter-spacing:-.036em;
   line-height:1.14}
 .part-sub{margin-top:7px;font-size:.9rem;color:var(--muted);line-height:1.55}
-.part > section:first-of-type{padding-top:34px}
+.part-head{margin-bottom:22px}
 h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
   color:var(--accent);margin-bottom:10px}
 .lede{color:var(--muted);font-size:.93rem;margin-bottom:24px;line-height:1.6}
 
 /* ---------- feature cards ---------- */
 .feats{display:grid;gap:12px}
-.feat{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+.feat{background:var(--bg);border:1px solid var(--line);border-radius:14px;
   padding:20px 22px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
 .feat:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
 .feat .meta{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:9px;
@@ -111,12 +120,15 @@ h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercas
 
 /* ---------- recognition ---------- */
 .recog{display:grid;gap:14px}
-.tweet-embed{max-width:550px}
+/* X hard-caps its rendered card at 550px regardless of container width, so the
+   embed is centred rather than stretched. Forcing the iframe wider only adds
+   empty space inside it. */
+.tweet-embed{max-width:550px;margin-left:auto;margin-right:auto}
 .tweet-embed .cap{margin-top:10px;font-size:.83rem;color:var(--muted);line-height:1.55}
 .tweet-embed .cap b{color:var(--ink);font-weight:650}
 /* Fallback shown when platform.x.com is blocked or slow. The widget removes
    this styling entirely by replacing the blockquote with its own iframe. */
-.twitter-tweet{border:1px solid var(--line);border-radius:14px;background:var(--surface);
+.twitter-tweet{border:1px solid var(--line);border-radius:14px;background:var(--bg);
   padding:20px 22px;margin:0}
 .twitter-tweet p{font-size:.95rem;line-height:1.55;color:var(--ink)}
 .twitter-tweet cite{display:block;margin-top:12px;font-style:normal;font-size:.82rem;
@@ -127,7 +139,7 @@ h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercas
 
 /* ---------- broadcast pickup ---------- */
 .pickup{display:grid;gap:18px}
-.pu{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);
+.pu{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);
   transition:box-shadow .2s ease,border-color .2s ease}
 .pu:hover{box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
 .frame{position:relative;padding-top:56.25%;background:#000}
@@ -157,7 +169,7 @@ ul.list a{color:var(--ink);text-decoration:none;font-size:.93rem;line-height:1.5
 ul.list a:hover{color:var(--accent);border-bottom-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 
 /* ---------- def video grid ---------- */
-.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:18px}
+.videos{display:grid;gap:18px}
 .vid figcaption{margin-top:9px;font-size:.88rem;font-weight:620;line-height:1.4}
 .vid .frame{border-radius:11px;overflow:hidden;border:1px solid var(--line)}
 .vid .sub{display:block;font-size:.78rem;color:var(--muted);font-weight:400;margin-top:2px}
@@ -169,9 +181,13 @@ footer a{text-decoration:none}
 footer a:hover{text-decoration:underline}
 
 /* ---------- motion ---------- */
-.rv{opacity:0;transform:translateY(20px)}
+.rv{opacity:0;transform:translateY(38px) scale(.965);
+  transition:opacity .42s cubic-bezier(.4,0,.6,1),transform .42s cubic-bezier(.4,0,.6,1)}
 .rv.in{opacity:1;transform:none;
   transition:opacity .6s cubic-bezier(.22,.8,.3,1),transform .6s cubic-bezier(.22,.8,.3,1)}
+/* the panel travels less than the cards inside it, so nested transforms do not compound */
+section.panel.rv{transform:translateY(18px) scale(1)}
+section.panel.rv.in{transform:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .rv,.rv.in{opacity:1;transform:none;transition:none;transition-delay:0ms !important}
@@ -179,6 +195,7 @@ footer a:hover{text-decoration:underline}
 }
 @media (max-width:560px){
   header{padding:54px 0 32px}
+  section.panel{padding:24px 20px 26px;border-radius:16px}
   ul.list li{flex-direction:column;gap:2px}
   ul.list .d{flex:none}
 }
@@ -211,6 +228,7 @@ footer a:hover{text-decoration:underline}
   </div>
 
   <div class="hero-quote rv">
+    <span class="mark" aria-hidden="true">&rdquo;</span>
     <blockquote>
       <p>"We gave our new reporter Irvin Chiu a difficult task: Tell us who the best five Australian
         baseball players are in the ABL right now. [...] Irvin is a great writer, loves his baseball,
@@ -223,12 +241,14 @@ footer a:hover{text-decoration:underline}
 
 <div class="wrap">
   <div class="part" id="abl">
+    <div class="part-head rv">
     <div class="part-kicker">Part one</div>
     <div class="part-name">Australian Baseball League</div>
     <p class="part-sub">Digital Media Coordinator, Baseball Australia &middot; 2023 to present.
       Social, editorial, and analytics work, with published writing across two ABL seasons.</p>
+    </div>
 
-  <section id="work">
+  <section class="panel rv" id="work">
     <h2>Selected work</h2>
     <p class="lede">Long-form analysis for the Australian Baseball League, written for both casual
       readers and dedicated followers of the sport.</p>
@@ -237,6 +257,11 @@ footer a:hover{text-decoration:underline}
         <div class="meta"><span class="pill">Championship preview</span><span>22 Jan 2026</span></div>
         <a class="t" href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a>
         <p>Season-defining preview of the ABL Championship Series, weighing a first title against a repeat dynasty through matchup analysis and advanced statistics.</p>
+      </article>
+      <article class="feat  rv">
+        <div class="meta"><span class="pill">Playoff preview</span><span>24 Jan 2024</span></div>
+        <a class="t" href="https://theabl.com.au/news/aces-playoffs/">Playoff Preview: Why the Melbourne Aces can win the Championship</a>
+        <p>The case for the Aces, built from matchup data. Picked up by the postseason broadcast two days later, which worked through the argument on air.</p>
       </article>
       <article class="feat  rv">
         <div class="meta"><span class="pill">Feature</span><span>12 Jan 2024</span></div>
@@ -249,14 +274,14 @@ footer a:hover{text-decoration:underline}
         <p>Advanced-statistics treatment of a breakout rookie season, benchmarked against historical ABL performance.</p>
       </article>
       <article class="feat  rv">
-        <div class="meta"><span class="pill">Power rankings</span><span>9 Nov 2023</span></div>
-        <a class="t" href="https://theabl.com.au/news/top-5-aussies/">POWER RANKINGS: The top five Australian players in the ABL for the 2023-24 season</a>
-        <p>Commissioned ranking of the league's best Australian players, built from research and analytics rather than reputation.</p>
+        <div class="meta"><span class="pill">Analytics</span><span>19 Dec 2023</span></div>
+        <a class="t" href="https://theabl.com.au/news/analysis-midway_report/">Analysis: A look at how runs are generated at the midway point of ABL 2023-24</a>
+        <p>League-wide study of run production at the halfway mark, built on a custom statistics database assembled for the purpose.</p>
       </article>
     </div>
   </section>
 
-  <section id="recognition">
+  <section class="panel rv" id="recognition">
     <h2>Recognition</h2>
     <div class="recog">
       <div class="tweet-embed rv">
@@ -268,12 +293,14 @@ footer a:hover{text-decoration:underline}
             <a href="https://x.com/michaelsclair/status/1724484898210173013">November 14, 2023</a></cite>
         </blockquote>
         <div class="cap"><b>Michael Clair</b>, Senior Manager of Storytelling and Special
-          Projects at MLB.com, sharing the Power Rankings piece with his followers, November 2023.</div>
+          Projects at MLB.com, sharing the
+          <a href="https://theabl.com.au/news/top-5-aussies/">Power Rankings</a> piece with his
+          followers, November 2023.</div>
       </div>
     </div>
   </section>
 
-  <section id="broadcast">
+  <section class="panel rv" id="broadcast">
     <h2>Broadcast pickup</h2>
     <p class="lede">Each clip is an ABL broadcast discussing analysis from an article published days
       earlier. The commentary team are not statisticians, which is the point: the work was written so
@@ -309,11 +336,11 @@ footer a:hover{text-decoration:underline}
     </div>
   </section>
 
-  <section id="articles">
+  <section class="panel rv" id="articles">
     <h2>Australian Baseball League</h2>
     <p class="lede">17 bylined articles for theABL.com.au.</p>
 
-    <div class="season rv">
+    <div class="season">
       <h3>2025-26 season</h3>
       <div class="sub">Weekly <em>Fire Form</em> column tracking in-form players, plus the championship preview.</div>
       <ul class="list">
@@ -329,7 +356,7 @@ footer a:hover{text-decoration:underline}
       </ul>
     </div>
 
-    <div class="season rv">
+    <div class="season">
       <h3>2023-24 season</h3>
       <div class="sub">Debut season: advanced-statistics analysis, previews, and power rankings.</div>
       <ul class="list">
@@ -348,12 +375,14 @@ footer a:hover{text-decoration:underline}
   </div>
 
   <div class="part" id="def">
+    <div class="part-head rv">
     <div class="part-kicker">Part two</div>
     <div class="part-name">DEF Promotions</div>
     <p class="part-sub">Video Editor and Writer &middot; Hong Kong, 2015 to 2019.
       Promotional video and boxing journalism for a professional fight promoter.</p>
+    </div>
 
-  <section id="video">
+  <section class="panel rv" id="video">
     <h2>Video production</h2>
     <p class="lede">Promotional video for boxing events and fighters at DEF Promotions, Hong Kong.
       Produced in Final Cut Pro X and aired at The Venetian Macao, Hong Kong-Macau Ferries, and the
@@ -383,7 +412,7 @@ footer a:hover{text-decoration:underline}
     </div>
   </section>
 
-  <section id="archive">
+  <section class="panel rv" id="archive">
     <h2>Selected writing</h2>
     <p class="lede">Five of 37 articles on professional boxing, fighters, predictions, and fight
       analysis, published 2017 to 2019. Each card opens with the article's own first line.</p>
@@ -460,39 +489,45 @@ footer a:hover{text-decoration:underline}
 
   // reveal on scroll
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var pending = [].slice.call(document.querySelectorAll('.rv'));
+  var items = [].slice.call(document.querySelectorAll('.rv'));
 
   if (reduce) {
-    pending.forEach(function(el){ el.classList.add('in'); });
-    pending = [];
+    items.forEach(function(el){ el.classList.add('in'); });
+    items = [];
   }
 
-  // Scroll-driven reveal rather than IntersectionObserver: an observer can miss
-  // elements during a fast fling or an anchor jump, which would leave content
-  // stuck at opacity 0 forever. This sweep cannot skip anything.
-  function reveal(){
-    if (!pending.length) return;
-    var vh = window.innerHeight, still = [];
-    for (var i = 0; i < pending.length; i++) {
-      var el = pending[i];
-      if (el.getBoundingClientRect().top < vh * 0.94) {
-        var sibs = [].slice.call(el.parentNode.children).filter(function(n){
-          return n.classList && n.classList.contains('rv');
-        });
-        var idx = sibs.indexOf(el);
-        el.style.transitionDelay = Math.min(idx * 75, 340) + 'ms';
+  // Reversible reveal. Every element is re-evaluated on each frame we care about,
+  // so nothing can get stuck hidden the way an IntersectionObserver could, and
+  // scrolling back up plays the animation in reverse.
+  // The two thresholds form a hysteresis band so an element parked near the
+  // boundary cannot flicker between states.
+  var SHOW_AT = 0.75;   // appears once its top passes 75% of viewport height
+  var HIDE_AT = 0.88;   // fades back out at 88%, well inside the screen so the exit is visible
+  var ticking = false;
+
+  function sweep(){
+    var vh = window.innerHeight;
+    for (var i = 0; i < items.length; i++) {
+      var el = items[i];
+      var top = el.getBoundingClientRect().top;
+      var on = el.classList.contains('in');
+      if (!on && top < vh * SHOW_AT) {
         el.classList.add('in');
-      } else {
-        still.push(el);
+      } else if (on && top > vh * HIDE_AT) {
+        el.classList.remove('in');
       }
     }
-    pending = still;
+    ticking = false;
   }
 
-  window.addEventListener('scroll', reveal, {passive:true});
-  window.addEventListener('resize', reveal, {passive:true});
-  window.addEventListener('load', reveal);
-  reveal();
+  function onScrollMotion(){
+    if (!ticking) { ticking = true; requestAnimationFrame(sweep); }
+  }
+
+  window.addEventListener('scroll', onScrollMotion, {passive:true});
+  window.addEventListener('resize', onScrollMotion, {passive:true});
+  window.addEventListener('load', sweep);
+  sweep();
 
 })();
 </script>
