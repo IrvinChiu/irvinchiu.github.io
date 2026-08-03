@@ -144,6 +144,18 @@ h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercas
 .pu:hover{box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
 .frame{position:relative;padding-top:56.25%;background:#000}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.frame.lite{cursor:pointer}
+.frame.lite img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.frame.lite .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;
+  border-radius:50%;background:rgba(12,14,18,.62);backdrop-filter:blur(3px);
+  border:1.5px solid rgba(255,255,255,.85);
+  transition:transform .22s cubic-bezier(.22,.8,.3,1),background .22s}
+.frame.lite .play:after{content:"";position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);
+  border-style:solid;border-width:11px 0 11px 18px;
+  border-color:transparent transparent transparent #fff}
+.frame.lite:hover .play,.frame.lite:focus-visible .play{transform:scale(1.11);
+  background:rgba(12,14,18,.78)}
+.frame.lite:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .pu-body{padding:15px 20px 17px}
 .pu-body .h{font-weight:630;font-size:.99rem;line-height:1.4;
   margin-bottom:6px;letter-spacing:-.018em}
@@ -307,8 +319,7 @@ section.panel.rv.in{transform:none}
       a general audience could pick it up and use it on air, and they did.</p>
     <div class="pickup">
       <article class="pu rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/dZNqUHdM6MI"
-          title="2023-24 ABL Postseason, Melbourne Aces" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="dZNqUHdM6MI" role="button" tabindex="0" aria-label="Play video: 2023-24 ABL Postseason, Melbourne Aces"><img src="https://i.ytimg.com/vi/dZNqUHdM6MI/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/dZNqUHdM6MI/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <div class="pu-body">
           <div class="h">Postseason broadcast works through the Aces title case on air</div>
           <div class="src"><span class="lbl">Source</span>
@@ -316,8 +327,7 @@ section.panel.rv.in{transform:none}
         </div>
       </article>
       <article class="pu rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kxnNLNj38P4"
-          title="2026 ABLCS Game 1" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="kxnNLNj38P4" role="button" tabindex="0" aria-label="Play video: 2026 ABLCS Game 1"><img src="https://i.ytimg.com/vi/kxnNLNj38P4/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/kxnNLNj38P4/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <div class="pu-body">
           <div class="h">Championship Series Game 1 coverage picks up the series preview</div>
           <div class="src"><span class="lbl">Source</span>
@@ -325,8 +335,7 @@ section.panel.rv.in{transform:none}
         </div>
       </article>
       <article class="pu rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kN0kLaB4joc"
-          title="2023-24 ABL Season, Alex Skepton" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="kN0kLaB4joc" role="button" tabindex="0" aria-label="Play video: 2023-24 ABL Season, Alex Skepton"><img src="https://i.ytimg.com/vi/kN0kLaB4joc/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/kN0kLaB4joc/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <div class="pu-body">
           <div class="h">Commentary picks up the Skepton rookie-season analysis</div>
           <div class="src"><span class="lbl">Source</span>
@@ -390,28 +399,23 @@ section.panel.rv.in{transform:none}
       (USA) and Watanabe Promotions (Japan).</p>
     <div class="videos">
       <figure class="vid rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/TbFRHSMYWdk"
-          title="DEF Promotions Promotional Video" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="TbFRHSMYWdk" role="button" tabindex="0" aria-label="Play video: DEF Promotions Promotional Video"><img src="https://i.ytimg.com/vi/TbFRHSMYWdk/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/TbFRHSMYWdk/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <figcaption>DEF Promotions Promotional Video<span class="sub">Brand film for the promoter</span></figcaption>
       </figure>
       <figure class="vid rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/lqPZUTim54U"
-          title="Clash of Champions III Promo" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="lqPZUTim54U" role="button" tabindex="0" aria-label="Play video: Clash of Champions III Promo"><img src="https://i.ytimg.com/vi/lqPZUTim54U/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/lqPZUTim54U/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <figcaption>Clash of Champions III Promo<span class="sub">Also directed replay selection and camera angles for the live broadcast</span></figcaption>
       </figure>
       <figure class="vid rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/tvOpBT2BQrE"
-          title="Clash of Champions II Promo" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="tvOpBT2BQrE" role="button" tabindex="0" aria-label="Play video: Clash of Champions II Promo"><img src="https://i.ytimg.com/vi/tvOpBT2BQrE/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/tvOpBT2BQrE/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <figcaption>Clash of Champions II Promo<span class="sub">Event promotional spot</span></figcaption>
       </figure>
       <figure class="vid rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VT4b0u7vuhQ"
-          title="Battle Of Victors Promo" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="VT4b0u7vuhQ" role="button" tabindex="0" aria-label="Play video: Battle Of Victors Promo"><img src="https://i.ytimg.com/vi/VT4b0u7vuhQ/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/VT4b0u7vuhQ/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <figcaption>Battle Of Victors Promo<span class="sub">Event promotional spot</span></figcaption>
       </figure>
       <figure class="vid rv">
-        <div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VJiTXASPP9s"
-          title="Takuya Watanabe Promo" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+        <div class="frame lite" data-yt="VJiTXASPP9s" role="button" tabindex="0" aria-label="Play video: Takuya Watanabe Promo"><img src="https://i.ytimg.com/vi/VJiTXASPP9s/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/VJiTXASPP9s/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <figcaption>Takuya Watanabe Promo<span class="sub">Produced with Watanabe Promotions (Japan)</span></figcaption>
       </figure>
     </div>
@@ -493,6 +497,29 @@ section.panel.rv.in{transform:none}
   onScroll();
 
   // reveal on scroll
+  // Click-to-play video facades. Nothing is requested from YouTube until the
+  // visitor presses play, and the resting state shows no YouTube chrome at all.
+  document.querySelectorAll('.frame.lite').forEach(function(el){
+    function play(){
+      var id = el.getAttribute('data-yt');
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+              '?autoplay=1&rel=0&playsinline=1&iv_load_policy=3&color=white&modestbranding=1';
+      f.setAttribute('title', el.getAttribute('aria-label') || 'Video');
+      f.setAttribute('allowfullscreen', '');
+      f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      el.textContent = '';
+      el.appendChild(f);
+      el.classList.remove('lite');
+      el.removeAttribute('role');
+      el.removeAttribute('tabindex');
+    }
+    el.addEventListener('click', play);
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+    });
+  });
+
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = [].slice.call(document.querySelectorAll('.rv'));
 
