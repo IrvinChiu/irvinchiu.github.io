@@ -12,7 +12,6 @@
   --line:#e6e2da; --line-2:#f0ede7;
   --accent:#1d3f73; --accent-2:#2f6fbf; --tint:#eef2f9;
   --shadow:0 1px 2px rgba(20,22,26,.04), 0 8px 24px rgba(20,22,26,.06);
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
   --w:760px;
 }
@@ -39,7 +38,7 @@ nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,
   border-bottom:1px solid transparent;transition:border-color .25s}
 nav.stuck{border-bottom-color:var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
-nav .me{font-family:var(--serif);font-weight:600;font-size:1.02rem;letter-spacing:-.01em;
+nav .me{font-weight:650;font-size:.97rem;letter-spacing:-.015em;
   text-decoration:none;color:var(--ink);white-space:nowrap}
 nav ul{display:flex;gap:2px;list-style:none;overflow-x:auto;scrollbar-width:none}
 nav ul::-webkit-scrollbar{display:none}
@@ -51,10 +50,10 @@ nav a.nl.on{color:var(--accent);background:var(--tint)}
 
 /* ---------- hero ---------- */
 header{padding:76px 0 40px}
-h1{font-family:var(--serif);font-size:clamp(2.6rem,7vw,4rem);line-height:1.02;
-  letter-spacing:-.028em;font-weight:600}
-.tagline{font-family:var(--serif);font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--ink-2);
-  margin-top:14px;max-width:34ch;line-height:1.45}
+h1{font-size:clamp(2.5rem,6.6vw,3.7rem);line-height:1.04;
+  letter-spacing:-.042em;font-weight:680}
+.tagline{font-size:clamp(1rem,2.2vw,1.14rem);color:var(--ink-2);font-weight:400;
+  margin-top:13px;max-width:38ch;line-height:1.5;letter-spacing:-.005em}
 .contact{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:26px;font-size:.87rem}
 .contact a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
   padding-bottom:1px;transition:border-color .18s}
@@ -64,8 +63,8 @@ h1{font-family:var(--serif);font-size:clamp(2.6rem,7vw,4rem);line-height:1.02;
 /* ---------- stats ---------- */
 .stats{display:flex;flex-wrap:wrap;gap:8px 40px;padding:26px 0 4px;
   border-top:1px solid var(--line)}
-.stat b{display:block;font-family:var(--serif);font-size:1.85rem;line-height:1.1;
-  letter-spacing:-.02em;color:var(--accent);font-weight:600}
+.stat b{display:block;font-size:1.62rem;line-height:1.12;
+  letter-spacing:-.035em;color:var(--accent);font-weight:660}
 .stat span{font-size:.78rem;color:var(--muted);letter-spacing:.02em}
 
 /* ---------- sections ---------- */
@@ -85,21 +84,21 @@ h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercas
   font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .pill{background:var(--tint);color:var(--accent);padding:3px 10px;border-radius:999px;
   font-weight:700;letter-spacing:.07em}
-.feat a.t{display:block;font-family:var(--serif);font-size:1.1rem;line-height:1.32;
-  font-weight:600;letter-spacing:-.012em;color:var(--ink);text-decoration:none;margin-bottom:7px;
+.feat a.t{display:block;font-size:1.04rem;line-height:1.38;
+  font-weight:630;letter-spacing:-.018em;color:var(--ink);text-decoration:none;margin-bottom:7px;
   transition:color .18s}
 .feat a.t:hover{color:var(--accent)}
 .feat p{color:var(--muted);font-size:.89rem;line-height:1.58}
 .feat.lead{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));
   background:linear-gradient(165deg,var(--tint),var(--surface) 62%);padding:26px 26px 24px}
-.feat.lead a.t{font-size:1.42rem;line-height:1.2;margin-bottom:9px}
+.feat.lead a.t{font-size:1.3rem;line-height:1.26;letter-spacing:-.026em;margin-bottom:9px}
 .feat.lead p{font-size:.94rem;color:var(--ink-2)}
 
 /* ---------- recognition ---------- */
 .recog{display:grid;gap:14px}
 .quote{background:var(--tint);border-radius:14px;padding:24px 26px;
   border:1px solid color-mix(in srgb,var(--accent) 18%,transparent)}
-.quote p{font-family:var(--serif);font-size:1.02rem;line-height:1.55;color:var(--ink)}
+.quote p{font-size:.98rem;line-height:1.6;color:var(--ink);font-weight:420;letter-spacing:-.005em}
 .quote cite{display:block;margin-top:11px;font-style:normal;font-size:.79rem;
   color:var(--muted);letter-spacing:.03em}
 .tweet{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
@@ -115,8 +114,8 @@ h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercas
 .frame{position:relative;padding-top:56.25%;background:#000}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .pu-body{padding:15px 20px 17px}
-.pu-body .h{font-family:var(--serif);font-weight:600;font-size:1.03rem;line-height:1.35;
-  margin-bottom:6px;letter-spacing:-.01em}
+.pu-body .h{font-weight:630;font-size:.99rem;line-height:1.4;
+  margin-bottom:6px;letter-spacing:-.018em}
 .pu-body .src{font-size:.82rem;color:var(--muted);line-height:1.55}
 .pu-body .src a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 28%,transparent)}
 .pu-body .src a:hover{border-bottom-color:var(--accent)}
@@ -125,8 +124,8 @@ h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercas
 
 /* ---------- article lists ---------- */
 .season{margin-bottom:30px}
-.season h3{font-family:var(--serif);font-size:1.02rem;font-weight:600;margin-bottom:3px;
-  letter-spacing:-.01em}
+.season h3{font-size:.98rem;font-weight:640;margin-bottom:3px;
+  letter-spacing:-.02em}
 .season .sub{font-size:.82rem;color:var(--muted);margin-bottom:12px}
 ul.list{list-style:none}
 ul.list li{display:flex;gap:16px;align-items:baseline;padding:10px 0;
