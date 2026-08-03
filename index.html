@@ -13,7 +13,7 @@
   --accent:#1d3f73; --accent-2:#2f6fbf; --tint:#eef2f9;
   --shadow:0 1px 2px rgba(20,22,26,.04), 0 8px 24px rgba(20,22,26,.06);
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
-  --w:760px;
+  --w:720px;
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -68,12 +68,20 @@ h1{font-size:clamp(2.5rem,6.6vw,3.7rem);line-height:1.04;
 .stat span{font-size:.78rem;color:var(--muted);letter-spacing:.02em}
 
 /* ---------- sections ---------- */
-section{padding:52px 0 4px;scroll-margin-top:70px}
-.eyebrow{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+section{padding:46px 0 4px;scroll-margin-top:70px}
+
+/* major divider between the two bodies of work */
+.part{margin-top:26px;padding-top:46px;border-top:2px solid var(--accent);scroll-margin-top:70px}
+.part:first-of-type{margin-top:14px}
+.part-kicker{font-size:.68rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:9px}
+.part-name{font-size:clamp(1.5rem,3.4vw,1.9rem);font-weight:680;letter-spacing:-.036em;
+  line-height:1.14}
+.part-sub{margin-top:7px;font-size:.9rem;color:var(--muted);line-height:1.55}
+.part > section:first-of-type{padding-top:34px}
 h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent);white-space:nowrap}
-.eyebrow .rule{flex:1;height:1px;background:var(--line)}
-.lede{color:var(--muted);font-size:.93rem;max-width:60ch;margin-bottom:24px;line-height:1.6}
+  color:var(--accent);margin-bottom:10px}
+.lede{color:var(--muted);font-size:.93rem;margin-bottom:24px;line-height:1.6}
 
 /* ---------- feature cards ---------- */
 .feats{display:grid;gap:12px}
@@ -175,7 +183,7 @@ footer a:hover{text-decoration:underline}
       <li><a class="nl" href="#recognition">Recognition</a></li>
       <li><a class="nl" href="#broadcast">Broadcast</a></li>
       <li><a class="nl" href="#articles">Articles</a></li>
-      <li><a class="nl" href="#video">Video</a></li>
+      <li><a class="nl" href="#def">Boxing</a></li>
     </ul>
   </div>
 </nav>
@@ -196,12 +204,17 @@ footer a:hover{text-decoration:underline}
   <div class="stats rv">
     <div class="stat"><b>54</b><span>published articles</span></div>
     <div class="stat"><b>3</b><span>ABL seasons covered</span></div>
-    <div class="stat"><b>4M</b><span>impressions in a weekend</span></div>
     <div class="stat"><b>3</b><span>languages researched in</span></div>
   </div>
 
+  <div class="part" id="abl">
+    <div class="part-kicker">Part one</div>
+    <div class="part-name">Australian Baseball League</div>
+    <p class="part-sub">Digital Media Coordinator, Baseball Australia &middot; 2023 to present.
+      Social, editorial, and analytics work across three ABL seasons.</p>
+
   <section id="work">
-    <div class="eyebrow"><h2>Selected work</h2><span class="rule"></span></div>
+    <h2>Selected work</h2>
     <p class="lede">Long-form analysis for the Australian Baseball League, written for both casual
       readers and dedicated followers of the sport.</p>
     <div class="feats rv">
@@ -229,7 +242,7 @@ footer a:hover{text-decoration:underline}
   </section>
 
   <section id="recognition">
-    <div class="eyebrow"><h2>Recognition</h2><span class="rule"></span></div>
+    <h2>Recognition</h2>
     <p class="lede">Two pieces of outside corroboration, both pointing at the same article.</p>
     <div class="recog rv">
       <blockquote class="quote">
@@ -248,7 +261,7 @@ footer a:hover{text-decoration:underline}
   </section>
 
   <section id="broadcast">
-    <div class="eyebrow"><h2>Broadcast pickup</h2><span class="rule"></span></div>
+    <h2>Broadcast pickup</h2>
     <p class="lede">Each clip is an ABL broadcast discussing analysis from an article published days
       earlier. The commentary team are not statisticians, which is the point: the work was written so
       a general audience could pick it up and use it on air, and they did.</p>
@@ -284,7 +297,7 @@ footer a:hover{text-decoration:underline}
   </section>
 
   <section id="articles">
-    <div class="eyebrow"><h2>Australian Baseball League</h2><span class="rule"></span></div>
+    <h2>Australian Baseball League</h2>
     <p class="lede">17 bylined articles for theABL.com.au.</p>
 
     <div class="season rv">
@@ -319,8 +332,16 @@ footer a:hover{text-decoration:underline}
     </div>
   </section>
 
+  </div>
+
+  <div class="part" id="def">
+    <div class="part-kicker">Part two</div>
+    <div class="part-name">DEF Promotions</div>
+    <p class="part-sub">Video Editor and Writer &middot; Hong Kong, 2015 to 2019.
+      Promotional video and boxing journalism for a professional fight promoter.</p>
+
   <section id="video">
-    <div class="eyebrow"><h2>Video production</h2><span class="rule"></span></div>
+    <h2>Video production</h2>
     <p class="lede">Promotional video for boxing events and fighters at DEF Promotions, Hong Kong.
       Produced in Final Cut Pro X and aired at The Venetian Macao, Hong Kong-Macau Ferries, and the
       Hong Kong Convention and Exhibition Centre, including work for collaborations with Top Rank Inc.
@@ -350,13 +371,15 @@ footer a:hover{text-decoration:underline}
   </section>
 
   <section id="archive">
-    <div class="eyebrow"><h2>Earlier writing</h2><span class="rule"></span></div>
+    <h2>Earlier writing</h2>
     <p class="lede">37 articles on professional boxing, fighters, predictions, and fight analysis for
       DEF Promotions, published 2017 to 2019.</p>
     <ul class="list rv">
       <li><span class="d">2017-19</span><a href="https://www.dropbox.com/scl/fi/89uxi66i5rm9fmlgcfa95/DEF-Articles.txt?rlkey=d6sauu2iwp73h2q85gb0z6dvh&amp;st=zprswf5u&amp;dl=0">Full index of all 37 boxing articles</a></li>
     </ul>
   </section>
+
+  </div>
 
   <footer>
     Irvin Chiu &middot; Sports writing, analytics, and media production &middot;
