@@ -600,3 +600,7 @@ html,body{overflow-x:clip}
 /* cards without a footer need their own bottom padding */
 .card-body:last-child{padding-bottom:18px}
 .card-body .badges{margin-top:10px !important}
+
+/* the sidebar column must never swallow clicks meant for the content beside or behind it */
+.side{pointer-events:none}
+.side a,.side button{pointer-events:auto}
