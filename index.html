@@ -514,8 +514,8 @@
       <article class="card bf">
         <div class="card-body">
           <h3 class="card-title">CLAIRITY</h3>
-          <p class="card-desc">A daily investment report. AI reads news articles, stock data, government filings and company reports through APIs and looks for opportunities through five lenses: behavioural and market psychology, global macroeconomics and geopolitics, quantitative and data science, market microstructure and liquidity, and fundamentals and earnings power. It builds a network of second- and third-order effects, and once a week it consolidates what it has learned and teaches me too.</p>
-          <p class="card-desc">It also drives my industry research, with reports so far on AI and Cybersecurity, each with an industry primer and a value chain. A research and learning project, not financial advice.</p>
+          <p class="card-desc">A daily investment research site. Each day's news is read through human behaviour, the numbers and the economy, and the first-, second- and third-order effects are mapped to industries and individual names. It is built on live data from Currents, Marketaux, Twelve Data, FRED, Finnhub and SEC EDGAR.</p>
+          <p class="card-desc">Beyond the daily and evening reports, it keeps running theses graded by how strong the evidence is, a calendar of upcoming events tied to them, and a tracker that measures its own ideas against the S&amp;P 500. Once a week it consolidates what it has learned and teaches me, and it also drives my industry research, with reports on AI and Cybersecurity. A research and learning project, not financial advice.</p>
           <div class="badges" style="margin-top:6px"><span class="badge sec">In development</span></div>
         </div>
         <div class="card-foot"><a class="badge" href="https://clairity.irvinchiu.workers.dev/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Visit CLAIRITY</a></div>
@@ -635,8 +635,10 @@ function isDark(){
   });
   // reveal classes: cards slide in from alternating sides, everything else fades up
   var cardCount = new Map();
+  var exK = 0;
   [].slice.call(document.querySelectorAll('main .bf')).forEach(function(el){
     el.classList.remove('bf');
+    if (el.closest('#explore')) { el.classList.add('exi'); el.style.setProperty('--k', exK++); return; }
     if (el.matches('.card, .qcard')) {
       var n = cardCount.get(el.parentNode) || 0; cardCount.set(el.parentNode, n + 1);
       el.classList.add(n % 2 === 0 ? 'rv-l' : 'rv-r');
@@ -644,6 +646,16 @@ function isDark(){
       el.classList.add('rv');
     }
   });
+  // Explore: heading and rows appear one after another when the section arrives, and leave one after another
+  var exploreSec = document.getElementById('explore');
+  if (exploreSec && 'IntersectionObserver' in window && !reduce) {
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.intersectionRatio >= 0.45) exploreSec.classList.add('ex-in');
+        else if (e.intersectionRatio < 0.2) exploreSec.classList.remove('ex-in');
+      });
+    }, {threshold: [0, 0.2, 0.45, 0.7]}).observe(exploreSec);
+  } else if (exploreSec) { exploreSec.classList.add('ex-in'); }
 
   // Instagram carousels (posts with more than one photo)
   document.querySelectorAll('.ig-car').forEach(function(car){

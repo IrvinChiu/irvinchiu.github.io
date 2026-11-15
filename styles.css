@@ -605,26 +605,9 @@ html,body{overflow-x:clip}
 .side{pointer-events:none}
 .side a,.side button{pointer-events:auto}
 
-/* Explore: heading and rows fade in one after another as the section arrives, and out one after another as it leaves */
-@media (prefers-reduced-motion: no-preference){
-@supports (animation-timeline: view()){
-@media (min-width:1024px){
-  @keyframes ex-in{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:none}}
-  @keyframes ex-out{from{opacity:1;transform:none}to{opacity:0;transform:translate3d(0,-18px,0)}}
-  #explore .sec-head{--k:0}
-  #explore .ex-row:nth-child(1){--k:1}
-  #explore .ex-row:nth-child(2){--k:2}
-  #explore .ex-row:nth-child(3){--k:3}
-  #explore .ex-row:nth-child(4){--k:4}
-  #explore .ex-row:nth-child(5){--k:5}
-  #explore .ex-row:nth-child(6){--k:6}
-  #explore .rv{
-    animation-name:ex-in,ex-out;
-    animation-timeline:--explore,--explore;
-    animation-timing-function:linear,linear;
-    animation-fill-mode:both,forwards;
-    animation-range:
-      entry calc(6% + var(--k) * 6%) entry calc(26% + var(--k) * 6%),
-      exit calc(12% + var(--k) * 5%) exit calc(32% + var(--k) * 5%);
-  }
-}}}
+/* Explore: heading and rows appear one after another when the section arrives, and leave one after another */
+#explore .exi{opacity:0;transform:translate3d(0,26px,0);
+  transition:opacity .45s ease,transform .45s ease;transition-delay:calc(var(--k,0) * 70ms)}
+#explore.ex-in .exi{opacity:1;transform:none;
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--k,0) * 140ms + 100ms)}
+@media (prefers-reduced-motion: reduce){#explore .exi{opacity:1;transform:none;transition:none}}
