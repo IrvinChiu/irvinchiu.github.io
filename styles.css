@@ -298,8 +298,9 @@ html,body{overflow-x:clip}
 .has-aside main>section:first-child{padding-top:48px}
 @media (max-width:480px){.has-aside main>section{padding:72px 0}}
 .has-aside main>section:nth-of-type(even)::before{
-  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:var(--bar);box-shadow:0 0 0 100vmax var(--bar);clip-path:inset(0 -100vmax);
+  content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none;background:var(--bar);
+  left:calc(var(--ix,0px) - var(--sl,0px));width:calc(100vw - 2 * var(--ix,0px));
+  border-radius:var(--rt,0px) var(--rt,0px) var(--rb,0px) var(--rb,0px);
 }
 :root{--bar:#1d1d1f}
 .has-aside main>section:nth-of-type(even){
@@ -412,4 +413,18 @@ html,body{overflow-x:clip}
   .ig-stage{aspect-ratio:auto}
   .ig-img{position:static;width:100%;aspect-ratio:1/1}
   .ig-text{position:static;opacity:1 !important;transform:none !important;pointer-events:auto !important;padding-top:16px}
+}
+
+/* ---------- tweaks: smaller explore rows, wider Instagram captions ---------- */
+.ex-row{padding:14px 0;grid-template-columns:36px 1fr auto}
+.ex-name{font-size:clamp(24px,3.4vw,30px);letter-spacing:-.025em}
+.ex-arrow{font-size:20px}
+.ex-desc{font-size:15px;margin-top:2px}
+.ex-num{font-size:14px}
+
+@media (min-width:720px){
+  .ig-grid{width:min(960px,100vw - 48px);margin-left:calc((100% - min(960px,100vw - 48px)) / 2)}
+  .ig-stage{aspect-ratio:2/1}
+  .ig-img{width:50%;left:calc((1 - var(--t)) * 25%)}
+  .ig-text{left:54%}
 }
