@@ -19,103 +19,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="has-aside">
 
-<main id="top">
-
-  <!-- Hero -->
-  <section class="hero">
-    <div>
-      <h1 class="bt" data-text="Hi, I'm Irvin">Hi, I'm Irvin</h1>
-      <p class="bf" style="--d:.2s">Sports writing, analytics, and media production. Based in London, UK.</p>
+<div class="layout" id="top">
+  <aside class="side">
+    <div class="side-top">
+      <nav class="side-nav" aria-label="Sections">
+        <a class="nl" href="#top">Home</a>
+        <a class="nl" href="#work">Work</a>
+        <a class="nl" href="#articles">Articles</a>
+        <a class="nl" href="#def">Boxing</a>
+        <a href="mailto:irvinchiu.yf@gmail.com">Email</a>
+      </nav>
+      <h1 class="bt" data-text="I'm Irvin. I write about sport through the numbers.">I'm Irvin. I write about sport through the numbers.</h1>
     </div>
-    <div class="avatar bf" style="--d:.1s" aria-hidden="true">IC</div>
-  </section>
+    <div class="side-bottom bf" style="--d:.2s">
+      <div class="side-av" aria-hidden="true">IC</div>
+      <div class="side-icons">
+        <a href="mailto:irvinchiu.yf@gmail.com" title="irvinchiu.yf@gmail.com" aria-label="Personal email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+        <a href="mailto:irvin.chiu@baseball.com.au" title="irvin.chiu@baseball.com.au" aria-label="Baseball Australia email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></a>
+        <a href="https://www.linkedin.com/in/irvinchiu/" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <button class="theme-btn" type="button" title="Toggle theme" aria-label="Toggle theme"><span class="icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button>
+      </div>
+      <div class="side-name">Irvin Chiu</div>
+      <div class="side-role">Digital Media Coordinator, Baseball Australia</div>
+      <div class="side-role">London, UK</div>
+    </div>
+  </aside>
+
+<main>
 
   <!-- About -->
   <section id="about">
-    <h2 class="sec bf" style="--d:.3s">About</h2>
-    <div class="prose bf" style="--d:.35s">
+    <div class="sec-head bf"><h2 class="sec">About</h2></div>
+    <div class="prose bf">
       <p>Digital Media Coordinator at Baseball Australia, writing long-form analysis for the
       Australian Baseball League since 2023, for both casual readers and dedicated followers of the sport.
       Before that, four years in Hong Kong producing promotional video and boxing journalism for DEF Promotions.</p>
-      <blockquote class="quote">
-        <p>"We gave our new reporter Irvin Chiu a difficult task: Tell us who the best five Australian
-        baseball players are in the ABL right now. [...] Irvin is a great writer, loves his baseball,
-        and has a particularly keen eye for stats and analytics."</p>
-        <div class="quote-attr">theABL.com.au editorial, introducing the
-        <a href="https://theabl.com.au/news/top-5-aussies/">Power Rankings</a>, November 2023</div>
-      </blockquote>
     </div>
   </section>
 
-  <!-- Work -->
+  <!-- Kind words -->
+  <section id="recognition">
+    <div class="sec-head bf"><h2 class="sec">Kind words from others</h2></div>
+    <div class="quotes">
+      <figure class="qcard bf">
+        <div class="q-head">
+          <span class="q-av" aria-hidden="true">ABL</span>
+          <span class="q-who"><b>theABL.com.au</b><span>Editorial, introducing the Power Rankings</span></span>
+        </div>
+        <blockquote>"We gave our new reporter Irvin Chiu a difficult task: Tell us who the best five Australian
+        baseball players are in the ABL right now. [...] Irvin is a great writer, loves his baseball,
+        and has a particularly keen eye for stats and analytics."</blockquote>
+        <figcaption><a href="https://theabl.com.au/news/top-5-aussies/">Nov 2023 · Read the Power Rankings</a></figcaption>
+      </figure>
+      <figure class="qcard bf">
+        <div class="q-head">
+          <span class="q-av" aria-hidden="true">MC</span>
+          <span class="q-who"><b>Michael Clair</b><span>Senior Manager of Storytelling and Special Projects, MLB.com</span></span>
+          <span class="q-x"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+        </div>
+        <blockquote>"The <a href="https://x.com/ABL">@ABL</a> starts on Friday and Irvin Chiu broke down the top 5 Aussie
+        players who are on rosters this year: <a href="https://theabl.com.au/news/top-5-aussies/">theabl.com.au/news/top-5-aussies</a>"</blockquote>
+        <figcaption><a href="https://x.com/michaelsclair/status/1724484898210173013">14 Nov 2023 · View on X</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Experience -->
   <section id="experience">
-    <h2 class="sec bf" style="--d:.4s">Work Experience</h2>
-    <div class="work">
-      <div class="job-wrap bf" style="--d:.45s">
-        <button class="job" aria-expanded="false">
-          <span class="logo" aria-hidden="true">BA</span>
-          <span class="job-body">
-            <span class="job-top">
-              <span class="job-name">Baseball Australia
-                <span class="badges"><span class="badge sec">ABL</span></span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-              </span>
-              <span class="job-date">2023 - Present</span>
-            </span>
-            <span class="job-role" style="display:block">Digital Media Coordinator</span>
-          </span>
-        </button>
-        <div class="job-desc"><div>
-          <p>Social, editorial, and analytics work for the Australian Baseball League, with 17 bylined
-          articles on theABL.com.au across two seasons, including the weekly <em>Fire Form</em> column,
-          championship previews, power rankings, and advanced-statistics analysis.</p>
-        </div></div>
+    <div class="sec-head bf"><h2 class="sec">Experience</h2></div>
+    <div class="exp">
+      <div class="exp-item bf">
+        <h3>Digital Media Coordinator</h3>
+        <div class="exp-date">2023 – Present</div>
+        <p>Social, editorial, and analytics work for the Australian Baseball League, with 17 bylined
+        articles on theABL.com.au across two seasons, including the weekly <em>Fire Form</em> column,
+        championship previews, power rankings, and advanced-statistics analysis.</p>
+        <div class="exp-org">Baseball Australia</div>
+        <div class="exp-loc">Australian Baseball League</div>
       </div>
-      <div class="job-wrap bf" style="--d:.5s">
-        <button class="job" aria-expanded="false">
-          <span class="logo" aria-hidden="true">DEF</span>
-          <span class="job-body">
-            <span class="job-top">
-              <span class="job-name">DEF Promotions
-                <span class="badges"><span class="badge sec">Hong Kong</span></span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-              </span>
-              <span class="job-date">2015 - 2019</span>
-            </span>
-            <span class="job-role" style="display:block">Video Editor and Writer</span>
-          </span>
-        </button>
-        <div class="job-desc"><div>
-          <p>Promotional video for boxing events and fighters, produced in Final Cut Pro X and aired at
-          The Venetian Macao, Hong Kong-Macau Ferries, and the Hong Kong Convention and Exhibition Centre,
-          including collaborations with Top Rank Inc. (USA) and Watanabe Promotions (Japan).
-          Also wrote 37 articles on professional boxing, 2017 to 2019.</p>
-        </div></div>
+      <div class="exp-item bf">
+        <h3>Video Editor and Writer</h3>
+        <div class="exp-date">2015 – 2019</div>
+        <p>Promotional video for boxing events and fighters, produced in Final Cut Pro X and aired at
+        The Venetian Macao, Hong Kong-Macau Ferries, and the Hong Kong Convention and Exhibition Centre,
+        including collaborations with Top Rank Inc. (USA) and Watanabe Promotions (Japan).
+        Also wrote 37 articles on professional boxing, 2017 to 2019.</p>
+        <div class="exp-org">DEF Promotions</div>
+        <div class="exp-loc">Hong Kong</div>
       </div>
     </div>
   </section>
 
   <!-- Skills -->
   <section id="skills">
-    <h2 class="sec bf" style="--d:.55s">Skills</h2>
-    <div class="badges">
-      <span class="badge bf" style="--d:.58s">Sports Writing</span>
-      <span class="badge bf" style="--d:.61s">Baseball Analytics</span>
-      <span class="badge bf" style="--d:.64s">Advanced Statistics</span>
-      <span class="badge bf" style="--d:.67s">Social Media</span>
-      <span class="badge bf" style="--d:.70s">Video Editing</span>
-      <span class="badge bf" style="--d:.73s">Final Cut Pro X</span>
-      <span class="badge bf" style="--d:.76s">Boxing Journalism</span>
+    <div class="sec-head bf"><h2 class="sec">Skills</h2></div>
+    <div class="chips bf">
+      <span class="chip">Sports Writing</span><span class="chip">Baseball Analytics</span>
+      <span class="chip">Advanced Statistics</span><span class="chip">Social Media</span>
+      <span class="chip">Video Editing</span><span class="chip">Final Cut Pro X</span>
+      <span class="chip">Boxing Journalism</span>
     </div>
   </section>
 
   <!-- Selected work -->
   <section id="work">
-    <div class="head-center bf">
-      <span class="pill">Selected Work</span>
-      <h2>Long-form baseball analysis</h2>
+    <div class="sec-head bf">
+      <span class="kicker">Selected Work</span>
+      <h2 class="sec">Long-form baseball analysis</h2>
       <p>Written for the Australian Baseball League, built for casual readers and dedicated followers of the sport alike.</p>
     </div>
     <div class="grid">
@@ -167,28 +179,12 @@
     </div>
   </section>
 
-  <!-- Recognition -->
-  <section id="recognition">
-    <div class="head-center bf">
-      <span class="pill">Recognition</span>
-      <h2>Shared by MLB.com</h2>
-    </div>
-    <figure class="post bf">
-      <div class="post-head">
-        <span class="post-av" aria-hidden="true">MC</span>
-        <span class="post-who"><b>Michael Clair</b><span>@michaelsclair · Senior Manager of Storytelling, MLB.com</span></span>
-        <svg class="post-x" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </div>
-      <blockquote class="post-text">The <a href="https://x.com/ABL">@ABL</a> starts on Friday and Irvin Chiu broke down the top 5 Aussie players who are on rosters this year: <a href="https://theabl.com.au/news/top-5-aussies/">theabl.com.au/news/top-5-aussies</a></blockquote>
-      <figcaption class="post-foot"><a href="https://x.com/michaelsclair/status/1724484898210173013">14 Nov 2023 · View on X</a></figcaption>
-    </figure>
-  </section>
 
   <!-- Broadcast -->
   <section id="broadcast">
-    <div class="head-center bf">
-      <span class="pill">Broadcast Pickup</span>
-      <h2>Analysis, on air</h2>
+    <div class="sec-head bf">
+      <span class="kicker">Broadcast Pickup</span>
+      <h2 class="sec">Analysis, on air</h2>
       <p>Each clip is an ABL broadcast discussing analysis from an article published days earlier. The work was written so a general audience could pick it up and use it, and they did.</p>
     </div>
     <div class="grid">
@@ -221,9 +217,9 @@
 
   <!-- Articles -->
   <section id="articles">
-    <div class="head-center bf">
-      <span class="pill">Articles</span>
-      <h2>17 bylined articles</h2>
+    <div class="sec-head bf">
+      <span class="kicker">Articles</span>
+      <h2 class="sec">17 bylined articles</h2>
       <p>Published on theABL.com.au across two Australian Baseball League seasons.</p>
     </div>
 
@@ -261,9 +257,9 @@
 
   <!-- DEF video -->
   <section id="def">
-    <div class="head-center bf">
-      <span class="pill">DEF Promotions</span>
-      <h2>Boxing video production</h2>
+    <div class="sec-head bf">
+      <span class="kicker">DEF Promotions</span>
+      <h2 class="sec">Boxing video production</h2>
       <p>Promotional video for boxing events and fighters in Hong Kong, 2015 to 2019. Produced in Final Cut Pro X.</p>
     </div>
     <div class="grid">
@@ -297,9 +293,9 @@
 
   <!-- DEF writing -->
   <section id="writing">
-    <div class="head-center bf">
-      <span class="pill">Boxing Writing</span>
-      <h2>Selected writing</h2>
+    <div class="sec-head bf">
+      <span class="kicker">Boxing Writing</span>
+      <h2 class="sec">Selected writing</h2>
       <p>Five of 37 articles on professional boxing, fighters, predictions, and fight analysis, 2017 to 2019. Each card opens with the article's own first line.</p>
     </div>
     <div class="grid">
@@ -354,18 +350,21 @@
     </div>
   </section>
 
+
   <!-- Contact -->
-  <section id="contact" class="contact">
-    <div class="head-center bf" style="margin-bottom:0">
-      <span class="pill">Contact</span>
-      <h2>Get in Touch</h2>
-      <p>Email <a href="mailto:irvinchiu.yf@gmail.com">irvinchiu.yf@gmail.com</a>, or
-      <a href="mailto:irvin.chiu@baseball.com.au">irvin.chiu@baseball.com.au</a> for Baseball Australia enquiries.
-      You can also send a message on <a href="https://www.linkedin.com/in/irvinchiu/">LinkedIn</a>.</p>
-    </div>
+  <section id="contact" class="cta bf">
+    <h2>Let's work together.</h2>
+    <a class="cta-btn" href="mailto:irvinchiu.yf@gmail.com">Get in touch</a>
+    <ul class="cta-list">
+      <li><span>Email</span><a href="mailto:irvinchiu.yf@gmail.com">irvinchiu.yf@gmail.com</a></li>
+      <li><span>Baseball Australia</span><a href="mailto:irvin.chiu@baseball.com.au">irvin.chiu@baseball.com.au</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/irvinchiu/">linkedin.com/in/irvinchiu</a></li>
+    </ul>
+    <div class="cta-foot">Irvin Chiu · Sports writing, analytics, and media production</div>
   </section>
 
 </main>
+</div>
 
 <!-- Dock -->
 <div class="dock-fade" aria-hidden="true"></div>
@@ -400,24 +399,30 @@ function isDark(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // theme toggle
-  document.getElementById('theme').addEventListener('click', function(){
+  document.querySelectorAll('#theme, .theme-btn').forEach(function(btn){ btn.addEventListener('click', function(){
     var next = isDark() ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
-  });
+  }); });
 
   // letter-by-letter blur-in for the hero heading
   var h = document.querySelector('.bt');
   if (h && !reduce) {
-    var chars = Array.from(h.getAttribute('data-text'));
-    h.setAttribute('aria-label', h.getAttribute('data-text'));
+    var text = h.getAttribute('data-text'), i = 0;
+    h.setAttribute('aria-label', text);
     h.textContent = '';
-    chars.forEach(function(c, i){
-      var s = document.createElement('span');
-      s.setAttribute('aria-hidden', 'true');
-      s.textContent = c;
-      s.style.animationDelay = (i * 0.04) + 's';
-      h.appendChild(s);
+    text.split(' ').forEach(function(word, w){
+      if (w) h.appendChild(document.createTextNode(' '));
+      var wrap = document.createElement('span');
+      wrap.className = 'w';
+      wrap.setAttribute('aria-hidden', 'true');
+      Array.from(word).forEach(function(c){
+        var s = document.createElement('span');
+        s.textContent = c;
+        s.style.animationDelay = (i++ * 0.025) + 's';
+        wrap.appendChild(s);
+      });
+      h.appendChild(wrap);
     });
   }
 
@@ -442,11 +447,12 @@ function isDark(){
   }
 
   // highlight the active dock link
-  var links = [].slice.call(document.querySelectorAll('.dock a.nl'));
+  var links = [].slice.call(document.querySelectorAll('a.nl'));
   var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
   function onScroll(){
     var best = -1, bestTop = -Infinity;
     for (var i = 0; i < secs.length; i++) {
+      if (!secs[i]) continue;
       var top = secs[i].getBoundingClientRect().top - 120;
       if (top <= 0 && top > bestTop) { bestTop = top; best = i; }
     }
