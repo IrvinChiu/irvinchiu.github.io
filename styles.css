@@ -346,9 +346,8 @@ html,body{overflow-x:clip}
 /* push effect: dock takes over from the sidebar once it has slid away */
 @media (min-width:1024px){
   .has-aside main{position:relative}
-  .side{will-change:transform,opacity}
-  .has-aside .dock-wrap{display:flex;opacity:0;transition:opacity .35s}
+  .side-top,.side-name,.side-role{will-change:transform,opacity}
+  .has-aside .dock-wrap{display:flex;opacity:0;will-change:transform,opacity}
   .has-aside .dock-wrap .dock{pointer-events:none}
-  html.pushed .has-aside .dock-wrap{opacity:1}
   html.pushed .has-aside .dock-wrap .dock{pointer-events:auto}
 }
