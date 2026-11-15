@@ -26,7 +26,7 @@
     <div class="side-top">
       <h1 class="bt" data-text="I'm Irvin. I write about sport through the numbers.">I'm Irvin. I write about sport through the numbers.</h1>
     </div>
-    <div class="side-bottom bf" style="--d:.2s">
+    <div class="side-bottom">
       <div class="side-icons">
         <a href="mailto:irvin.chiu@baseball.com.au" title="irvin.chiu@baseball.com.au" aria-label="Baseball Australia email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></a>
         <a href="mailto:irvinchiu.yf@gmail.com" title="irvinchiu.yf@gmail.com" aria-label="Personal email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
@@ -571,155 +571,35 @@ function isDark(){
     items.forEach(function(el){ io.observe(el); });
   }
 
-  // ---------- scroll choreography ----------
-  var root = document.documentElement;
-  var mainEl = document.querySelector('main');
-  var wide = window.matchMedia('(min-width:1024px)');
-  function clamp(v){ return Math.min(1, Math.max(0, v)); }
-  function smooth(p){ return p * p * p * (p * (p * 6 - 15) + 10); }
+  // ---------- scroll effects ----------
+  // All motion is done in CSS (scroll-driven animations on the compositor), so it can't lag or jitter behind the
+  // page. JS only does one-off setup here, plus choosing the page colour that sits behind the section bars.
   var sections = [].slice.call(document.querySelectorAll('main > section'));
-
-  // Phase 1 (hero -> Explore): heading slides away, content centres, the bottom-left block tucks into the corner.
-  // Phase 2 (scrolling through Explore): the page scrolls normally. As each row climbs past a line near the top
-  //   of the screen its icon peels off and travels to its slot in the bottom bar. The corner icons travel on the
-  //   same scroll position, and the bar's background hugs them from the corner and grows into the full bar.
-  var sideTop = document.querySelector('.side-top');
-  var sideBottom = document.querySelector('.side-bottom');
-  var sideText = [].slice.call(sideBottom.querySelectorAll('.side-name, .side-role'));
-  var iconsEl = document.querySelector('.side-icons');
-  var sideIcons = [].slice.call(iconsEl.children);            // [BA mail, mail, linkedin, instagram, theme]
-  var exRows = [].slice.call(document.querySelectorAll('.ex-row'));
-  var exIcons = [].slice.call(document.querySelectorAll('.ex-ico'));
-  var exploreEl = document.getElementById('explore');
-  var exIdx = sections.indexOf(exploreEl);
-  var dockWrap = document.querySelector('.dock-wrap');
-  var dockEl = document.querySelector('.dock');
-  function dk(sel){ return dockEl.querySelector(sel); }
-  var movers = [
-    {el: sideIcons[1], to: dk('a[href^="mailto"]')},
-    {el: sideIcons[2], to: dk('a[href*="linkedin"]')},
-    {el: sideIcons[3], to: dk('a[href*="instagram"]')},
-    {el: sideIcons[4], to: dk('#theme')},
-    {el: exIcons[0], to: dk('a[href="#work"]'), ex: 1, i: 0},
-    {el: exIcons[1], to: dk('a[href="#broadcast"]'), ex: 1, i: 1},
-    {el: exIcons[2], to: dk('a[href="#articles"]'), ex: 1, i: 2},
-    {el: exIcons[3], to: dk('a[href="#def"]'), ex: 1, i: 3},
-    {el: exIcons[4], to: dk('a[href="#cooking"]'), ex: 1, i: 4}
-  ];
-  var mapped = movers.map(function(m){ return m.to; });
-  var dockOthers = [].slice.call(dockEl.children).filter(function(el){ return mapped.indexOf(el) < 0; });
-  var CORNER_S = 0.82;
-  var shift = 0, away = 0, txC = 0, tyC = 0, t1 = 0, c1 = 0, mainLeft = 0;
-  var pill = {dx: 0, dy: 0, sx: .3, sy: .6}, barP = 0;
-
-  function clear(){
-    mainEl.style.left = ''; mainLeft = 0;
-    sideTop.style.transform = sideTop.style.opacity = sideTop.style.visibility = '';
-    sideBottom.style.transform = '';
-    sideText.forEach(function(e){ e.style.opacity = e.style.visibility = ''; });
-    sideIcons.forEach(function(e){ e.style.transform = e.style.opacity = e.style.visibility = ''; });
-    exIcons.forEach(function(e){ e.style.transform = e.style.opacity = e.style.visibility = ''; e.style.removeProperty('--ib'); });
-    mapped.concat(dockOthers).forEach(function(e){ if (e) { e.style.opacity = ''; e.style.scale = ''; } });
-    ['--bgp','--bgx','--bgy','--bgsx','--bgsy'].forEach(function(v){ dockEl.style.removeProperty(v); });
-    dockWrap.style.opacity = '';
-    movers.forEach(function(m){ m.s = 0; }); barP = 0;
-    root.classList.remove('pushed');
-  }
-  function center(r){ return {x: r.left + r.width / 2, y: r.top + r.height / 2}; }
-  function measure(){
-    clear();
-    if (!wide.matches) return;
-    var vh = window.innerHeight;
-    var mr = mainEl.getBoundingClientRect();
-    shift = (window.innerWidth - mr.width) / 2 - mr.left;
-    away = document.querySelector('.side').getBoundingClientRect().right + 24;
-    var sb = sideBottom.getBoundingClientRect();
-    txC = 28 - sb.left; tyC = (vh - 28) - sb.bottom;
-    var secTop = exploreEl.getBoundingClientRect().top;
-    // measure the end of phase 1: content centred, corner block tucked in
-    mainEl.style.left = shift + 'px';
-    sideBottom.style.transform = 'translate(' + txC + 'px,' + tyC + 'px) scale(' + CORNER_S + ')';
-    var ic = iconsEl.getBoundingClientRect(), dr = dockEl.getBoundingClientRect();
-    var ci = center(ic), cd = center(dr);
-    pill = {dx: ci.x - cd.x, dy: ci.y - cd.y, sx: Math.min(1, (ic.width + 28) / dr.width), sy: Math.min(1, (ic.height + 20) / dr.height)};
-    movers.forEach(function(m){
-      var s = m.el.getBoundingClientRect(), d = m.to.getBoundingClientRect();
-      var sc = center(s), dc = center(d);
-      m.dcx = dc.x; m.dcy = dc.y; m.k = d.width / s.width;
-      if (m.ex) {                                  // rides its row; peels off as the row climbs
-        var rr = exRows[m.i].getBoundingClientRect();
-        m.ox = sc.x - rr.left; m.oy = sc.y - rr.top;
-        m.cy = (rr.top + rr.height / 2) - secTop;  // row centre, measured from the top of the Explore section
-      } else {                                     // child of the scaled corner block
-        m.tx = (dc.x - sc.x) / CORNER_S; m.ty = (dc.y - sc.y) / CORNER_S;
-      }
-    });
-    mainEl.style.left = ''; sideBottom.style.transform = '';
-  }
-  function targets(){
-    var vh = window.innerHeight;
-    t1 = clamp((window.scrollY - vh * 0.25) / (vh * 0.8));
-  }
-  // returns true while any eased value is still catching up
-  function apply(r1, u, rowR){
-    if (!wide.matches) { clear(); return false; }
-    var vh = window.innerHeight, busy = false;
-    var e1 = smooth(r1);
-    mainLeft = shift * e1;
-    mainEl.style.left = mainLeft + 'px';
-    sideTop.style.transform = 'translateX(' + (-away * e1) + 'px)';
-    sideTop.style.opacity = String(1 - clamp(e1 * 1.25));
-    sideTop.style.visibility = e1 >= 0.99 ? 'hidden' : 'visible';
-    sideBottom.style.transform = 'translate(' + (txC * e1) + 'px,' + (tyC * e1) + 'px) scale(' + (1 - (1 - CORNER_S) * e1) + ')';
-    // Phase 2, one shared progress for everything, driven by u = how far the Explore section has scrolled
-    // past the top of the screen: row icons, corner icons and the bar's background all move together.
-    var base = clamp((u - vh * 0.10) / (vh * 0.78));
-    movers.forEach(function(m, k){
-      var delay = m.ex ? m.i * 0.07 : 0.14;           // row icons leave in order; the corner icons go together
-      var tgt = smooth(clamp((base - delay) / 0.72));
-      m.s = (reduce) ? tgt : step(m.s || 0, tgt, 0.25);
-      if (m.s !== tgt) busy = true;
-      var tx = m.tx, ty = m.ty;
-      if (m.ex) {
-        var rr = rowR[m.i];
-        tx = m.dcx - (rr.left + m.ox); ty = m.dcy - (rr.top + m.oy);
-        m.el.style.setProperty('--ib', String(1 - clamp(m.s * 1.6)));
-      }
-      var land = clamp((m.s - 0.97) / 0.03);
-      m.el.style.transform = 'translate(' + (tx * m.s) + 'px,' + (ty * m.s) + 'px) scale(' + (1 + (m.k - 1) * m.s) + ')';
-      m.el.style.opacity = String(1 - land);
-      m.el.style.visibility = land >= 1 ? 'hidden' : 'visible';
-      m.to.style.opacity = String(land);
-    });
-    var tf = 1 - clamp(base * 3);
-    sideText.forEach(function(el){ el.style.opacity = String(tf); el.style.visibility = tf <= 0 ? 'hidden' : 'visible'; });
-    sideIcons[0].style.opacity = String(tf); sideIcons[0].style.visibility = tf <= 0 ? 'hidden' : 'visible';
-    // the bar starts as a background hugging the corner icons and grows into place with them
-    var tgtP = smooth(clamp((base - 0.14) / 0.72));    // identical to the corner icons, so the bar always hugs them
-    var P = (reduce) ? tgtP : step(barP, tgtP, 0.25);
-    if (P !== tgtP) busy = true;
-    barP = P;
-    var g = P;
-    var o = clamp((g - 0.55) / 0.35);
-    dockOthers.forEach(function(el){ el.style.opacity = String(o); el.style.scale = String(0.6 + 0.4 * o); });
-    dockEl.style.setProperty('--bgp', String(clamp(g * 4)));
-    dockEl.style.setProperty('--bgx', (pill.dx * (1 - g)) + 'px');
-    dockEl.style.setProperty('--bgy', (pill.dy * (1 - g)) + 'px');
-    dockEl.style.setProperty('--bgsx', String(pill.sx + (1 - pill.sx) * g));
-    dockEl.style.setProperty('--bgsy', String(pill.sy + (1 - pill.sy) * g));
-    dockWrap.style.opacity = g > 0.001 ? '1' : '0';
-    root.classList.toggle('pushed', g > 0.9);
-    return busy;
-  }
-
-  // 2) bars: every section is a bar. It starts as a rounded, inset card and widens to full-bleed as it
-  //    fills the screen. The page behind takes the colour of the section in the middle of the screen,
-  //    so the neighbouring sections read as cards of the opposite colour, and vice versa.
-  var domIdx = -1;
-  function domUpdate(secR){
+  // wrap each section's content so it can shift sideways without moving the full-width bar behind it
+  sections.forEach(function(s){
+    var w = document.createElement('div'); w.className = 'sec-in';
+    while (s.firstChild) w.appendChild(s.firstChild);
+    s.appendChild(w);
+  });
+  // reveal classes: cards slide in from alternating sides, everything else fades up
+  var cardCount = new Map();
+  [].slice.call(document.querySelectorAll('main .bf')).forEach(function(el){
+    el.classList.remove('bf');
+    if (el.matches('.card, .qcard')) {
+      var n = cardCount.get(el.parentNode) || 0; cardCount.set(el.parentNode, n + 1);
+      el.classList.add(n % 2 === 0 ? 'rv-l' : 'rv-r');
+    } else {
+      el.classList.add('rv');
+    }
+  });
+  // the page behind the bars takes the colour of the section in the middle of the screen
+  var domIdx = -1, domQueued = false;
+  function domUpdate(){
+    domQueued = false;
     var mid = window.innerHeight / 2, idx = 0;
-    for (var i = 0; i < secR.length; i++) {
-      if (secR[i].top <= mid && secR[i].bottom > mid) { idx = i; break; }
+    for (var i = 0; i < sections.length; i++) {
+      var r = sections[i].getBoundingClientRect();
+      if (r.top <= mid && r.bottom > mid) { idx = i; break; }
     }
     if (idx !== domIdx) {
       domIdx = idx;
@@ -727,111 +607,13 @@ function isDark(){
       if (c) document.body.style.backgroundColor = c;
     }
   }
-  var bars = sections.map(function(){ return {eT: 0, eB: 0, init: false}; });
+  function queueDom(){ if (!domQueued) { domQueued = true; requestAnimationFrame(domUpdate); } }
+  window.addEventListener('scroll', queueDom, {passive:true});
+  window.addEventListener('resize', queueDom);
   document.querySelectorAll('#theme, .theme-btn').forEach(function(b){
-    b.addEventListener('click', function(){ setTimeout(function(){ domIdx = -1; domUpdate(sections.map(function(s){ return s.getBoundingClientRect(); })); }, 0); });
+    b.addEventListener('click', function(){ setTimeout(function(){ domIdx = -1; domUpdate(); }, 0); });
   });
-
-  // 3) cards slide in from alternating sides (from well off-screen); everything else fades and drifts.
-  //    They only leave by reversing, i.e. when you scroll back up. Instagram cards also fade as they exit.
-  var fxEls = [];
-  if (!reduce) {
-    var cardCount = new Map();
-    [].slice.call(document.querySelectorAll('main .bf')).forEach(function(el){
-      if (el.closest('#explore')) return;
-      var dir = 0;
-      if (el.matches('.card, .qcard')) { var n = cardCount.get(el.parentNode) || 0; cardCount.set(el.parentNode, n + 1); dir = n % 2 === 0 ? -1 : 1; }
-      el.classList.remove('bf'); el.classList.add('fx');
-      fxEls.push({el: el, dir: dir, out: el.classList.contains('ig-card'), a: 0, o: 1, w: ''});
-    });
-  }
-
-  // 4) Instagram cards: the photo slides left and the caption panel slides out from underneath it
-  var igCards = [].slice.call(document.querySelectorAll('.ig-card')), igC = [], igW = [];
-
-  // One frame: all layout reads first, then all writes, so scrolling never forces a re-layout mid-frame.
-  function step(cur, tgt, k){ var n = cur + (tgt - cur) * k; return Math.abs(tgt - n) < 0.002 ? tgt : n; }
-  var queued = false, first = true;
-  function frame(){
-    queued = false;
-    var vh = window.innerHeight, vw = window.innerWidth, narrow = vw < 720, busy = false;
-    // ---- reads
-    var secR = sections.map(function(s){ return s.getBoundingClientRect(); });
-    var fxR = fxEls.map(function(f){ return f.el.getBoundingClientRect(); });
-    var igR = igCards.map(function(c){ return c.getBoundingClientRect(); });
-    var rowR = exRows.map(function(r){ return r.getBoundingClientRect(); });
-    var prevLeft = mainLeft;
-    targets();
-    // ---- ease
-    var k1 = (reduce || first) ? 1 : 0.14;
-    c1 = step(c1, t1, k1);
-    if (c1 !== t1) busy = true;
-    // ---- writes: sidebar / dock choreography
-    if (apply(c1, -secR[exIdx].top, rowR)) busy = true;
-    var dl = mainLeft - prevLeft;
-    // bars
-    var I = narrow ? 20 : 72, R = 56;
-    sections.forEach(function(s, i){
-      var r = secR[i], b = bars[i];
-      var tT = smooth(clamp((vh * 0.95 - r.top) / (vh * 0.45)));
-      var tB = smooth(clamp((r.bottom - vh * 0.05) / (vh * 0.45)));
-      if (reduce) { tT = tB = 1; }
-      var k = (reduce || first || !b.init) ? 1 : 0.22;
-      b.init = true;
-      var nT = step(b.eT, tT, k), nB = step(b.eB, tB, k);
-      if (nT !== tT || nB !== tB) busy = true;
-      b.eT = nT; b.eB = nB;
-      var e = nT * nB;
-      s.style.setProperty('--sl', (r.left + dl).toFixed(1) + 'px');
-      s.style.setProperty('--ix', ((1 - e) * I).toFixed(1) + 'px');
-      s.style.setProperty('--rt', ((1 - nT) * R).toFixed(1) + 'px');
-      s.style.setProperty('--rb', ((1 - nB) * R).toFixed(1) + 'px');
-    });
-    domUpdate(secR);
-    // fade / slide cards
-    var dist = Math.min(560, vw * 0.5);
-    fxEls.forEach(function(f, i){
-      var r = fxR[i];
-      var tIn = smooth(clamp((vh * 0.97 - r.top) / (vh * 0.55)));   // slide: slow
-      var tOp = smooth(clamp((vh * 0.98 - r.top) / (vh * 0.16)));   // opacity: solid almost as soon as it's on screen
-      f.a = (first) ? tIn : step(f.a, tIn, 0.2);
-      f.p = (first) ? tOp : step(f.p === undefined ? 0 : f.p, tOp, 0.3);
-      if (f.a !== tIn || f.p !== tOp) busy = true;
-      var eOut = 1;
-      if (f.out) {
-        var tO = smooth(clamp(r.bottom / (vh * 0.14)));
-        f.o = first ? tO : step(f.o, tO, 0.2);
-        if (f.o !== tO) busy = true;
-        eOut = f.o;
-      }
-      var op = (f.p * eOut).toFixed(3);
-      var tr = f.dir
-        ? 'translate3d(' + (f.dir * ((1 - f.a) * dist + (1 - eOut) * 60)).toFixed(1) + 'px,0,0)'
-        : 'translate3d(0,' + ((1 - f.a) * 28 - (1 - eOut) * 10).toFixed(1) + 'px,0)';
-      var w = op + tr;
-      if (w !== f.w) { f.w = w; f.el.style.opacity = op; f.el.style.transform = tr; }
-    });
-    // instagram
-    igCards.forEach(function(c, i){
-      if (narrow || reduce) { if (igW[i] !== 'x') { igW[i] = 'x'; c.style.removeProperty('--t'); c.classList.remove('off'); } return; }
-      var r = igR[i];
-      var d = Math.abs(r.top + r.height / 2 - vh / 2) / (vh / 2);
-      var tg = 1 - smooth(clamp((d - 0.12) / 0.88));
-      var a = (igC[i] === undefined || first) ? tg : step(igC[i], tg, 0.1);
-      if (a !== tg) busy = true;
-      igC[i] = a;
-      var s = a.toFixed(3);
-      if (igW[i] !== s) { igW[i] = s; c.style.setProperty('--t', s); c.classList.toggle('off', a < 0.4); }
-    });
-    first = false;
-    if (busy) request();
-  }
-  function request(){ if (!queued) { queued = true; requestAnimationFrame(frame); } }
-  window.addEventListener('scroll', request, {passive:true});
-  function relayout(){ measure(); first = true; targets(); c1 = t1; request(); }
-  window.addEventListener('resize', relayout);
-  window.addEventListener('load', relayout);
-  measure(); targets(); c1 = t1; frame();
+  domUpdate();
 
   // Instagram carousels (posts with more than one photo)
   document.querySelectorAll('.ig-car').forEach(function(car){
