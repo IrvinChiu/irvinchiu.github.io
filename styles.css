@@ -171,8 +171,13 @@ a.badge:hover{opacity:.85}
   background:linear-gradient(to top,var(--bg),transparent);}
 .dock{
   pointer-events:auto;display:flex;align-items:center;gap:2px;height:56px;padding:0 8px;
-  border-radius:16px;background:var(--dock);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--border);box-shadow:var(--shadow);max-width:calc(100% - 32px);
+  position:relative;isolation:isolate;max-width:calc(100% - 32px);
+}
+.dock::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:16px;
+  background:var(--dock);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  opacity:var(--bgp,1);transform:translate(var(--bgx,0px),var(--bgy,0px)) scale(var(--bgsx,1),var(--bgsy,1));
 }
 .dock a,.dock button{
   position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
@@ -428,3 +433,18 @@ html,body{overflow-x:clip}
   .ig-img{width:50%;left:calc((1 - var(--t)) * 25%)}
   .ig-text{left:54%}
 }
+
+/* ---------- round 5 ---------- */
+.fx{will-change:opacity,transform}
+@media (min-width:1024px){ .side{z-index:25} }
+
+/* instagram: bordered photo and caption panel, scrollable caption */
+.ig-img{border:1px solid var(--border)}
+.ig-text{justify-content:flex-start;gap:12px;padding:22px;border:1px solid var(--border);border-radius:16px;background:var(--card)}
+.ig-text h3{flex:none}
+.ig-cap{flex:1;min-height:0;width:100%;overflow-y:auto;padding-right:8px;font-size:15px;line-height:1.6;color:var(--muted);
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.ig-cap p{margin:0 0 .8em}
+.ig-cap:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:6px}
+.ig-text .badge{flex:none}
+@media (max-width:719px){ .ig-cap{max-height:280px;flex:none} }
