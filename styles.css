@@ -596,3 +596,7 @@ html,body{overflow-x:clip}
   .has-aside main>section:first-child .rv{animation:about-in .9s cubic-bezier(.2,.7,.2,1) .35s both}
   .has-aside main>section:first-child .sec-head.rv{animation-delay:.2s}
 }
+
+/* cards without a footer need their own bottom padding */
+.card-body:last-child{padding-bottom:18px}
+.card-body .badges{margin-top:10px !important}
