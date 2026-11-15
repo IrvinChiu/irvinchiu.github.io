@@ -302,8 +302,8 @@ html,body{overflow-x:clip}
 .has-aside main>section{position:relative;padding:112px 0;scroll-margin-top:0}
 .has-aside main>section:first-child{padding-top:48px}
 @media (max-width:480px){.has-aside main>section{padding:72px 0}}
-.has-aside main>section:nth-of-type(even)::before{
-  content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none;background:var(--bar);
+.has-aside main>section::before{
+  content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none;background:var(--bg);
   left:calc(var(--ix,0px) - var(--sl,0px));width:calc(100vw - 2 * var(--ix,0px));
   border-radius:var(--rt,0px) var(--rt,0px) var(--rb,0px) var(--rb,0px);
 }
@@ -448,3 +448,24 @@ html,body{overflow-x:clip}
 .ig-cap:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:6px}
 .ig-text .badge{flex:none}
 @media (max-width:719px){ .ig-cap{max-height:280px;flex:none} }
+
+/* ---------- round 6: explore scene, corner block ---------- */
+.side-bottom{transform-origin:0 100%}
+.explore-pin{display:block}
+.ex-row{grid-template-columns:68px 1fr auto;align-items:center;column-gap:16px;padding:16px 0}
+.ex-ico{grid-row:1 / span 2;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+  color:var(--fg);background:color-mix(in srgb,var(--secondary) calc(var(--ib,1) * 100%),transparent);
+  border:1px solid color-mix(in srgb,var(--border) calc(var(--ib,1) * 100%),transparent)}
+.ex-ico svg{width:22px;height:22px}
+.ex-name{grid-column:2;grid-row:1;align-self:end}
+.ex-arrow{grid-column:3;grid-row:1 / span 2}
+.ex-desc{grid-column:2;grid-row:2;align-self:start}
+.explore .ex-name,.explore .ex-desc,.explore .ex-arrow,#explore .sec-head{opacity:var(--xf,1)}
+.ex-row{border-top-color:color-mix(in srgb,var(--border) calc(var(--xf,1) * 100%),transparent)}
+.ex-row:last-child{border-bottom-color:color-mix(in srgb,var(--border) calc(var(--xf,1) * 100%),transparent)}
+#explore.xgone .ex-row{pointer-events:none}
+@media (min-width:1024px){
+  #explore{padding:0 !important;height:250vh}
+  .explore-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
+}
+@media (max-width:1023px){ .ex-row{padding:14px 0} }
