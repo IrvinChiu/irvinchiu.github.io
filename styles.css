@@ -3,7 +3,6 @@
   --border:#ebebeb; --secondary:#f4f4f4; --secondary-fg:#333333;
   --primary:#2b2b2b; --primary-fg:#fafafa;
   --card:#ffffff; --soft:#f6f6f6; --dock:rgba(255,255,255,.75);
-  --cta:#2b2b2b; --cta-fg:#fafafa; --cta-muted:#a3a3a3;
   --shadow:0 0 0 1px rgba(0,0,0,.03),0 2px 4px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.05);
   color-scheme:light;
 }
@@ -13,7 +12,6 @@
     --border:#262626; --secondary:#1f1f1f; --secondary-fg:#ededed;
     --primary:#ededed; --primary-fg:#171717;
     --card:#141414; --soft:#181818; --dock:rgba(17,17,17,.72);
-    --cta:#1c1c1c; --cta-fg:#fafafa; --cta-muted:#a3a3a3;
     --shadow:0 0 0 1px rgba(255,255,255,.06),0 -20px 80px -20px rgba(255,255,255,.08) inset;
     color-scheme:dark;
   }
@@ -23,7 +21,6 @@
   --border:#262626; --secondary:#1f1f1f; --secondary-fg:#ededed;
   --primary:#ededed; --primary-fg:#171717;
   --card:#141414; --soft:#181818; --dock:rgba(17,17,17,.72);
-  --cta:#1c1c1c; --cta-fg:#fafafa; --cta-muted:#a3a3a3;
   --shadow:0 0 0 1px rgba(255,255,255,.06),0 -20px 80px -20px rgba(255,255,255,.08) inset;
   color-scheme:dark;
 }
@@ -235,8 +232,7 @@ a.badge:hover{opacity:.85}
 .side-nav a:hover,.side-nav a.on{background:var(--secondary)}
 .side h1{font-size:34px;font-weight:600;letter-spacing:-.045em;line-height:1.08;margin:0;color:var(--fg)}
 .side-bottom{margin-top:28px}
-.side-av{width:44px;height:44px;border-radius:8px;background:var(--primary);color:var(--primary-fg);display:grid;place-items:center;font-weight:600;font-size:15px;letter-spacing:-.02em}
-.side-icons{display:flex;gap:4px;margin:16px 0 14px -6px}
+.side-icons{display:flex;gap:4px;margin:0 0 14px -6px}
 .side-icons a,.side-icons button{display:grid;place-items:center;width:32px;height:32px;border-radius:6px;border:0;background:none;color:var(--fg-2);cursor:pointer;transition:background .2s,color .2s}
 .side-icons a:hover,.side-icons button:hover{background:var(--secondary);color:var(--fg)}
 .side-icons svg{width:17px;height:17px}
@@ -293,15 +289,3 @@ a.badge:hover{opacity:.85}
 .has-aside .card{border-radius:12px;background:var(--card)}
 .has-aside .card-title{color:var(--fg)}
 
-/* dark closing panel */
-.cta{background:var(--cta);color:var(--cta-fg);border-radius:16px;padding:28px 24px;border:1px solid var(--border)}
-.cta h2{font-size:30px;font-weight:600;letter-spacing:-.04em;line-height:1.1;margin:0}
-@media (min-width:640px){.cta{padding:36px 32px}.cta h2{font-size:40px}}
-.cta-btn{display:inline-block;margin-top:16px;background:var(--cta-fg);color:var(--cta);text-decoration:none;font-size:14px;font-weight:500;padding:4px 12px;border-radius:8px}
-.cta-btn:hover{opacity:.9}
-.cta-list{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
-.cta-list li{display:flex;flex-direction:column;font-size:15px}
-.cta-list span{font-size:12px;color:var(--cta-muted)}
-.cta-list a{color:var(--cta-fg);text-decoration:none;word-break:break-word}
-.cta-list a:hover{text-decoration:underline;text-underline-offset:3px}
-.cta-foot{margin-top:28px;font-size:13px;color:var(--cta-muted)}
