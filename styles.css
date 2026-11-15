@@ -435,7 +435,6 @@ html,body{overflow-x:clip}
 }
 
 /* ---------- round 5 ---------- */
-.fx{will-change:opacity,transform}
 @media (min-width:1024px){ .side{z-index:25} }
 
 /* instagram: bordered photo and caption panel, scrollable caption */
@@ -469,3 +468,27 @@ html,body{overflow-x:clip}
   .explore-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
 }
 @media (max-width:1023px){ .ex-row{padding:14px 0} }
+
+/* ---------- round 7: caption slides out from under the photo; carousel ---------- */
+@media (min-width:720px){
+  .ig-img{z-index:2}
+  .ig-text{z-index:1;opacity:1;left:calc(27% + var(--t) * 27%);transform:none;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+}
+.ig-car{position:absolute}
+.ig-slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ig-slides::-webkit-scrollbar{display:none}
+.ig-slides a{flex:0 0 100%;height:100%;scroll-snap-align:center}
+.ig-slides img{width:100%;height:100%;object-fit:cover;display:block}
+.ig-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:0;
+  background:rgba(20,20,20,.55);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .2s}
+.ig-prev{left:10px}.ig-next{right:10px}
+.ig-car:hover .ig-nav,.ig-nav:focus-visible{opacity:1}
+.ig-dots{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.ig-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.5);pointer-events:auto;cursor:pointer}
+.ig-dots button.on{background:#fff}
+@media (max-width:719px){
+  .ig-car{position:relative;aspect-ratio:1/1;height:auto}
+  .ig-nav{opacity:1}
+}
+@media (hover:none){ .ig-nav{opacity:1} }

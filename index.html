@@ -455,7 +455,7 @@
       </article>
       <article class="ig-card bf">
         <div class="ig-stage">
-          <a class="ig-img" href="https://www.instagram.com/chiu.able/p/Cqf1BPVJr0c/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cacio e pepe"><img src="images/ig/Cqf1BPVJr0c.jpg" alt="Cacio e pepe" loading="lazy"></a>
+          <div class="ig-img ig-car"><div class="ig-slides"><a href="https://www.instagram.com/chiu.able/p/Cqf1BPVJr0c/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cacio e pepe"><img src="images/ig/Cqf1BPVJr0c-1.jpg" alt="Cacio e pepe, photo 1 of 2" loading="lazy"></a><a href="https://www.instagram.com/chiu.able/p/Cqf1BPVJr0c/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cacio e pepe"><img src="images/ig/Cqf1BPVJr0c-2.jpg" alt="Cacio e pepe, photo 2 of 2" loading="lazy"></a></div><button class="ig-nav ig-prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="ig-nav ig-next" type="button" aria-label="Next photo">&rsaquo;</button><div class="ig-dots"><button type="button" aria-label="Photo 1"></button><button type="button" aria-label="Photo 2"></button></div></div>
           <div class="ig-text">
             <h3>Cacio e pepe</h3>
             <div class="ig-cap" tabindex="0" aria-label="Caption, scrollable"><p>Cacio e Pepe is my go-to pasta dish because it’s so convenient without prep work, but I’ve often had trouble with the cheese clumping. Even with J. Kenji Lopez Alt, or any cooking channel’s methods, I would always be a bit too zealous with the heat and turn the cheese into a clump with the texture of blu tack. Little did I know that the easiest method also had the least cleanup with the help of a…</p><p>Microwave.</p><p>One less pan and utensil to clean as I prepare the sauce in the bowl, and I also get to preheat my bowl in the process.</p><p>Bless my former neighbour 3 years ago for getting rid of such an expensive Breville microwave.</p></div>
@@ -465,7 +465,7 @@
       </article>
       <article class="ig-card bf">
         <div class="ig-stage">
-          <a class="ig-img" href="https://www.instagram.com/chiu.able/p/Cqf0QbsJRUM/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cookies"><img src="images/ig/Cqf0QbsJRUM.jpg" alt="Cookies" loading="lazy"></a>
+          <div class="ig-img ig-car"><div class="ig-slides"><a href="https://www.instagram.com/chiu.able/p/Cqf0QbsJRUM/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cookies"><img src="images/ig/Cqf0QbsJRUM-1.jpg" alt="Cookies, photo 1 of 4" loading="lazy"></a><a href="https://www.instagram.com/chiu.able/p/Cqf0QbsJRUM/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cookies"><img src="images/ig/Cqf0QbsJRUM-2.jpg" alt="Cookies, photo 2 of 4" loading="lazy"></a><a href="https://www.instagram.com/chiu.able/p/Cqf0QbsJRUM/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cookies"><img src="images/ig/Cqf0QbsJRUM-3.jpg" alt="Cookies, photo 3 of 4" loading="lazy"></a><a href="https://www.instagram.com/chiu.able/p/Cqf0QbsJRUM/" target="_blank" rel="noopener" aria-label="Open on Instagram: Cookies"><img src="images/ig/Cqf0QbsJRUM-4.jpg" alt="Cookies, photo 4 of 4" loading="lazy"></a></div><button class="ig-nav ig-prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="ig-nav ig-next" type="button" aria-label="Next photo">&rsaquo;</button><div class="ig-dots"><button type="button" aria-label="Photo 1"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button><button type="button" aria-label="Photo 4"></button></div></div>
           <div class="ig-text">
             <h3>Cookies</h3>
             <div class="ig-cap" tabindex="0" aria-label="Caption, scrollable"><p>I will stand by my belief that my cookies best at least 99% of all other cookie recipes. This will be a cookie recipe that I will never share with anyone except my fiancee and our future children.</p><p>To say that I have obsessed over making the ultimate massive cookie is an understatement. From June 2021 to January 2023, I have made 21 batches of these 185g (6.5 oz) cookies. That’s 6 regular sized cookies in a single cookie! Each batch makes 12 cookies, so in regular cookie terms I have made nearly 1600 cookies 😅</p><p>Swipe to see it compared to a Myki card, my wallet, and how I struggled to put it in a Pyrex round container.</p></div>
@@ -611,8 +611,9 @@ function isDark(){
   var CORNER_S = 0.82;
   var shift = 0, away = 0, txC = 0, tyC = 0, exStart = 0, t1 = 0, c1 = 0, t2 = 0, c2 = 0, raf = 0;
 
+  var mainLeft = 0;
   function clear(){
-    mainEl.style.left = '';
+    mainEl.style.left = ''; mainLeft = 0;
     sideTop.style.transform = sideTop.style.opacity = sideTop.style.visibility = '';
     sideBottom.style.transform = '';
     sideText.forEach(function(e){ e.style.opacity = e.style.visibility = ''; });
@@ -660,7 +661,8 @@ function isDark(){
   function apply(r1, r2){
     if (!wide.matches) { clear(); return; }
     var e1 = smooth(r1), e2 = smooth(r2);
-    mainEl.style.left = (shift * e1) + 'px';
+    mainLeft = shift * e1;
+    mainEl.style.left = mainLeft + 'px';
     sideTop.style.transform = 'translateX(' + (-away * e1) + 'px)';
     sideTop.style.opacity = String(1 - clamp(e1 * 1.25));
     sideTop.style.visibility = e1 >= 0.99 ? 'hidden' : 'visible';
@@ -685,29 +687,15 @@ function isDark(){
     dockEl.style.setProperty('--bgsy', String(0.55 + 0.45 * g));
     dockWrap.style.opacity = e2 > 0.001 ? '1' : '0';
     root.classList.toggle('pushed', e2 > 0.9);
-    barsUpdate();
   }
-  function tick(){
-    c1 += (t1 - c1) * 0.14; c2 += (t2 - c2) * 0.14;
-    if (Math.abs(t1 - c1) < 0.0008) c1 = t1;
-    if (Math.abs(t2 - c2) < 0.0008) c2 = t2;
-    apply(c1, c2);
-    raf = (c1 === t1 && c2 === t2) ? 0 : requestAnimationFrame(tick);
-  }
-  function onPushScroll(){
-    targets();
-    if (reduce) { c1 = t1; c2 = t2; apply(c1, c2); } else if (!raf) raf = requestAnimationFrame(tick);
-  }
-
   // 2) bars: every section is a bar. It starts as a rounded, inset card and widens to full-bleed as it
   //    fills the screen. The page behind takes the colour of the section in the middle of the screen,
   //    so the neighbouring sections read as cards of the opposite colour, and vice versa.
   var domIdx = -1;
-  function domUpdate(){
+  function domUpdate(secR){
     var mid = window.innerHeight / 2, idx = 0;
-    for (var i = 0; i < sections.length; i++) {
-      var r = sections[i].getBoundingClientRect();
-      if (r.top <= mid && r.bottom > mid) { idx = i; break; }
+    for (var i = 0; i < secR.length; i++) {
+      if (secR[i].top <= mid && secR[i].bottom > mid) { idx = i; break; }
     }
     if (idx !== domIdx) {
       domIdx = idx;
@@ -715,26 +703,13 @@ function isDark(){
       if (c) document.body.style.backgroundColor = c;
     }
   }
-  function barsUpdate(){
-    var vh = window.innerHeight, I = window.innerWidth < 720 ? 20 : 72, R = 56;
-    sections.forEach(function(s){
-      var r = s.getBoundingClientRect();
-      if (reduce) { s.style.setProperty('--sl', r.left + 'px'); s.style.setProperty('--ix', '0px'); s.style.setProperty('--rt', '0px'); s.style.setProperty('--rb', '0px'); return; }
-      var eT = smooth(clamp((vh * 0.95 - r.top) / (vh * 0.45)));
-      var eB = smooth(clamp((r.bottom - vh * 0.05) / (vh * 0.45)));
-      var e = eT * eB;
-      s.style.setProperty('--sl', r.left.toFixed(1) + 'px');
-      s.style.setProperty('--ix', ((1 - e) * I).toFixed(1) + 'px');
-      s.style.setProperty('--rt', ((1 - eT) * R).toFixed(1) + 'px');
-      s.style.setProperty('--rb', ((1 - eB) * R).toFixed(1) + 'px');
-    });
-    domUpdate();
-  }
+  var bars = sections.map(function(){ return {eT: 0, eB: 0, init: false}; });
   document.querySelectorAll('#theme, .theme-btn').forEach(function(b){
-    b.addEventListener('click', function(){ setTimeout(function(){ domIdx = -1; domUpdate(); }, 0); });
+    b.addEventListener('click', function(){ setTimeout(function(){ domIdx = -1; domUpdate(sections.map(function(s){ return s.getBoundingClientRect(); })); }, 0); });
   });
 
   // 3) cards slide in from alternating sides (from well off-screen); everything else fades and drifts.
+  //    They only leave by reversing, i.e. when you scroll back up. Instagram cards also fade as they exit.
   var fxEls = [];
   if (!reduce) {
     var cardCount = new Map();
@@ -743,56 +718,106 @@ function isDark(){
       var dir = 0;
       if (el.matches('.card, .qcard')) { var n = cardCount.get(el.parentNode) || 0; cardCount.set(el.parentNode, n + 1); dir = n % 2 === 0 ? -1 : 1; }
       el.classList.remove('bf'); el.classList.add('fx');
-      fxEls.push({el: el, dir: dir, out: el.classList.contains('ig-card')});
+      fxEls.push({el: el, dir: dir, out: el.classList.contains('ig-card'), a: 0, o: 1, w: ''});
     });
   }
-  function fxUpdate(){
-    var vh = window.innerHeight, dist = Math.min(560, window.innerWidth * 0.5);
-    var rects = fxEls.map(function(f){ return f.el.getBoundingClientRect(); });
+
+  // 4) Instagram cards: the photo slides left and the caption panel slides out from underneath it
+  var igCards = [].slice.call(document.querySelectorAll('.ig-card')), igC = [], igW = [];
+
+  // One frame: all layout reads first, then all writes, so scrolling never forces a re-layout mid-frame.
+  function step(cur, tgt, k){ var n = cur + (tgt - cur) * k; return Math.abs(tgt - n) < 0.002 ? tgt : n; }
+  var queued = false, first = true;
+  function frame(){
+    queued = false;
+    var vh = window.innerHeight, vw = window.innerWidth, narrow = vw < 720, busy = false;
+    // ---- reads
+    var secR = sections.map(function(s){ return s.getBoundingClientRect(); });
+    var fxR = fxEls.map(function(f){ return f.el.getBoundingClientRect(); });
+    var igR = igCards.map(function(c){ return c.getBoundingClientRect(); });
+    var prevLeft = mainLeft;
+    targets();
+    // ---- ease
+    var k1 = (reduce || first) ? 1 : 0.14;
+    c1 = step(c1, t1, k1); c2 = step(c2, t2, k1);
+    if (c1 !== t1 || c2 !== t2) busy = true;
+    // ---- writes: sidebar / dock choreography
+    apply(c1, c2);
+    var dl = mainLeft - prevLeft;
+    // bars
+    var I = narrow ? 20 : 72, R = 56;
+    sections.forEach(function(s, i){
+      var r = secR[i], b = bars[i];
+      var tT = smooth(clamp((vh * 0.95 - r.top) / (vh * 0.45)));
+      var tB = smooth(clamp((r.bottom - vh * 0.05) / (vh * 0.45)));
+      if (reduce) { tT = tB = 1; }
+      var k = (reduce || first || !b.init) ? 1 : 0.22;
+      b.init = true;
+      var nT = step(b.eT, tT, k), nB = step(b.eB, tB, k);
+      if (nT !== tT || nB !== tB) busy = true;
+      b.eT = nT; b.eB = nB;
+      var e = nT * nB;
+      s.style.setProperty('--sl', (r.left + dl).toFixed(1) + 'px');
+      s.style.setProperty('--ix', ((1 - e) * I).toFixed(1) + 'px');
+      s.style.setProperty('--rt', ((1 - nT) * R).toFixed(1) + 'px');
+      s.style.setProperty('--rb', ((1 - nB) * R).toFixed(1) + 'px');
+    });
+    domUpdate(secR);
+    // fade / slide cards
+    var dist = Math.min(560, vw * 0.5);
     fxEls.forEach(function(f, i){
-      var r = rects[i];
-      var eIn = smooth(clamp((vh * 0.97 - r.top) / (vh * 0.55)));   // slow arrival
-      var eOut = f.out ? smooth(clamp(r.bottom / (vh * 0.14))) : 1;   // only Instagram cards fade out as they leave the top
-      f.el.style.opacity = (eIn * eOut).toFixed(3);
-      f.el.style.transform = f.dir
-        ? 'translate3d(' + (f.dir * ((1 - eIn) * dist + (1 - eOut) * 60)).toFixed(1) + 'px,0,0)'
-        : 'translate3d(0,' + ((1 - eIn) * 28 - (1 - eOut) * 10).toFixed(1) + 'px,0)';
+      var r = fxR[i];
+      var tIn = smooth(clamp((vh * 0.97 - r.top) / (vh * 0.55)));
+      f.a = (first) ? tIn : step(f.a, tIn, 0.2);
+      if (f.a !== tIn) busy = true;
+      var eOut = 1;
+      if (f.out) {
+        var tO = smooth(clamp(r.bottom / (vh * 0.14)));
+        f.o = first ? tO : step(f.o, tO, 0.2);
+        if (f.o !== tO) busy = true;
+        eOut = f.o;
+      }
+      var op = (f.a * eOut).toFixed(3);
+      var tr = f.dir
+        ? 'translate3d(' + (f.dir * ((1 - f.a) * dist + (1 - eOut) * 60)).toFixed(1) + 'px,0,0)'
+        : 'translate3d(0,' + ((1 - f.a) * 28 - (1 - eOut) * 10).toFixed(1) + 'px,0)';
+      var w = op + tr;
+      if (w !== f.w) { f.w = w; f.el.style.opacity = op; f.el.style.transform = tr; }
     });
-  }
-
-  // 4) Instagram cards: the photo slides left and the caption panel eases in, with eased catch-up
-  var igCards = [].slice.call(document.querySelectorAll('.ig-card')), igT = [], igC = [], igRaf = 0;
-  function igTargets(){
-    var vh = window.innerHeight, narrow = window.innerWidth < 720;
+    // instagram
     igCards.forEach(function(c, i){
-      if (narrow || reduce) { igT[i] = 1; return; }
-      var r = c.getBoundingClientRect();
+      if (narrow || reduce) { if (igW[i] !== 'x') { igW[i] = 'x'; c.style.removeProperty('--t'); c.classList.remove('off'); } return; }
+      var r = igR[i];
       var d = Math.abs(r.top + r.height / 2 - vh / 2) / (vh / 2);
-      igT[i] = 1 - smooth(clamp((d - 0.12) / 0.88));
-    });
-    if (!igRaf) igRaf = requestAnimationFrame(igTick);
-  }
-  function igTick(){
-    var busy = false;
-    igCards.forEach(function(c, i){
-      var a = igC[i] === undefined ? igT[i] : igC[i];
-      a += (igT[i] - a) * 0.1;
-      if (Math.abs(igT[i] - a) < 0.002) a = igT[i]; else busy = true;
+      var tg = 1 - smooth(clamp((d - 0.12) / 0.88));
+      var a = (igC[i] === undefined || first) ? tg : step(igC[i], tg, 0.1);
+      if (a !== tg) busy = true;
       igC[i] = a;
-      if (window.innerWidth < 720 || reduce) { c.style.removeProperty('--t'); c.classList.remove('off'); return; }
-      c.style.setProperty('--t', a.toFixed(3));
-      c.classList.toggle('off', a < 0.4);
+      var s = a.toFixed(3);
+      if (igW[i] !== s) { igW[i] = s; c.style.setProperty('--t', s); c.classList.toggle('off', a < 0.4); }
     });
-    igRaf = busy ? requestAnimationFrame(igTick) : 0;
+    first = false;
+    if (busy) request();
   }
-
-  var frameQueued = false;
-  function onFrame(){ frameQueued = false; barsUpdate(); fxUpdate(); igTargets(); }
-  window.addEventListener('scroll', function(){ onPushScroll(); if (!frameQueued) { frameQueued = true; requestAnimationFrame(onFrame); } }, {passive:true});
-  function relayout(){ measure(); targets(); c1 = t1; c2 = t2; apply(c1, c2); onFrame(); }
+  function request(){ if (!queued) { queued = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', request, {passive:true});
+  function relayout(){ measure(); first = true; targets(); c1 = t1; c2 = t2; request(); }
   window.addEventListener('resize', relayout);
   window.addEventListener('load', relayout);
-  measure(); targets(); c1 = t1; c2 = t2; apply(c1, c2); fxUpdate(); igCards.forEach(function(c, i){ igT[i] = 1; }); igTargets();
+  measure(); targets(); c1 = t1; c2 = t2; frame();
+
+  // Instagram carousels (posts with more than one photo)
+  document.querySelectorAll('.ig-car').forEach(function(car){
+    var track = car.querySelector('.ig-slides'), dots = [].slice.call(car.querySelectorAll('.ig-dots button'));
+    function idx(){ return Math.round(track.scrollLeft / track.clientWidth); }
+    function go(i){ track.scrollTo({left: i * track.clientWidth, behavior: reduce ? 'auto' : 'smooth'}); }
+    function sync(){ var i = idx(); dots.forEach(function(d, j){ d.classList.toggle('on', j === i); }); }
+    car.querySelector('.ig-prev').addEventListener('click', function(){ go(Math.max(0, idx() - 1)); });
+    car.querySelector('.ig-next').addEventListener('click', function(){ go(Math.min(dots.length - 1, idx() + 1)); });
+    dots.forEach(function(d, j){ d.addEventListener('click', function(){ go(j); }); });
+    track.addEventListener('scroll', sync, {passive:true});
+    sync();
+  });
 
   // highlight the active dock link
   var links = [].slice.call(document.querySelectorAll('a.nl'));
