@@ -597,14 +597,14 @@ function isDark(){
   // movers: icon element -> dock element it lands on
   var movers = [
     {el: sideIcons[1], to: dk('a[href^="mailto"]'), delay: 0.00},
-    {el: sideIcons[2], to: dk('a[href*="linkedin"]'), delay: 0.04},
-    {el: sideIcons[3], to: dk('a[href*="instagram"]'), delay: 0.08},
-    {el: sideIcons[4], to: dk('#theme'), delay: 0.12},
+    {el: sideIcons[2], to: dk('a[href*="linkedin"]'), delay: 0.02},
+    {el: sideIcons[3], to: dk('a[href*="instagram"]'), delay: 0.04},
+    {el: sideIcons[4], to: dk('#theme'), delay: 0.06},
     {el: exIcons[0], to: dk('a[href="#work"]'), delay: 0.00, ex: 1},
-    {el: exIcons[1], to: dk('a[href="#broadcast"]'), delay: 0.05, ex: 1},
-    {el: exIcons[2], to: dk('a[href="#articles"]'), delay: 0.10, ex: 1},
-    {el: exIcons[3], to: dk('a[href="#def"]'), delay: 0.15, ex: 1},
-    {el: exIcons[4], to: dk('a[href="#cooking"]'), delay: 0.20, ex: 1}
+    {el: exIcons[1], to: dk('a[href="#broadcast"]'), delay: 0.02, ex: 1},
+    {el: exIcons[2], to: dk('a[href="#articles"]'), delay: 0.04, ex: 1},
+    {el: exIcons[3], to: dk('a[href="#def"]'), delay: 0.06, ex: 1},
+    {el: exIcons[4], to: dk('a[href="#cooking"]'), delay: 0.08, ex: 1}
   ];
   var mapped = movers.map(function(m){ return m.to; });
   var dockOthers = [].slice.call(dockEl.children).filter(function(el){ return mapped.indexOf(el) < 0; });
@@ -642,21 +642,20 @@ function isDark(){
     movers.forEach(function(m){
       var s = m.el.getBoundingClientRect(), d = m.to.getBoundingClientRect();
       var sc = center(s), dc = center(d);
-      if (m.ex) {                                  // pinned: stuck at top:0 while it travels
-        var r = m.el.getBoundingClientRect();
-        sc = {x: r.left + r.width / 2, y: (r.top - pinR.top) + r.height / 2};
+      m.dcx = dc.x; m.dcy = dc.y; m.k = d.width / s.width;
+      if (m.ex) {                                  // pinned scene: the row sits still while its icon flies
+        sc = {x: s.left + s.width / 2, y: (s.top - pinR.top) + s.height / 2};
         m.tx = dc.x - sc.x; m.ty = dc.y - sc.y;
       } else {                                     // child of the scaled corner block
         m.tx = (dc.x - sc.x) / CORNER_S; m.ty = (dc.y - sc.y) / CORNER_S;
       }
-      m.k = d.width / s.width;
     });
     mainEl.style.left = ''; sideBottom.style.transform = '';
   }
   function targets(){
     var vh = window.innerHeight, y = window.scrollY;
     t1 = clamp((y - vh * 0.25) / (vh * 0.8));
-    t2 = clamp((y - (exStart + vh * 0.5)) / (vh * 0.9));
+    t2 = clamp((y - (exStart + vh * 0.08)) / (vh * 0.64));
   }
   function apply(r1, r2){
     if (!wide.matches) { clear(); return; }
@@ -670,21 +669,18 @@ function isDark(){
     sideText.forEach(function(el){ el.style.opacity = String(tf); el.style.visibility = tf <= 0 ? 'hidden' : 'visible'; });
     sideIcons[0].style.opacity = String(tf); sideIcons[0].style.visibility = tf <= 0 ? 'hidden' : 'visible';
     movers.forEach(function(m){
-      var s = smooth(clamp((r2 - m.delay) / 0.75));
-      var land = clamp((s - 0.92) / 0.08);
+      var s = smooth(clamp((r2 - m.delay) / 0.8));
+      var land = clamp((s - 0.97) / 0.03);
+      if (m.ex) m.el.style.setProperty('--ib', String(1 - clamp(s * 1.6)));
       m.el.style.transform = 'translate(' + (m.tx * s) + 'px,' + (m.ty * s) + 'px) scale(' + (1 + (m.k - 1) * s) + ')';
       m.el.style.opacity = String(1 - land);
       m.el.style.visibility = land >= 1 ? 'hidden' : 'visible';
-      if (m.ex) m.el.style.setProperty('--ib', String(1 - clamp(s * 1.6)));
       m.to.style.opacity = String(land);
     });
-    var xf = 1 - clamp((e2 - 0.04) / 0.35);
-    exploreEl.style.setProperty('--xf', String(xf));
-    exploreEl.classList.toggle('xgone', xf < 0.3);
-    var o = clamp((e2 - 0.72) / 0.28);
+    var o = clamp((e2 - 0.45) / 0.3);
     dockOthers.forEach(function(el){ el.style.opacity = String(o); el.style.scale = String(0.6 + 0.4 * o); });
-    var g = smooth(clamp(e2 / 0.9));
-    dockEl.style.setProperty('--bgp', String(clamp(e2 * 2.2)));
+    var g = smooth(clamp(e2 / 0.6));
+    dockEl.style.setProperty('--bgp', String(clamp(e2 * 4)));
     dockEl.style.setProperty('--bgsx', String(0.35 + 0.65 * g));
     dockEl.style.setProperty('--bgsy', String(0.55 + 0.45 * g));
     dockWrap.style.opacity = e2 > 0.001 ? '1' : '0';
@@ -747,7 +743,7 @@ function isDark(){
       var dir = 0;
       if (el.matches('.card, .qcard')) { var n = cardCount.get(el.parentNode) || 0; cardCount.set(el.parentNode, n + 1); dir = n % 2 === 0 ? -1 : 1; }
       el.classList.remove('bf'); el.classList.add('fx');
-      fxEls.push({el: el, dir: dir});
+      fxEls.push({el: el, dir: dir, out: el.classList.contains('ig-card')});
     });
   }
   function fxUpdate(){
@@ -756,7 +752,7 @@ function isDark(){
     fxEls.forEach(function(f, i){
       var r = rects[i];
       var eIn = smooth(clamp((vh * 0.97 - r.top) / (vh * 0.55)));   // slow arrival
-      var eOut = smooth(clamp(r.bottom / (vh * 0.14)));              // only leaves right at the top edge
+      var eOut = f.out ? smooth(clamp(r.bottom / (vh * 0.14))) : 1;   // only Instagram cards fade out as they leave the top
       f.el.style.opacity = (eIn * eOut).toFixed(3);
       f.el.style.transform = f.dir
         ? 'translate3d(' + (f.dir * ((1 - eIn) * dist + (1 - eOut) * 60)).toFixed(1) + 'px,0,0)'

@@ -465,7 +465,7 @@ html,body{overflow-x:clip}
 .ex-row:last-child{border-bottom-color:color-mix(in srgb,var(--border) calc(var(--xf,1) * 100%),transparent)}
 #explore.xgone .ex-row{pointer-events:none}
 @media (min-width:1024px){
-  #explore{padding:0 !important;height:250vh}
+  #explore{padding:0 !important;height:180vh}
   .explore-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
 }
 @media (max-width:1023px){ .ex-row{padding:14px 0} }
