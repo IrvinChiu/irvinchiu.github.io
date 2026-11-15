@@ -451,20 +451,6 @@ function isDark(){
     items.forEach(function(el){ io.observe(el); });
   }
 
-  // flip the page tone as each section crosses the middle of the screen
-  var tsecs = [].slice.call(document.querySelectorAll('main > section'));
-  var root = document.documentElement;
-  function tone(){
-    var mid = window.innerHeight * 0.5, idx = 0;
-    for (var i = 0; i < tsecs.length; i++) {
-      if (tsecs[i].getBoundingClientRect().top <= mid) idx = i;
-    }
-    if (idx % 2 === 1) root.setAttribute('data-tone', 'inv'); else root.removeAttribute('data-tone');
-  }
-  window.addEventListener('scroll', tone, {passive:true});
-  window.addEventListener('resize', tone);
-  tone();
-
   // highlight the active dock link
   var links = [].slice.call(document.querySelectorAll('a.nl'));
   var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });

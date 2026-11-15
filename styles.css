@@ -288,48 +288,51 @@ a.badge:hover{opacity:.85}
 .has-aside .card-title{color:var(--fg)}
 
 
-/* ---------- full-screen tone shift (Apple-style) ----------
-   The whole page background flips between light and dark as each section
-   passes the middle of the screen (see script in index.html). */
+/* ---------- full-bleed light / dark bars ----------
+   Every other section gets a bar that runs edge to edge. The sidebar text
+   uses difference blending, so it flips black/white exactly where a bar
+   edge passes behind it. */
+html,body{overflow-x:clip}
 .has-aside main{gap:0;padding-top:0}
-.has-aside main>section{padding:96px 0;scroll-margin-top:0}
+.has-aside main>section{position:relative;padding:112px 0;scroll-margin-top:0}
 .has-aside main>section:first-child{padding-top:48px}
-@media (max-width:480px){.has-aside main>section{padding:64px 0}}
-@media (min-width:1024px){.has-aside main>section:first-child{padding-top:48px}}
-body{transition:background-color .7s cubic-bezier(.4,0,.2,1),color .7s cubic-bezier(.4,0,.2,1)}
-.card{transition:box-shadow .3s ease-out,background-color .7s,border-color .7s}
-.qcard,.chip,.dot,.badge,.q-av,.exp-item,.timeline,.avatar,.dock{transition:background-color .7s,border-color .7s,color .7s}
-.has-aside .side-nav a,.side-icons a,.side-icons button,.side h1,.side-name,.side-role,.sec-head h2.sec,.sec-head p,.kicker,.prose,.muted,.card-title,.card-desc,.card-meta,.exp-item h3,.exp-item p,.timeline a,.timeline time{transition:color .7s}
-.dock-fade{transition:background .7s}
-
-/* inverted tone: dark vars on a light theme, light vars on a dark theme */
-:root[data-theme="light"][data-tone="inv"],
-:root:not([data-theme])[data-tone="inv"]{
+@media (max-width:480px){.has-aside main>section{padding:72px 0}}
+.has-aside main>section:nth-of-type(even)::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:var(--bar);box-shadow:0 0 0 100vmax var(--bar);clip-path:inset(0 -100vmax);
+}
+:root{--bar:#0b0b0b}
+.has-aside main>section:nth-of-type(even){
   --bg:#0b0b0b; --fg:#f2f2f2; --fg-2:#d4d4d4; --muted:#a3a3a3;
   --border:#2a2a2a; --secondary:#1f1f1f; --secondary-fg:#f2f2f2;
-  --primary:#f2f2f2; --primary-fg:#111111;
-  --card:#151515; --soft:#171717; --dock:rgba(17,17,17,.72);
-  color-scheme:dark;
+  --primary:#f2f2f2; --primary-fg:#111111; --card:#151515; --soft:#171717;
+  color:var(--fg);color-scheme:dark;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme])[data-tone="inv"]{
-    --bg:#fafafa; --fg:#171717; --fg-2:#404040; --muted:#6b6b6b;
-    --border:#e2e2e2; --secondary:#eeeeee; --secondary-fg:#262626;
-    --primary:#171717; --primary-fg:#fafafa;
-    --card:#ffffff; --soft:#f3f3f3; --dock:rgba(255,255,255,.75);
-    color-scheme:light;
+  :root:not([data-theme="light"]){--bar:#f6f6f6}
+  :root:not([data-theme="light"]) .has-aside main>section:nth-of-type(even){
+    --bg:#f6f6f6; --fg:#171717; --fg-2:#404040; --muted:#6b6b6b;
+    --border:#e2e2e2; --secondary:#eaeaea; --secondary-fg:#262626;
+    --primary:#171717; --primary-fg:#fafafa; --card:#ffffff; --soft:#f3f3f3; color-scheme:light;
   }
 }
-:root[data-theme="dark"][data-tone="inv"]{
-  --bg:#fafafa; --fg:#171717; --fg-2:#404040; --muted:#6b6b6b;
-  --border:#e2e2e2; --secondary:#eeeeee; --secondary-fg:#262626;
-  --primary:#171717; --primary-fg:#fafafa;
-  --card:#ffffff; --soft:#f3f3f3; --dock:rgba(255,255,255,.75);
-  color-scheme:light;
+:root[data-theme="dark"]{--bar:#f6f6f6}
+:root[data-theme="dark"] .has-aside main>section:nth-of-type(even){
+  --bg:#f6f6f6; --fg:#171717; --fg-2:#404040; --muted:#6b6b6b;
+  --border:#e2e2e2; --secondary:#eaeaea; --secondary-fg:#262626;
+  --primary:#171717; --primary-fg:#fafafa; --card:#ffffff; --soft:#f3f3f3; color-scheme:light;
 }
-@media (prefers-reduced-motion: reduce){body,.card,.qcard,.chip,.dot,.badge{transition:none}}
+.has-aside main>section .card:hover{box-shadow:none;border-color:var(--muted)}
+/* sidebar flips pixel-by-pixel as bars pass behind it */
+@media (min-width:1024px){
+  .side{mix-blend-mode:difference;color:#fff}
+  .side *{color:#fff !important;border-color:#fff}
+  .side-role{opacity:.65}
+  .side-nav a:hover,.side-nav a.on,.side-icons a:hover,.side-icons button:hover{background:rgba(255,255,255,.18)}
+}
 
 /* cooking */
 .cook{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .cook p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;max-width:520px}
 .badge.lg{font-size:14px;padding:6px 14px;border-radius:8px}
+.has-aside .dock-fade{display:none}
