@@ -605,9 +605,7 @@ html,body{overflow-x:clip}
 .side{pointer-events:none}
 .side a,.side button{pointer-events:auto}
 
-/* Explore: heading and rows appear one after another when the section arrives, and leave one after another */
-#explore .exi{opacity:0;transform:translate3d(0,26px,0);
-  transition:opacity .45s ease,transform .45s ease;transition-delay:calc(var(--k,0) * 70ms)}
-#explore.ex-in .exi{opacity:1;transform:none;
-  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--k,0) * 140ms + 100ms)}
+/* Explore: each item fades in on its own as it arrives, staggered by script when several arrive together */
+#explore .exi{opacity:0;transform:translate3d(0,28px,0);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+#explore .exi.in{opacity:1;transform:none}
 @media (prefers-reduced-motion: reduce){#explore .exi{opacity:1;transform:none;transition:none}}

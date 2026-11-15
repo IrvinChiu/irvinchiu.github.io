@@ -646,16 +646,24 @@ function isDark(){
       el.classList.add('rv');
     }
   });
-  // Explore: heading and rows appear one after another when the section arrives, and leave one after another
-  var exploreSec = document.getElementById('explore');
-  if (exploreSec && 'IntersectionObserver' in window && !reduce) {
-    new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.intersectionRatio >= 0.45) exploreSec.classList.add('ex-in');
-        else if (e.intersectionRatio < 0.2) exploreSec.classList.remove('ex-in');
-      });
-    }, {threshold: [0, 0.2, 0.45, 0.7]}).observe(exploreSec);
-  } else if (exploreSec) { exploreSec.classList.add('ex-in'); }
+  // Explore: the heading and each row fade in one by one as they come into view, and out one by one as they
+  // leave. Timed (not tied to scroll speed): anything that arrives in the same moment is staggered in order.
+  var exItems = [].slice.call(document.querySelectorAll('#explore .exi'));
+  if (exItems.length && 'IntersectionObserver' in window && !reduce) {
+    var lastY = window.scrollY;
+    var exIO = new IntersectionObserver(function(entries){
+      var down = window.scrollY >= lastY; lastY = window.scrollY;
+      var order = function(a, b){ return exItems.indexOf(a.target) - exItems.indexOf(b.target); };
+      var ins = entries.filter(function(e){ return e.isIntersecting; }).sort(order);
+      var outs = entries.filter(function(e){ return !e.isIntersecting; }).sort(order);
+      if (!down) { ins.reverse(); outs.reverse(); }
+      ins.forEach(function(e, i){ e.target.style.transitionDelay = (i * 220) + 'ms'; e.target.classList.add('in'); });
+      outs.forEach(function(e, i){ e.target.style.transitionDelay = (i * 140) + 'ms'; e.target.classList.remove('in'); });
+    }, {rootMargin: '-12% 0px -10% 0px', threshold: 0});
+    exItems.forEach(function(el){ exIO.observe(el); });
+  } else {
+    exItems.forEach(function(el){ el.classList.add('in'); });
+  }
 
   // Instagram carousels (posts with more than one photo)
   document.querySelectorAll('.ig-car').forEach(function(car){
