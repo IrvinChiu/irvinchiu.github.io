@@ -532,7 +532,7 @@ html,body{overflow-x:clip}
   @keyframes rv-up{from{transform:translate3d(0,28px,0)}to{transform:none}}
   @keyframes rv-left{from{transform:translate3d(-38vw,0,0)}to{transform:none}}
   @keyframes rv-right{from{transform:translate3d(38vw,0,0)}to{transform:none}}
-  .rv,.rv-l,.rv-r{animation-timing-function:linear;animation-fill-mode:both;animation-timeline:view(),view();animation-range:entry 0% entry 22%,entry 0% entry 60%}
+  .rv,.rv-l,.rv-r{animation-timing-function:linear;animation-fill-mode:both;animation-timeline:view(),view();animation-range:entry 0% entry 11vh,entry 0% entry 20vh}
   .rv{animation-name:rv-fade,rv-up}
   .rv-l{animation-name:rv-fade,rv-left}
   .rv-r{animation-name:rv-fade,rv-right}
