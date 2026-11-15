@@ -288,19 +288,24 @@ a.badge:hover{opacity:.85}
 .has-aside .card-title{color:var(--fg)}
 
 
-/* ---------- alternating light / dark section bands ---------- */
-.has-aside main{gap:12px}
-.has-aside main>section{border-radius:20px;padding:40px 28px}
-@media (max-width:480px){.has-aside main>section{padding:32px 20px}}
+/* ---------- alternating full-width light / dark bands ---------- */
+body{overflow-x:clip}
+.has-aside main{gap:0;padding:0 24px}
+@media (min-width:1024px){.has-aside main{padding:0}}
+.has-aside main>section{position:relative;padding:56px 0}
+.has-aside main>section:first-child{padding-top:48px}
+.has-aside main>section:last-child{padding-bottom:140px}
+@media (min-width:1024px){.has-aside main>section:last-child{padding-bottom:96px}}
 .has-aside main>section:nth-of-type(even){
-  /* inverse of the page theme: black band on a light page */
   --bg:#0e0e0e; --fg:#f2f2f2; --fg-2:#d4d4d4; --muted:#a3a3a3;
   --border:#2c2c2c; --secondary:#222222; --secondary-fg:#f2f2f2;
   --primary:#f2f2f2; --primary-fg:#111111;
   --card:#181818; --soft:#181818;
-  background:var(--bg);color:var(--fg);color-scheme:dark;
+  color:var(--fg);color-scheme:dark;
 }
-.has-aside main>section:nth-of-type(odd){border:1px solid var(--border)}
+.has-aside main>section:nth-of-type(even)::before{
+  content:"";position:absolute;top:0;bottom:0;left:-100vw;right:-100vw;background:var(--bg);z-index:-1;
+}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) .has-aside main>section:nth-of-type(even){
     --bg:#fafafa; --fg:#171717; --fg-2:#404040; --muted:#6b6b6b;
@@ -316,6 +321,13 @@ a.badge:hover{opacity:.85}
   --card:#ffffff; --soft:#f3f3f3; color-scheme:light;
 }
 .has-aside main>section .card:hover{box-shadow:none;border-color:var(--muted)}
+/* sidebar floats over the bands: invert against whatever is behind it */
+@media (min-width:1024px){
+  .side{color:#fff;mix-blend-mode:difference;z-index:5}
+  .side h1,.side-name,.side-nav a,.side-icons a,.side-icons button{color:#fff}
+  .side-role{color:#9a9a9a}
+  .side-nav a:hover,.side-nav a.on,.side-icons a:hover,.side-icons button:hover{background:rgba(255,255,255,.18)}
+}
 
 /* cooking */
 .cook{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
