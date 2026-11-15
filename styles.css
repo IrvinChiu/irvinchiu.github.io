@@ -336,3 +336,19 @@ html,body{overflow-x:clip}
 .cook p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;max-width:520px}
 .badge.lg{font-size:14px;padding:6px 14px;border-radius:8px}
 .has-aside .dock-fade{display:none}
+
+/* experience list */
+.exp-item .exp-org{margin-top:4px}
+.exp-list{margin:14px 0 0;padding-left:18px;font-size:15px;line-height:1.6;color:var(--fg-2)}
+.exp-list li{margin:0 0 8px;padding-left:2px}
+.exp-list li::marker{color:var(--muted)}
+
+/* push effect: dock takes over from the sidebar once it has slid away */
+@media (min-width:1024px){
+  .has-aside main{position:relative}
+  .side{will-change:transform,opacity}
+  .has-aside .dock-wrap{display:flex;opacity:0;transition:opacity .35s}
+  .has-aside .dock-wrap .dock{pointer-events:none}
+  html.pushed .has-aside .dock-wrap{opacity:1}
+  html.pushed .has-aside .dock-wrap .dock{pointer-events:auto}
+}
