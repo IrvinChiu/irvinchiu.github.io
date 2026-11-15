@@ -220,8 +220,6 @@ a.badge:hover{opacity:.85}
 @media (min-width:640px){.archive-head h1{font-size:48px}}
 .archive-head p{margin:0;color:var(--muted)}
 @media (min-width:768px){.archive-head p{font-size:18px}}
-.timeline .num{font-size:12px}
-.timeline .gen{font-weight:500;color:var(--muted)}
 
 /* ================= sidebar layout (home page) ================= */
 .layout{max-width:1160px;margin:0 auto}
