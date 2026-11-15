@@ -46,12 +46,15 @@
   <section id="about">
     <div class="sec-head bf"><h2 class="sec">About</h2></div>
     <div class="prose bf">
-      <p>I'm a sports writer who likes finding the story inside the numbers. Since 2023 I've been the
-      Digital Media Coordinator at Baseball Australia, writing long-form pieces for the Australian Baseball
-      League: previews, power rankings, and stat-driven deep dives that work for casual fans and diehards alike.
-      A few of them have even made it onto the league's broadcasts.</p>
-      <p>Before baseball, I spent four years in Hong Kong with DEF Promotions, cutting promo videos for
-      fight nights and writing about boxing. These days I'm based in London.</p>
+      <p>I'm a sports media professional who likes finding the story inside the numbers. Since 2023 I've been Digital
+      Media Coordinator at Baseball Australia, running social, editorial and analytics for the Australian Baseball League.
+      Across two seasons I grew X impressions 1,200% and Instagram 2,400%, wrote 17 bylined articles for theABL.com.au,
+      and built the internal statistics database behind both those articles and live broadcast commentary.</p>
+      <p>Some of that work has been picked up on air by ABL commentators and shared by MLB.com writers. I also work
+      across languages: researching Japanese and Chinese Taipei players for English-language broadcast briefings, and
+      automating Japanese and Korean captions.</p>
+      <p>Before baseball, I spent four years in Hong Kong with DEF Promotions, cutting boxing promos in Final Cut Pro X,
+      directing replays for a live broadcast, and writing 37 articles on the sport. These days I'm based in London.</p>
     </div>
   </section>
 
@@ -366,11 +369,21 @@
   <section id="cooking">
     <div class="sec-head bf">
       <span class="kicker">Cooking</span>
-      <h2 class="sec">Away from the keyboard</h2>
+      <h2 class="sec">Food science in the kitchen</h2>
     </div>
     <div class="cook bf">
-      <p>When I'm not writing, I'm in the kitchen, mostly making ramen. These are a few recent posts; the full portfolio lives on Instagram.</p>
-      <a class="badge lg" href="https://www.instagram.com/chiu.able/" target="_blank" rel="noopener">View @chiu.able on Instagram</a>
+      <p>I cook the way I write: I want to know why it works. I'm inspired by the food science of Chris Young,
+      Heston Blumenthal, J. Kenji L&oacute;pez-Alt, and the chefs at ChefSteps and America's Test Kitchen, but I don't take an
+      explanation at face value, even from big names. Sugar in baking isn't only for sweetness; it's hygroscopic, so it
+      also holds moisture. Emulsions, temperature and pressure all have mechanisms, and I want to understand them.</p>
+      <p>That understanding lets me cook better without the decades of experience professionals use to work around
+      problems, and it lets me carry ideas between cuisines. A paitan ramen broth comes from the interaction of water and
+      fat, and so does a beurre blanc. Applying the same principle, I make beurre mont&eacute; and beurre blanc more
+      reliably, with identical ingredients and without the traditional technique.</p>
+      <p>That's how I've ended up with several recipes you won't find online, drawing on science and on dishes from
+      other countries. My cooking is often unconventional and can look strange, but nobody has told me it tastes bad.
+      Here are a few recent posts.</p>
+      <a class="badge lg" href="https://www.instagram.com/chiu.able/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>View @chiu.able on Instagram</a>
     </div>
     <div class="ig-grid">
       <article class="ig-card bf">
@@ -573,7 +586,7 @@ function isDark(){
 
   // ---------- scroll effects ----------
   // All motion is done in CSS (scroll-driven animations on the compositor), so it can't lag or jitter behind the
-  // page. JS only does one-off setup here, plus choosing the page colour that sits behind the section bars.
+  // page. JS only does one-off setup here.
   var sections = [].slice.call(document.querySelectorAll('main > section'));
   // wrap each section's content so it can shift sideways without moving the full-width bar behind it
   sections.forEach(function(s){
@@ -592,28 +605,6 @@ function isDark(){
       el.classList.add('rv');
     }
   });
-  // the page behind the bars takes the colour of the section in the middle of the screen
-  var domIdx = -1, domQueued = false;
-  function domUpdate(){
-    domQueued = false;
-    var mid = window.innerHeight / 2, idx = 0;
-    for (var i = 0; i < sections.length; i++) {
-      var r = sections[i].getBoundingClientRect();
-      if (r.top <= mid && r.bottom > mid) { idx = i; break; }
-    }
-    if (idx !== domIdx) {
-      domIdx = idx;
-      var c = getComputedStyle(sections[idx]).getPropertyValue('--bg').trim();
-      if (c) document.body.style.backgroundColor = c;
-    }
-  }
-  function queueDom(){ if (!domQueued) { domQueued = true; requestAnimationFrame(domUpdate); } }
-  window.addEventListener('scroll', queueDom, {passive:true});
-  window.addEventListener('resize', queueDom);
-  document.querySelectorAll('#theme, .theme-btn').forEach(function(b){
-    b.addEventListener('click', function(){ setTimeout(function(){ domIdx = -1; domUpdate(); }, 0); });
-  });
-  domUpdate();
 
   // Instagram carousels (posts with more than one photo)
   document.querySelectorAll('.ig-car').forEach(function(car){

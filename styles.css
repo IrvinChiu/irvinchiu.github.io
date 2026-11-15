@@ -575,3 +575,24 @@ html,body{overflow-x:clip}
   .ig-text{box-shadow:none}
 }
 }
+
+/* ---------- round 9: no stepped colour changes ---------- */
+/* Every bar has an underlay in the opposite tone, so the corners and sides revealed as a bar becomes a card
+   always show the neighbouring section's colour, with no step as sections cross the middle of the screen. */
+:root{--pg:#fbfbfd;--pg-inv:#1d1d1f}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--pg:#111111;--pg-inv:#f5f5f7} }
+:root[data-theme="dark"]{--pg:#111111;--pg-inv:#f5f5f7}
+.has-aside main>section::after{
+  content:"";position:absolute;top:0;bottom:0;z-index:-2;pointer-events:none;
+  left:calc(-1 * var(--ml));width:100vw;
+}
+.has-aside main>section:nth-of-type(odd)::after{background:var(--pg-inv)}
+.has-aside main>section:nth-of-type(even)::after{background:var(--pg)}
+.cook p{max-width:640px;font-size:16px}
+
+/* intro fades in on load */
+@keyframes about-in{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+  .has-aside main>section:first-child .rv{animation:about-in .9s cubic-bezier(.2,.7,.2,1) .35s both}
+  .has-aside main>section:first-child .sec-head.rv{animation-delay:.2s}
+}
