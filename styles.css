@@ -464,15 +464,14 @@ html,body{overflow-x:clip}
 .ex-row:last-child{border-bottom-color:color-mix(in srgb,var(--border) calc(var(--xf,1) * 100%),transparent)}
 #explore.xgone .ex-row{pointer-events:none}
 @media (min-width:1024px){
-  #explore{padding:0 !important;height:180vh}
-  .explore-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
+  #explore{padding:0 !important;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 }
 @media (max-width:1023px){ .ex-row{padding:14px 0} }
 
 /* ---------- round 7: caption slides out from under the photo; carousel ---------- */
 @media (min-width:720px){
   .ig-img{z-index:2}
-  .ig-text{z-index:1;opacity:1;left:calc(27% + var(--t) * 27%);transform:none;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+  .ig-text{z-index:1;opacity:1;width:46%;right:auto;left:calc(27% + var(--t) * 27%);transform:none;top:4px;bottom:4px;box-shadow:0 8px 28px rgba(0,0,0,calc(.08 * var(--t)))}
 }
 .ig-car{position:absolute}
 .ig-slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}

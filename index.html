@@ -579,39 +579,39 @@ function isDark(){
   function smooth(p){ return p * p * p * (p * (p * 6 - 15) + 10); }
   var sections = [].slice.call(document.querySelectorAll('main > section'));
 
-  // Phase 1 (hero -> Explore): heading slides away, content centres, the bottom-left
-  //   block tucks further into the corner.
-  // Phase 2 (inside the pinned Explore scene): the Explore icons and the corner icons
-  //   travel into the bottom bar, then the bar fills in around them.
+  // Phase 1 (hero -> Explore): heading slides away, content centres, the bottom-left block tucks into the corner.
+  // Phase 2 (scrolling through Explore): the page scrolls normally. As each row climbs past a line near the top
+  //   of the screen its icon peels off and travels to its slot in the bottom bar. The corner icons travel on the
+  //   same scroll position, and the bar's background hugs them from the corner and grows into the full bar.
   var sideTop = document.querySelector('.side-top');
   var sideBottom = document.querySelector('.side-bottom');
   var sideText = [].slice.call(sideBottom.querySelectorAll('.side-name, .side-role'));
   var iconsEl = document.querySelector('.side-icons');
   var sideIcons = [].slice.call(iconsEl.children);            // [BA mail, mail, linkedin, instagram, theme]
+  var exRows = [].slice.call(document.querySelectorAll('.ex-row'));
   var exIcons = [].slice.call(document.querySelectorAll('.ex-ico'));
   var exploreEl = document.getElementById('explore');
-  var pinEl = document.querySelector('.explore-pin');
+  var exIdx = sections.indexOf(exploreEl);
   var dockWrap = document.querySelector('.dock-wrap');
   var dockEl = document.querySelector('.dock');
   function dk(sel){ return dockEl.querySelector(sel); }
-  // movers: icon element -> dock element it lands on
   var movers = [
-    {el: sideIcons[1], to: dk('a[href^="mailto"]'), delay: 0.00},
-    {el: sideIcons[2], to: dk('a[href*="linkedin"]'), delay: 0.02},
-    {el: sideIcons[3], to: dk('a[href*="instagram"]'), delay: 0.04},
-    {el: sideIcons[4], to: dk('#theme'), delay: 0.06},
-    {el: exIcons[0], to: dk('a[href="#work"]'), delay: 0.00, ex: 1},
-    {el: exIcons[1], to: dk('a[href="#broadcast"]'), delay: 0.02, ex: 1},
-    {el: exIcons[2], to: dk('a[href="#articles"]'), delay: 0.04, ex: 1},
-    {el: exIcons[3], to: dk('a[href="#def"]'), delay: 0.06, ex: 1},
-    {el: exIcons[4], to: dk('a[href="#cooking"]'), delay: 0.08, ex: 1}
+    {el: sideIcons[1], to: dk('a[href^="mailto"]')},
+    {el: sideIcons[2], to: dk('a[href*="linkedin"]')},
+    {el: sideIcons[3], to: dk('a[href*="instagram"]')},
+    {el: sideIcons[4], to: dk('#theme')},
+    {el: exIcons[0], to: dk('a[href="#work"]'), ex: 1, i: 0},
+    {el: exIcons[1], to: dk('a[href="#broadcast"]'), ex: 1, i: 1},
+    {el: exIcons[2], to: dk('a[href="#articles"]'), ex: 1, i: 2},
+    {el: exIcons[3], to: dk('a[href="#def"]'), ex: 1, i: 3},
+    {el: exIcons[4], to: dk('a[href="#cooking"]'), ex: 1, i: 4}
   ];
   var mapped = movers.map(function(m){ return m.to; });
   var dockOthers = [].slice.call(dockEl.children).filter(function(el){ return mapped.indexOf(el) < 0; });
   var CORNER_S = 0.82;
-  var shift = 0, away = 0, txC = 0, tyC = 0, exStart = 0, t1 = 0, c1 = 0, t2 = 0, c2 = 0, raf = 0;
+  var shift = 0, away = 0, txC = 0, tyC = 0, t1 = 0, c1 = 0, mainLeft = 0;
+  var pill = {dx: 0, dy: 0, sx: .3, sy: .6}, barP = 0;
 
-  var mainLeft = 0;
   function clear(){
     mainEl.style.left = ''; mainLeft = 0;
     sideTop.style.transform = sideTop.style.opacity = sideTop.style.visibility = '';
@@ -620,9 +620,9 @@ function isDark(){
     sideIcons.forEach(function(e){ e.style.transform = e.style.opacity = e.style.visibility = ''; });
     exIcons.forEach(function(e){ e.style.transform = e.style.opacity = e.style.visibility = ''; e.style.removeProperty('--ib'); });
     mapped.concat(dockOthers).forEach(function(e){ if (e) { e.style.opacity = ''; e.style.scale = ''; } });
-    ['--bgp','--bgsx','--bgsy'].forEach(function(v){ dockEl.style.removeProperty(v); });
-    exploreEl.style.removeProperty('--xf'); exploreEl.classList.remove('xgone');
+    ['--bgp','--bgx','--bgy','--bgsx','--bgsy'].forEach(function(v){ dockEl.style.removeProperty(v); });
     dockWrap.style.opacity = '';
+    movers.forEach(function(m){ m.s = 0; }); barP = 0;
     root.classList.remove('pushed');
   }
   function center(r){ return {x: r.left + r.width / 2, y: r.top + r.height / 2}; }
@@ -635,18 +635,21 @@ function isDark(){
     away = document.querySelector('.side').getBoundingClientRect().right + 24;
     var sb = sideBottom.getBoundingClientRect();
     txC = 28 - sb.left; tyC = (vh - 28) - sb.bottom;
-    exStart = exploreEl.getBoundingClientRect().top + window.scrollY;
-    // measure the end state of phase 1: content centred, corner block tucked in
-    var pinR = pinEl.getBoundingClientRect();
+    var secTop = exploreEl.getBoundingClientRect().top;
+    // measure the end of phase 1: content centred, corner block tucked in
     mainEl.style.left = shift + 'px';
     sideBottom.style.transform = 'translate(' + txC + 'px,' + tyC + 'px) scale(' + CORNER_S + ')';
+    var ic = iconsEl.getBoundingClientRect(), dr = dockEl.getBoundingClientRect();
+    var ci = center(ic), cd = center(dr);
+    pill = {dx: ci.x - cd.x, dy: ci.y - cd.y, sx: Math.min(1, (ic.width + 28) / dr.width), sy: Math.min(1, (ic.height + 20) / dr.height)};
     movers.forEach(function(m){
       var s = m.el.getBoundingClientRect(), d = m.to.getBoundingClientRect();
       var sc = center(s), dc = center(d);
       m.dcx = dc.x; m.dcy = dc.y; m.k = d.width / s.width;
-      if (m.ex) {                                  // pinned scene: the row sits still while its icon flies
-        sc = {x: s.left + s.width / 2, y: (s.top - pinR.top) + s.height / 2};
-        m.tx = dc.x - sc.x; m.ty = dc.y - sc.y;
+      if (m.ex) {                                  // rides its row; peels off as the row climbs
+        var rr = exRows[m.i].getBoundingClientRect();
+        m.ox = sc.x - rr.left; m.oy = sc.y - rr.top;
+        m.cy = (rr.top + rr.height / 2) - secTop;  // row centre, measured from the top of the Explore section
       } else {                                     // child of the scaled corner block
         m.tx = (dc.x - sc.x) / CORNER_S; m.ty = (dc.y - sc.y) / CORNER_S;
       }
@@ -654,40 +657,61 @@ function isDark(){
     mainEl.style.left = ''; sideBottom.style.transform = '';
   }
   function targets(){
-    var vh = window.innerHeight, y = window.scrollY;
-    t1 = clamp((y - vh * 0.25) / (vh * 0.8));
-    t2 = clamp((y - (exStart + vh * 0.08)) / (vh * 0.64));
+    var vh = window.innerHeight;
+    t1 = clamp((window.scrollY - vh * 0.25) / (vh * 0.8));
   }
-  function apply(r1, r2){
-    if (!wide.matches) { clear(); return; }
-    var e1 = smooth(r1), e2 = smooth(r2);
+  // returns true while any eased value is still catching up
+  function apply(r1, u, rowR){
+    if (!wide.matches) { clear(); return false; }
+    var vh = window.innerHeight, busy = false;
+    var e1 = smooth(r1);
     mainLeft = shift * e1;
     mainEl.style.left = mainLeft + 'px';
     sideTop.style.transform = 'translateX(' + (-away * e1) + 'px)';
     sideTop.style.opacity = String(1 - clamp(e1 * 1.25));
     sideTop.style.visibility = e1 >= 0.99 ? 'hidden' : 'visible';
     sideBottom.style.transform = 'translate(' + (txC * e1) + 'px,' + (tyC * e1) + 'px) scale(' + (1 - (1 - CORNER_S) * e1) + ')';
-    var tf = 1 - clamp(e2 * 2.5);
-    sideText.forEach(function(el){ el.style.opacity = String(tf); el.style.visibility = tf <= 0 ? 'hidden' : 'visible'; });
-    sideIcons[0].style.opacity = String(tf); sideIcons[0].style.visibility = tf <= 0 ? 'hidden' : 'visible';
-    movers.forEach(function(m){
-      var s = smooth(clamp((r2 - m.delay) / 0.8));
-      var land = clamp((s - 0.97) / 0.03);
-      if (m.ex) m.el.style.setProperty('--ib', String(1 - clamp(s * 1.6)));
-      m.el.style.transform = 'translate(' + (m.tx * s) + 'px,' + (m.ty * s) + 'px) scale(' + (1 + (m.k - 1) * s) + ')';
+    // Phase 2, one shared progress for everything, driven by u = how far the Explore section has scrolled
+    // past the top of the screen: row icons, corner icons and the bar's background all move together.
+    var base = clamp((u - vh * 0.10) / (vh * 0.78));
+    movers.forEach(function(m, k){
+      var delay = m.ex ? m.i * 0.07 : 0.14;           // row icons leave in order; the corner icons go together
+      var tgt = smooth(clamp((base - delay) / 0.72));
+      m.s = (reduce) ? tgt : step(m.s || 0, tgt, 0.25);
+      if (m.s !== tgt) busy = true;
+      var tx = m.tx, ty = m.ty;
+      if (m.ex) {
+        var rr = rowR[m.i];
+        tx = m.dcx - (rr.left + m.ox); ty = m.dcy - (rr.top + m.oy);
+        m.el.style.setProperty('--ib', String(1 - clamp(m.s * 1.6)));
+      }
+      var land = clamp((m.s - 0.97) / 0.03);
+      m.el.style.transform = 'translate(' + (tx * m.s) + 'px,' + (ty * m.s) + 'px) scale(' + (1 + (m.k - 1) * m.s) + ')';
       m.el.style.opacity = String(1 - land);
       m.el.style.visibility = land >= 1 ? 'hidden' : 'visible';
       m.to.style.opacity = String(land);
     });
-    var o = clamp((e2 - 0.45) / 0.3);
+    var tf = 1 - clamp(base * 3);
+    sideText.forEach(function(el){ el.style.opacity = String(tf); el.style.visibility = tf <= 0 ? 'hidden' : 'visible'; });
+    sideIcons[0].style.opacity = String(tf); sideIcons[0].style.visibility = tf <= 0 ? 'hidden' : 'visible';
+    // the bar starts as a background hugging the corner icons and grows into place with them
+    var tgtP = smooth(clamp((base - 0.14) / 0.72));    // identical to the corner icons, so the bar always hugs them
+    var P = (reduce) ? tgtP : step(barP, tgtP, 0.25);
+    if (P !== tgtP) busy = true;
+    barP = P;
+    var g = P;
+    var o = clamp((g - 0.55) / 0.35);
     dockOthers.forEach(function(el){ el.style.opacity = String(o); el.style.scale = String(0.6 + 0.4 * o); });
-    var g = smooth(clamp(e2 / 0.6));
-    dockEl.style.setProperty('--bgp', String(clamp(e2 * 4)));
-    dockEl.style.setProperty('--bgsx', String(0.35 + 0.65 * g));
-    dockEl.style.setProperty('--bgsy', String(0.55 + 0.45 * g));
-    dockWrap.style.opacity = e2 > 0.001 ? '1' : '0';
-    root.classList.toggle('pushed', e2 > 0.9);
+    dockEl.style.setProperty('--bgp', String(clamp(g * 4)));
+    dockEl.style.setProperty('--bgx', (pill.dx * (1 - g)) + 'px');
+    dockEl.style.setProperty('--bgy', (pill.dy * (1 - g)) + 'px');
+    dockEl.style.setProperty('--bgsx', String(pill.sx + (1 - pill.sx) * g));
+    dockEl.style.setProperty('--bgsy', String(pill.sy + (1 - pill.sy) * g));
+    dockWrap.style.opacity = g > 0.001 ? '1' : '0';
+    root.classList.toggle('pushed', g > 0.9);
+    return busy;
   }
+
   // 2) bars: every section is a bar. It starts as a rounded, inset card and widens to full-bleed as it
   //    fills the screen. The page behind takes the colour of the section in the middle of the screen,
   //    so the neighbouring sections read as cards of the opposite colour, and vice versa.
@@ -735,14 +759,15 @@ function isDark(){
     var secR = sections.map(function(s){ return s.getBoundingClientRect(); });
     var fxR = fxEls.map(function(f){ return f.el.getBoundingClientRect(); });
     var igR = igCards.map(function(c){ return c.getBoundingClientRect(); });
+    var rowR = exRows.map(function(r){ return r.getBoundingClientRect(); });
     var prevLeft = mainLeft;
     targets();
     // ---- ease
     var k1 = (reduce || first) ? 1 : 0.14;
-    c1 = step(c1, t1, k1); c2 = step(c2, t2, k1);
-    if (c1 !== t1 || c2 !== t2) busy = true;
+    c1 = step(c1, t1, k1);
+    if (c1 !== t1) busy = true;
     // ---- writes: sidebar / dock choreography
-    apply(c1, c2);
+    if (apply(c1, -secR[exIdx].top, rowR)) busy = true;
     var dl = mainLeft - prevLeft;
     // bars
     var I = narrow ? 20 : 72, R = 56;
@@ -767,9 +792,11 @@ function isDark(){
     var dist = Math.min(560, vw * 0.5);
     fxEls.forEach(function(f, i){
       var r = fxR[i];
-      var tIn = smooth(clamp((vh * 0.97 - r.top) / (vh * 0.55)));
+      var tIn = smooth(clamp((vh * 0.97 - r.top) / (vh * 0.55)));   // slide: slow
+      var tOp = smooth(clamp((vh * 0.98 - r.top) / (vh * 0.16)));   // opacity: solid almost as soon as it's on screen
       f.a = (first) ? tIn : step(f.a, tIn, 0.2);
-      if (f.a !== tIn) busy = true;
+      f.p = (first) ? tOp : step(f.p === undefined ? 0 : f.p, tOp, 0.3);
+      if (f.a !== tIn || f.p !== tOp) busy = true;
       var eOut = 1;
       if (f.out) {
         var tO = smooth(clamp(r.bottom / (vh * 0.14)));
@@ -777,7 +804,7 @@ function isDark(){
         if (f.o !== tO) busy = true;
         eOut = f.o;
       }
-      var op = (f.a * eOut).toFixed(3);
+      var op = (f.p * eOut).toFixed(3);
       var tr = f.dir
         ? 'translate3d(' + (f.dir * ((1 - f.a) * dist + (1 - eOut) * 60)).toFixed(1) + 'px,0,0)'
         : 'translate3d(0,' + ((1 - f.a) * 28 - (1 - eOut) * 10).toFixed(1) + 'px,0)';
@@ -801,10 +828,10 @@ function isDark(){
   }
   function request(){ if (!queued) { queued = true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', request, {passive:true});
-  function relayout(){ measure(); first = true; targets(); c1 = t1; c2 = t2; request(); }
+  function relayout(){ measure(); first = true; targets(); c1 = t1; request(); }
   window.addEventListener('resize', relayout);
   window.addEventListener('load', relayout);
-  measure(); targets(); c1 = t1; c2 = t2; frame();
+  measure(); targets(); c1 = t1; frame();
 
   // Instagram carousels (posts with more than one photo)
   document.querySelectorAll('.ig-car').forEach(function(car){
