@@ -5,500 +5,677 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Irvin Chiu | Sports Writing &amp; Analytics</title>
 <meta name="description" content="Sports writing, analytics and media production by Irvin Chiu. Australian Baseball League, DEF Promotions.">
+<script>
+// apply the saved theme before first paint to avoid a flash
+(function(){
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fbfaf7; --surface:#fff; --raised:#fff;
-  --ink:#14161a; --ink-2:#3d444e; --muted:#767e8a;
-  --line:#e6e2da; --line-2:#f0ede7;
-  --accent:#1d3f73; --accent-2:#2f6fbf; --tint:#eef2f9;
-  --quote-bg:#fdf8ed; --quote-bg-2:#fffdf9; --quote-line:#e7d9b6; --quote-accent:#9a6f16;
-  --shadow:0 1px 2px rgba(20,22,26,.04), 0 8px 24px rgba(20,22,26,.06);
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
-  --w:720px;
+  --bg:#ffffff; --fg:#09090b; --muted:#71717a;
+  --border:#e4e4e7; --secondary:#f4f4f5; --secondary-fg:#18181b;
+  --primary:#18181b; --primary-fg:#fafafa;
+  --card:#ffffff; --dock:rgba(255,255,255,.75);
+  --shadow:0 0 0 1px rgba(0,0,0,.03),0 2px 4px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.05);
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --bg:#0e1014; --surface:#15181e; --raised:#1a1e25;
-    --ink:#eceef2; --ink-2:#c3c9d2; --muted:#8d96a3;
-    --line:#252a33; --line-2:#1c2129;
-    --accent:#8ab0ea; --accent-2:#a8c5f2; --tint:#161c26;
-    --quote-bg:#1d1a13; --quote-bg-2:#16150f; --quote-line:#3a3324; --quote-accent:#dcb45f;
-    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#09090b; --fg:#fafafa; --muted:#a1a1aa;
+    --border:#27272a; --secondary:#27272a; --secondary-fg:#fafafa;
+    --primary:#fafafa; --primary-fg:#18181b;
+    --card:#09090b; --dock:rgba(9,9,11,.7);
+    --shadow:0 0 0 1px rgba(255,255,255,.06),0 -20px 80px -20px rgba(255,255,255,.08) inset;
+    color-scheme:dark;
   }
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);
-  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility}
-.wrap{max-width:var(--w);margin:0 auto;padding:0 22px}
-a{color:var(--accent)}
+:root[data-theme="dark"]{
+  --bg:#09090b; --fg:#fafafa; --muted:#a1a1aa;
+  --border:#27272a; --secondary:#27272a; --secondary-fg:#fafafa;
+  --primary:#fafafa; --primary-fg:#18181b;
+  --card:#09090b; --dock:rgba(9,9,11,.7);
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 -20px 80px -20px rgba(255,255,255,.08) inset;
+  color-scheme:dark;
+}
 
-/* ---------- nav ---------- */
-nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);
-  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
-  border-bottom:1px solid transparent;transition:border-color .25s}
-nav.stuck{border-bottom-color:var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
-nav .me{font-weight:650;font-size:.97rem;letter-spacing:-.015em;
-  text-decoration:none;color:var(--ink);white-space:nowrap}
-nav ul{display:flex;gap:2px;list-style:none;overflow-x:auto;scrollbar-width:none}
-nav ul::-webkit-scrollbar{display:none}
-nav a.nl{display:block;padding:6px 11px;border-radius:999px;text-decoration:none;
-  font-size:.79rem;font-weight:550;letter-spacing:.02em;color:var(--muted);
-  white-space:nowrap;transition:color .18s,background .18s}
-nav a.nl:hover{color:var(--ink)}
-nav a.nl.on{color:var(--accent);background:var(--tint)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  transition:background-color .2s,color .2s;
+}
+a{color:inherit}
+img{display:block;max-width:100%}
+
+main{max-width:672px;margin:0 auto;padding:48px 24px 140px;display:flex;flex-direction:column;gap:40px}
+@media (min-width:640px){main{padding-top:96px}}
+section{scroll-margin-top:32px}
+
+h2.sec{font-size:20px;font-weight:700;margin:0 0 12px;letter-spacing:-.01em}
+.muted{color:var(--muted)}
+.prose{color:var(--muted);font-size:14px;line-height:1.65}
+.prose p{margin:0 0 10px}
+.prose a{color:var(--fg);text-underline-offset:3px}
 
 /* ---------- hero ---------- */
-header{padding:76px 0 34px}
-h1{font-size:clamp(2.5rem,6.6vw,3.7rem);line-height:1.04;
-  letter-spacing:-.042em;font-weight:680}
-.tagline{font-size:clamp(1rem,2.2vw,1.14rem);color:var(--ink-2);font-weight:400;
-  margin-top:13px;max-width:38ch;line-height:1.5;letter-spacing:-.005em}
-.contact{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:26px;font-size:.87rem}
-.contact a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-  padding-bottom:1px;transition:border-color .18s}
-.contact a:hover{border-bottom-color:var(--accent)}
-.contact span{color:var(--muted)}
-
-/* ---------- hero pull quote ---------- */
-.hero-quote{position:relative;margin-top:34px;padding:32px 36px 28px;
-  background:linear-gradient(158deg,var(--quote-bg),var(--quote-bg-2) 82%);
-  border:1px solid var(--quote-line);border-radius:18px;overflow:hidden}
-.hero-quote:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
-  background:linear-gradient(180deg,var(--quote-accent),
-    color-mix(in srgb,var(--quote-accent) 30%,transparent))}
-.hero-quote .mark{position:absolute;top:-16px;right:18px;font-size:7.5rem;line-height:1;
-  font-weight:700;color:var(--quote-accent);opacity:.13;pointer-events:none;user-select:none}
-.hero-quote blockquote{position:relative}
-.hero-quote p{font-size:clamp(1.04rem,2.1vw,1.2rem);line-height:1.6;color:var(--ink);
-  font-weight:430;letter-spacing:-.01em}
-.hero-quote .attr{margin-top:22px;font-size:.79rem;color:var(--muted);letter-spacing:.04em;
-  text-transform:uppercase}
-.hero-quote .attr a{color:var(--quote-accent);text-decoration:none;font-weight:600;
-  border-bottom:1px solid color-mix(in srgb,var(--quote-accent) 40%,transparent)}
-.hero-quote .attr a:hover{border-bottom-color:var(--quote-accent)}
-
-/* ---------- sections ---------- */
-section.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;
-  padding:30px 32px 34px;margin-bottom:20px;scroll-margin-top:78px}
-section.panel:last-child{margin-bottom:0}
-
-/* major divider between the two bodies of work */
-.part{margin-top:34px;padding-top:40px;border-top:2px solid var(--accent);scroll-margin-top:78px}
-.part:first-of-type{margin-top:44px}
-.part-kicker{font-size:.68rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:9px}
-.part-name{font-size:clamp(1.5rem,3.4vw,1.9rem);font-weight:680;letter-spacing:-.036em;
-  line-height:1.14}
-.part-sub{margin-top:7px;font-size:.9rem;color:var(--muted);line-height:1.55}
-.part-head{margin-bottom:22px}
-h2{font-size:.73rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:10px}
-.lede{color:var(--muted);font-size:.93rem;margin-bottom:24px;line-height:1.6}
-
-/* ---------- feature cards ---------- */
-.feats{display:grid;gap:12px}
-.feat{background:var(--bg);border:1px solid var(--line);border-radius:14px;
-  padding:20px 22px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-.feat:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
-.feat .meta{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:9px;
-  font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.pill{background:var(--tint);color:var(--accent);padding:3px 10px;border-radius:999px;
-  font-weight:700;letter-spacing:.07em}
-.feat a.t{display:block;font-size:1.04rem;line-height:1.38;
-  font-weight:630;letter-spacing:-.018em;color:var(--ink);text-decoration:none;margin-bottom:7px;
-  transition:color .18s}
-.feat a.t:hover{color:var(--accent)}
-.feat p{color:var(--muted);font-size:.89rem;line-height:1.58}
-.feat p.open{font-style:italic;color:var(--ink-2)}
-.feat.lead{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));
-  background:linear-gradient(165deg,var(--tint),var(--surface) 62%);padding:26px 26px 24px}
-.feat.lead a.t{font-size:1.3rem;line-height:1.26;letter-spacing:-.026em;margin-bottom:9px}
-.feat.lead p{font-size:.94rem;color:var(--ink-2)}
-
-/* ---------- recognition ---------- */
-.recog{display:grid;gap:14px}
-/* X hard-caps its rendered card at 550px regardless of container width, so the
-   embed is centred rather than stretched. Forcing the iframe wider only adds
-   empty space inside it. */
-.tweet-embed{max-width:550px;margin-left:auto;margin-right:auto}
-.tweet-embed .cap{margin-top:10px;font-size:.83rem;color:var(--muted);line-height:1.55}
-.tweet-embed .cap b{color:var(--ink);font-weight:650}
-/* Fallback shown when platform.x.com is blocked or slow. The widget removes
-   this styling entirely by replacing the blockquote with its own iframe. */
-.twitter-tweet{border:1px solid var(--line);border-radius:14px;background:var(--bg);
-  padding:20px 22px;margin:0}
-.twitter-tweet p{font-size:.95rem;line-height:1.55;color:var(--ink)}
-.twitter-tweet cite{display:block;margin-top:12px;font-style:normal;font-size:.82rem;
-  color:var(--muted)}
-.twitter-tweet a{color:var(--accent);text-decoration:none}
-.twitter-tweet a:hover{text-decoration:underline}
-.twitter-tweet.twitter-tweet-rendered{border:0;padding:0;background:none}
-
-/* ---------- broadcast pickup ---------- */
-.pickup{display:grid;gap:18px}
-.pu{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);
-  transition:box-shadow .2s ease,border-color .2s ease}
-.pu:hover{box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
-.frame{position:relative;padding-top:56.25%;background:#000}
-.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.frame.lite{cursor:pointer}
-.frame.lite img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.frame.lite .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;
-  border-radius:50%;background:rgba(12,14,18,.62);backdrop-filter:blur(3px);
-  border:1.5px solid rgba(255,255,255,.85);
-  transition:transform .22s cubic-bezier(.22,.8,.3,1),background .22s}
-.frame.lite .play:after{content:"";position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);
-  border-style:solid;border-width:11px 0 11px 18px;
-  border-color:transparent transparent transparent #fff}
-.frame.lite:hover .play,.frame.lite:focus-visible .play{transform:scale(1.11);
-  background:rgba(12,14,18,.78)}
-.frame.lite:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.pu-body{padding:15px 20px 17px}
-.pu-body .h{font-weight:630;font-size:.99rem;line-height:1.4;
-  margin-bottom:6px;letter-spacing:-.018em}
-.pu-body .src{font-size:.82rem;color:var(--muted);line-height:1.55}
-.pu-body .src a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 28%,transparent)}
-.pu-body .src a:hover{border-bottom-color:var(--accent)}
-.lbl{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;
-  color:var(--accent);font-weight:700;margin-right:7px}
-
-/* ---------- article lists ---------- */
-.season{margin-bottom:30px}
-.season h3{font-size:.98rem;font-weight:640;margin-bottom:3px;
-  letter-spacing:-.02em}
-.season .sub{font-size:.82rem;color:var(--muted);margin-bottom:12px}
-ul.list{list-style:none}
-ul.list li{display:flex;gap:16px;align-items:baseline;padding:10px 0;
-  border-bottom:1px solid var(--line-2)}
-ul.list li:last-child{border-bottom:0}
-ul.list .d{flex:0 0 68px;font-size:.72rem;color:var(--muted);letter-spacing:.05em;
-  text-transform:uppercase;padding-top:3px}
-ul.list a{color:var(--ink);text-decoration:none;font-size:.93rem;line-height:1.5;
-  border-bottom:1px solid transparent;transition:color .16s,border-color .16s}
-ul.list a:hover{color:var(--accent);border-bottom-color:color-mix(in srgb,var(--accent) 40%,transparent)}
-
-/* ---------- def video grid ---------- */
-.videos{display:grid;gap:18px}
-.vid figcaption{margin-top:9px;font-size:.88rem;font-weight:620;line-height:1.4}
-.vid .frame{border-radius:11px;overflow:hidden;border:1px solid var(--line)}
-.vid .sub{display:block;font-size:.78rem;color:var(--muted);font-weight:400;margin-top:2px}
-
-/* ---------- footer ---------- */
-footer{margin-top:64px;padding:30px 0 70px;border-top:1px solid var(--line);
-  font-size:.84rem;color:var(--muted)}
-footer a{text-decoration:none}
-footer a:hover{text-decoration:underline}
-
-/* ---------- motion ---------- */
-.rv{opacity:0;transform:translateY(38px) scale(.965);
-  transition:opacity .42s cubic-bezier(.4,0,.6,1),transform .42s cubic-bezier(.4,0,.6,1)}
-.rv.in{opacity:1;transform:none;
-  transition:opacity .6s cubic-bezier(.22,.8,.3,1),transform .6s cubic-bezier(.22,.8,.3,1)}
-/* the panel travels less than the cards inside it, so nested transforms do not compound */
-section.panel.rv{transform:translateY(18px) scale(1)}
-section.panel.rv.in{transform:none}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .rv,.rv.in{opacity:1;transform:none;transition:none;transition-delay:0ms !important}
-  .feat:hover,.pu:hover{transform:none}
+.hero{display:flex;gap:16px;justify-content:space-between;align-items:center}
+.hero h1{font-size:32px;font-weight:700;letter-spacing:-.05em;line-height:1.1;margin:0}
+@media (min-width:640px){.hero h1{font-size:48px}}
+@media (min-width:1280px){.hero h1{font-size:60px}}
+.hero p{margin:10px 0 0;max-width:600px}
+@media (min-width:768px){.hero p{font-size:20px}}
+.avatar{
+  flex:none;width:112px;height:112px;border-radius:50%;border:1px solid var(--border);
+  background:var(--secondary);display:grid;place-items:center;
+  font-size:36px;font-weight:600;letter-spacing:-.04em;color:var(--fg);
 }
-@media (max-width:560px){
-  header{padding:54px 0 32px}
-  section.panel{padding:24px 20px 26px;border-radius:16px}
-  ul.list li{flex-direction:column;gap:2px}
-  ul.list .d{flex:none}
+@media (max-width:480px){.avatar{width:80px;height:80px;font-size:26px}}
+
+blockquote.quote{margin:14px 0 0;padding:2px 0 2px 16px;border-left:2px solid var(--border);font-style:italic}
+blockquote.quote p{margin:0 0 6px}
+.quote-attr{font-size:12px;font-style:normal;color:var(--muted)}
+
+/* ---------- work experience ---------- */
+.work{display:flex;flex-direction:column;gap:12px}
+.job{display:flex;gap:16px;align-items:flex-start;padding:4px 0;cursor:pointer;background:none;border:0;color:inherit;font:inherit;text-align:left;width:100%}
+.logo{
+  flex:none;width:48px;height:48px;border-radius:50%;border:1px solid var(--border);
+  background:var(--secondary);display:grid;place-items:center;font-size:13px;font-weight:600;
+}
+.job-body{flex:1;min-width:0}
+.job-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.job-name{font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+@media (min-width:640px){.job-name{font-size:16px}}
+.job-date{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (min-width:640px){.job-date{font-size:14px}}
+.job-role{font-size:12px;margin-top:2px}
+@media (min-width:640px){.job-role{font-size:14px}}
+.chev{width:16px;height:16px;opacity:0;transform:translateX(-4px);transition:all .3s ease-out}
+.job:hover .chev,.job:focus-visible .chev{opacity:1;transform:translateX(0)}
+.job[aria-expanded="true"] .chev{opacity:1;transform:rotate(90deg)}
+.job-desc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.job-desc>div{overflow:hidden;font-size:12px;color:var(--muted);line-height:1.6}
+@media (min-width:640px){.job-desc>div{font-size:14px}}
+.job-desc>div>p{margin:8px 0 0}
+.job[aria-expanded="true"]+.job-desc{grid-template-rows:1fr}
+.job-wrap .job-desc{padding-left:64px}
+
+/* ---------- badges ---------- */
+.badges{display:flex;flex-wrap:wrap;gap:4px}
+.badge{
+  display:inline-flex;align-items:center;gap:4px;border-radius:6px;
+  padding:2px 10px;font-size:12px;font-weight:600;line-height:1.6;
+  background:var(--primary);color:var(--primary-fg);text-decoration:none;
+}
+.badge.sec{background:var(--secondary);color:var(--secondary-fg);font-size:10px;padding:0 6px;font-weight:500}
+.badge svg{width:12px;height:12px}
+a.badge:hover{opacity:.85}
+
+/* ---------- section heading block ---------- */
+.head-center{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:24px}
+.pill{display:inline-block;background:var(--primary);color:var(--primary-fg);border-radius:8px;padding:4px 12px;font-size:14px}
+.head-center h2{font-size:30px;font-weight:700;letter-spacing:-.04em;line-height:1.15;margin:0}
+@media (min-width:640px){.head-center h2{font-size:48px}}
+.head-center p{color:var(--muted);margin:0;max-width:600px}
+@media (min-width:768px){.head-center p{font-size:20px;line-height:1.5}}
+@media (min-width:1024px){.head-center p{font-size:16px}}
+@media (min-width:1280px){.head-center p{font-size:20px}}
+
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.card{
+  display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;
+  background:var(--card);overflow:hidden;transition:box-shadow .3s ease-out;height:100%;
+}
+.card:hover{box-shadow:0 10px 15px -3px rgba(0,0,0,.08),0 4px 6px -4px rgba(0,0,0,.08)}
+.card-body{padding:12px 8px 0;display:flex;flex-direction:column;gap:4px;flex:1}
+.card-title{font-weight:600;font-size:16px;letter-spacing:-.01em;line-height:1.3;margin:0}
+.card-meta{font-size:12px;color:var(--muted);font-family:ui-sans-serif,system-ui,sans-serif}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.6;margin:4px 0 0}
+.card-foot{padding:8px;display:flex;flex-wrap:wrap;gap:4px;margin-top:auto}
+.card-desc.open{font-style:italic}
+
+/* video facades */
+.frame{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.frame.lite{cursor:pointer}
+.frame.lite:hover img{transform:scale(1.03)}
+.play{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;
+  background:rgba(9,9,11,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2)}
+.play::after{content:"";position:absolute;left:21px;top:16px;border-style:solid;border-width:10px 0 10px 15px;border-color:transparent transparent transparent #fff}
+.frame:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+/* ---------- timeline (articles) ---------- */
+.season+.season{margin-top:32px}
+.season h3{font-size:16px;font-weight:600;margin:0 0 2px}
+.season .sub{font-size:14px;color:var(--muted);margin-bottom:16px}
+.timeline{list-style:none;margin:0;padding:0;border-left:1px solid var(--border);margin-left:20px}
+.timeline li{position:relative;padding:0 0 18px 32px}
+.timeline li:last-child{padding-bottom:0}
+.dot{position:absolute;left:-20px;top:0;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);
+  background:var(--bg);display:grid;place-items:center;font-size:10px;font-weight:600;text-align:center;line-height:1.05;color:var(--muted)}
+.timeline time{display:block;font-size:12px;color:var(--muted)}
+.timeline a{display:block;font-weight:600;font-size:14px;line-height:1.4;text-decoration:none;margin-top:2px}
+.timeline a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* tweet */
+.tweet-wrap{display:flex;flex-direction:column;align-items:center}
+.tweet-wrap .twitter-tweet{margin:0 auto!important}
+blockquote.twitter-tweet{border:1px solid var(--border);border-radius:12px;padding:16px;margin:0;max-width:550px;font-size:14px}
+blockquote.twitter-tweet cite{display:block;margin-top:8px;color:var(--muted);font-style:normal;font-size:12px}
+.cap{font-size:12px;color:var(--muted);text-align:center;max-width:520px;margin:12px auto 0;line-height:1.6}
+.cap a{color:var(--fg)}
+
+/* contact */
+.contact{text-align:center;padding:24px 0 12px}
+.contact a{color:var(--fg);text-underline-offset:3px}
+
+/* ---------- dock ---------- */
+.dock-wrap{position:fixed;left:0;right:0;bottom:16px;z-index:30;display:flex;justify-content:center;pointer-events:none}
+.dock-fade{position:fixed;left:0;right:0;bottom:0;height:64px;z-index:29;pointer-events:none;
+  background:linear-gradient(to top,var(--bg),transparent);}
+.dock{
+  pointer-events:auto;display:flex;align-items:center;gap:2px;height:56px;padding:0 8px;
+  border-radius:16px;background:var(--dock);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--border);box-shadow:var(--shadow);max-width:calc(100% - 32px);
+}
+.dock a,.dock button{
+  position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
+  border:0;background:none;color:var(--fg);cursor:pointer;text-decoration:none;
+  transition:transform .2s cubic-bezier(.2,.8,.2,1),background-color .2s;
+}
+.dock a:hover,.dock button:hover{transform:translateY(-4px) scale(1.18);background:var(--secondary)}
+.dock a.on{background:var(--secondary)}
+.dock svg{width:18px;height:18px}
+.dock .sep{width:1px;height:100%;background:var(--border);margin:0 6px}
+.dock [data-tip]::after{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);
+  background:var(--primary);color:var(--primary-fg);font-size:12px;font-weight:500;white-space:nowrap;
+  padding:4px 10px;border-radius:6px;opacity:0;pointer-events:none;transition:all .15s;
+}
+.dock [data-tip]:hover::after,.dock [data-tip]:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:420px){.dock a,.dock button{width:36px;height:36px}.dock .sep{margin:0 3px}}
+.icon-moon{display:none}
+:root[data-theme="dark"] .icon-sun{display:none}
+:root[data-theme="dark"] .icon-moon{display:block}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .icon-sun{display:none}
+  :root:not([data-theme="light"]) .icon-moon{display:block}
+}
+
+/* ---------- blur fade ---------- */
+.bf{opacity:0;filter:blur(6px);transform:translateY(6px);
+  transition:opacity .4s ease-out,filter .4s ease-out,transform .4s ease-out;transition-delay:var(--d,0s)}
+.bf.in{opacity:1;filter:blur(0);transform:none}
+.bt span{display:inline-block;opacity:0;filter:blur(8px);transform:translateY(6px);
+  animation:bt .5s ease-out forwards;white-space:pre}
+@keyframes bt{to{opacity:1;filter:blur(0);transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .bf{opacity:1;filter:none;transform:none;transition:none}
+  .bt span{animation:none;opacity:1;filter:none;transform:none}
+  .dock a:hover,.dock button:hover{transform:none}
 }
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="wrap">
-    <a class="me" href="#top">Irvin Chiu</a>
-    <ul>
-      <li><a class="nl" href="#work">Work</a></li>
-      <li><a class="nl" href="#recognition">Recognition</a></li>
-      <li><a class="nl" href="#broadcast">Broadcast</a></li>
-      <li><a class="nl" href="#articles">Articles</a></li>
-      <li><a class="nl" href="#def">Boxing</a></li>
-    </ul>
-  </div>
-</nav>
+<main id="top">
 
-<div id="top"></div>
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <h1 class="bt" data-text="Hi, I'm Irvin 👋">Hi, I'm Irvin 👋</h1>
+      <p class="bf" style="--d:.2s">Sports writing, analytics, and media production. Based in London, UK.</p>
+    </div>
+    <div class="avatar bf" style="--d:.1s" aria-hidden="true">IC</div>
+  </section>
 
-<header class="wrap">
-  <h1>Irvin Chiu</h1>
-  <p class="tagline">Sports writing, analytics, and media production.</p>
-  <div class="contact">
-    <a href="mailto:irvinchiu.yf@gmail.com">irvinchiu.yf@gmail.com</a>
-    <a href="https://www.linkedin.com/in/irvinchiu/">LinkedIn</a>
-    <span>London, UK</span>
-  </div>
-
-  <div class="hero-quote rv">
-    <span class="mark" aria-hidden="true">&rdquo;</span>
-    <blockquote>
-      <p>"We gave our new reporter Irvin Chiu a difficult task: Tell us who the best five Australian
+  <!-- About -->
+  <section id="about">
+    <h2 class="sec bf" style="--d:.3s">About</h2>
+    <div class="prose bf" style="--d:.35s">
+      <p>Digital Media Coordinator at Baseball Australia, writing long-form analysis for the
+      Australian Baseball League since 2023, for both casual readers and dedicated followers of the sport.
+      Before that, four years in Hong Kong producing promotional video and boxing journalism for DEF Promotions.</p>
+      <blockquote class="quote">
+        <p>"We gave our new reporter Irvin Chiu a difficult task: Tell us who the best five Australian
         baseball players are in the ABL right now. [...] Irvin is a great writer, loves his baseball,
         and has a particularly keen eye for stats and analytics."</p>
-    </blockquote>
-    <div class="attr">theABL.com.au editorial, introducing the
-      <a href="https://theabl.com.au/news/top-5-aussies/">Power Rankings</a>, November 2023</div>
-  </div>
-</header>
-
-<div class="wrap">
-  <div class="part" id="abl">
-    <div class="part-head rv">
-    <div class="part-kicker">Part one</div>
-    <div class="part-name">Australian Baseball League</div>
-    <p class="part-sub">Digital Media Coordinator, Baseball Australia &middot; 2023 to present.
-      Social, editorial, and analytics work, with published writing across two ABL seasons.</p>
-    </div>
-
-  <section class="panel rv" id="work">
-    <h2>Selected work</h2>
-    <p class="lede">Long-form analysis for the Australian Baseball League, written for both casual
-      readers and dedicated followers of the sport.</p>
-    <div class="feats">
-      <article class="feat lead rv">
-        <div class="meta"><span class="pill">Championship preview</span><span>22 Jan 2026</span></div>
-        <a class="t" href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a>
-        <p>Season-defining preview of the ABL Championship Series, weighing a first title against a repeat dynasty through matchup analysis and advanced statistics.</p>
-      </article>
-      <article class="feat  rv">
-        <div class="meta"><span class="pill">Playoff preview</span><span>24 Jan 2024</span></div>
-        <a class="t" href="https://theabl.com.au/news/aces-playoffs/">Playoff Preview: Why the Melbourne Aces can win the Championship</a>
-        <p>The case for the Aces, built from matchup data. Picked up by the postseason broadcast two days later, which worked through the argument on air.</p>
-      </article>
-      <article class="feat  rv">
-        <div class="meta"><span class="pill">Feature</span><span>12 Jan 2024</span></div>
-        <a class="t" href="https://theabl.com.au/news/shota/">How time in Australia played a role in turning Japanese pitcher Shota Imanaga into a global baseball star</a>
-        <p>Published the same month Imanaga signed with the Chicago Cubs, tracing his Australian stint through to the majors. Research conducted in Japanese and English.</p>
-      </article>
-      <article class="feat  rv">
-        <div class="meta"><span class="pill">Analytics</span><span>27 Dec 2023</span></div>
-        <a class="t" href="https://theabl.com.au/news/skepton-rising/">Analysis: Where does rookie Queenslander Alex Skepton's incredible baseball season rank?</a>
-        <p>Advanced-statistics treatment of a breakout rookie season, benchmarked against historical ABL performance.</p>
-      </article>
-      <article class="feat  rv">
-        <div class="meta"><span class="pill">Analytics</span><span>19 Dec 2023</span></div>
-        <a class="t" href="https://theabl.com.au/news/analysis-midway_report/">Analysis: A look at how runs are generated at the midway point of ABL 2023-24</a>
-        <p>League-wide study of run production at the halfway mark, built on a custom statistics database assembled for the purpose.</p>
-      </article>
+        <div class="quote-attr">theABL.com.au editorial, introducing the
+        <a href="https://theabl.com.au/news/top-5-aussies/">Power Rankings</a>, November 2023</div>
+      </blockquote>
     </div>
   </section>
 
-  <section class="panel rv" id="recognition">
-    <h2>Recognition</h2>
-    <div class="recog">
-      <div class="tweet-embed rv">
-        <blockquote class="twitter-tweet" id="clair-tweet" data-dnt="true">
-          <p lang="en" dir="ltr">The <a href="https://x.com/ABL">@ABL</a> starts on Friday and
-            Irvin Chiu broke down the top 5 Aussie players who are on rosters this year:
-            <a href="https://t.co/87P9IMthKE">theabl.com.au/news/top-5-aussies</a></p>
-          <cite>Michael Clair (@michaelsclair),
-            <a href="https://x.com/michaelsclair/status/1724484898210173013">November 14, 2023</a></cite>
-        </blockquote>
-        <div class="cap"><b>Michael Clair</b>, Senior Manager of Storytelling and Special
-          Projects at MLB.com, sharing the
-          <a href="https://theabl.com.au/news/top-5-aussies/">Power Rankings</a> piece with his
-          followers, November 2023.</div>
+  <!-- Work -->
+  <section id="experience">
+    <h2 class="sec bf" style="--d:.4s">Work Experience</h2>
+    <div class="work">
+      <div class="job-wrap bf" style="--d:.45s">
+        <button class="job" aria-expanded="false">
+          <span class="logo" aria-hidden="true">BA</span>
+          <span class="job-body">
+            <span class="job-top">
+              <span class="job-name">Baseball Australia
+                <span class="badges"><span class="badge sec">ABL</span></span>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </span>
+              <span class="job-date">2023 - Present</span>
+            </span>
+            <span class="job-role" style="display:block">Digital Media Coordinator</span>
+          </span>
+        </button>
+        <div class="job-desc"><div>
+          <p>Social, editorial, and analytics work for the Australian Baseball League, with 17 bylined
+          articles on theABL.com.au across two seasons, including the weekly <em>Fire Form</em> column,
+          championship previews, power rankings, and advanced-statistics analysis.</p>
+        </div></div>
+      </div>
+      <div class="job-wrap bf" style="--d:.5s">
+        <button class="job" aria-expanded="false">
+          <span class="logo" aria-hidden="true">DEF</span>
+          <span class="job-body">
+            <span class="job-top">
+              <span class="job-name">DEF Promotions
+                <span class="badges"><span class="badge sec">Hong Kong</span></span>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </span>
+              <span class="job-date">2015 - 2019</span>
+            </span>
+            <span class="job-role" style="display:block">Video Editor and Writer</span>
+          </span>
+        </button>
+        <div class="job-desc"><div>
+          <p>Promotional video for boxing events and fighters, produced in Final Cut Pro X and aired at
+          The Venetian Macao, Hong Kong-Macau Ferries, and the Hong Kong Convention and Exhibition Centre,
+          including collaborations with Top Rank Inc. (USA) and Watanabe Promotions (Japan).
+          Also wrote 37 articles on professional boxing, 2017 to 2019.</p>
+        </div></div>
       </div>
     </div>
   </section>
 
-  <section class="panel rv" id="broadcast">
-    <h2>Broadcast pickup</h2>
-    <p class="lede">Each clip is an ABL broadcast discussing analysis from an article published days
-      earlier. The commentary team are not statisticians, which is the point: the work was written so
-      a general audience could pick it up and use it on air, and they did.</p>
-    <div class="pickup">
-      <article class="pu rv">
+  <!-- Skills -->
+  <section id="skills">
+    <h2 class="sec bf" style="--d:.55s">Skills</h2>
+    <div class="badges">
+      <span class="badge bf" style="--d:.58s">Sports Writing</span>
+      <span class="badge bf" style="--d:.61s">Baseball Analytics</span>
+      <span class="badge bf" style="--d:.64s">Advanced Statistics</span>
+      <span class="badge bf" style="--d:.67s">Social Media</span>
+      <span class="badge bf" style="--d:.70s">Video Editing</span>
+      <span class="badge bf" style="--d:.73s">Final Cut Pro X</span>
+      <span class="badge bf" style="--d:.76s">Boxing Journalism</span>
+      <span class="badge bf" style="--d:.79s">English</span>
+      <span class="badge bf" style="--d:.82s">Japanese</span>
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section id="work">
+    <div class="head-center bf">
+      <span class="pill">Selected Work</span>
+      <h2>Long-form baseball analysis</h2>
+      <p>Written for the Australian Baseball League, built for casual readers and dedicated followers of the sport alike.</p>
+    </div>
+    <div class="grid">
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</h3>
+          <div class="card-meta">22 Jan 2026</div>
+          <p class="card-desc">Season-defining preview of the ABL Championship Series, weighing a first title against a repeat dynasty through matchup analysis and advanced statistics.</p>
+          <div class="badges" style="margin-top:6px"><span class="badge sec">Championship preview</span></div>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read article</a></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Playoff Preview: Why the Melbourne Aces can win the Championship</h3>
+          <div class="card-meta">24 Jan 2024</div>
+          <p class="card-desc">The case for the Aces, built from matchup data. Picked up by the postseason broadcast two days later, which worked through the argument on air.</p>
+          <div class="badges" style="margin-top:6px"><span class="badge sec">Playoff preview</span></div>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/aces-playoffs/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read article</a></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">How time in Australia helped turn Shota Imanaga into a global baseball star</h3>
+          <div class="card-meta">12 Jan 2024</div>
+          <p class="card-desc">Published the same month Imanaga signed with the Chicago Cubs, tracing his Australian stint through to the majors. Research conducted in Japanese and English.</p>
+          <div class="badges" style="margin-top:6px"><span class="badge sec">Feature</span></div>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/shota/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read article</a></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Where does rookie Queenslander Alex Skepton's incredible season rank?</h3>
+          <div class="card-meta">27 Dec 2023</div>
+          <p class="card-desc">Advanced-statistics treatment of a breakout rookie season, benchmarked against historical ABL performance.</p>
+          <div class="badges" style="margin-top:6px"><span class="badge sec">Analytics</span></div>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/skepton-rising/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read article</a></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">How runs are generated at the midway point of ABL 2023-24</h3>
+          <div class="card-meta">19 Dec 2023</div>
+          <p class="card-desc">League-wide study of run production at the halfway mark, built on a custom statistics database assembled for the purpose.</p>
+          <div class="badges" style="margin-top:6px"><span class="badge sec">Analytics</span></div>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/analysis-midway_report/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read article</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section id="recognition">
+    <div class="head-center bf">
+      <span class="pill">Recognition</span>
+      <h2>Shared by MLB.com</h2>
+    </div>
+    <div class="tweet-wrap bf">
+      <blockquote class="twitter-tweet" id="clair-tweet" data-dnt="true">
+        <p lang="en" dir="ltr">The <a href="https://x.com/ABL">@ABL</a> starts on Friday and
+        Irvin Chiu broke down the top 5 Aussie players who are on rosters this year:
+        <a href="https://t.co/87P9IMthKE">theabl.com.au/news/top-5-aussies</a></p>
+        <cite>Michael Clair (@michaelsclair),
+        <a href="https://x.com/michaelsclair/status/1724484898210173013">November 14, 2023</a></cite>
+      </blockquote>
+      <div class="cap"><b>Michael Clair</b>, Senior Manager of Storytelling and Special
+      Projects at MLB.com, sharing the
+      <a href="https://theabl.com.au/news/top-5-aussies/">Power Rankings</a> piece with his
+      followers, November 2023.</div>
+    </div>
+  </section>
+
+  <!-- Broadcast -->
+  <section id="broadcast">
+    <div class="head-center bf">
+      <span class="pill">Broadcast Pickup</span>
+      <h2>Analysis, on air</h2>
+      <p>Each clip is an ABL broadcast discussing analysis from an article published days earlier. The work was written so a general audience could pick it up and use it, and they did.</p>
+    </div>
+    <div class="grid">
+      <article class="card bf">
         <div class="frame lite" data-yt="dZNqUHdM6MI" role="button" tabindex="0" aria-label="Play video: 2023-24 ABL Postseason, Melbourne Aces"><img src="https://i.ytimg.com/vi/dZNqUHdM6MI/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/dZNqUHdM6MI/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <div class="pu-body">
-          <div class="h">Postseason broadcast works through the Aces title case on air</div>
-          <div class="src"><span class="lbl">Source</span>
-            <a href="https://theabl.com.au/news/aces-playoffs/">Playoff Preview: Why the Melbourne Aces can win the Championship</a> &middot; published 24 Jan 2024 &middot; broadcast 26 Jan 2024</div>
+        <div class="card-body">
+          <h3 class="card-title">Postseason broadcast works through the Aces title case</h3>
+          <div class="card-meta">Published 24 Jan 2024 · Broadcast 26 Jan 2024</div>
         </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/aces-playoffs/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Source article</a></div>
       </article>
-      <article class="pu rv">
+      <article class="card bf">
         <div class="frame lite" data-yt="kxnNLNj38P4" role="button" tabindex="0" aria-label="Play video: 2026 ABLCS Game 1"><img src="https://i.ytimg.com/vi/kxnNLNj38P4/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/kxnNLNj38P4/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <div class="pu-body">
-          <div class="h">Championship Series Game 1 coverage picks up the series preview</div>
-          <div class="src"><span class="lbl">Source</span>
-            <a href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a> &middot; published 22 Jan 2026 &middot; broadcast 23 Jan 2026</div>
+        <div class="card-body">
+          <h3 class="card-title">Championship Series Game 1 picks up the series preview</h3>
+          <div class="card-meta">Published 22 Jan 2026 · Broadcast 23 Jan 2026</div>
         </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Source article</a></div>
       </article>
-      <article class="pu rv">
+      <article class="card bf">
         <div class="frame lite" data-yt="kN0kLaB4joc" role="button" tabindex="0" aria-label="Play video: 2023-24 ABL Season, Alex Skepton"><img src="https://i.ytimg.com/vi/kN0kLaB4joc/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/kN0kLaB4joc/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <div class="pu-body">
-          <div class="h">Commentary picks up the Skepton rookie-season analysis</div>
-          <div class="src"><span class="lbl">Source</span>
-            <a href="https://theabl.com.au/news/skepton-rising/">Analysis: Where does rookie Alex Skepton's season rank?</a> &middot; published 27 Dec 2023 &middot; broadcast 30 Dec 2023</div>
+        <div class="card-body">
+          <h3 class="card-title">Commentary picks up the Skepton rookie-season analysis</h3>
+          <div class="card-meta">Published 27 Dec 2023 · Broadcast 30 Dec 2023</div>
         </div>
+        <div class="card-foot"><a class="badge" href="https://theabl.com.au/news/skepton-rising/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Source article</a></div>
       </article>
     </div>
   </section>
 
-  <section class="panel rv" id="articles">
-    <h2>Australian Baseball League</h2>
-    <p class="lede">17 bylined articles for theABL.com.au.</p>
+  <!-- Articles -->
+  <section id="articles">
+    <div class="head-center bf">
+      <span class="pill">Articles</span>
+      <h2>17 bylined articles</h2>
+      <p>Published on theABL.com.au across two Australian Baseball League seasons.</p>
+    </div>
 
     <div class="season">
-      <h3>2025-26 season</h3>
-      <div class="sub">Weekly <em>Fire Form</em> column tracking in-form players, plus the championship preview.</div>
-      <ul class="list">
-      <li><span class="d">22 Jan 26</span><a href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a></li>
-      <li><span class="d">15 Jan 26</span><a href="https://theabl.com.au/news/whose-hot-going-into-round-10/">Who's hot going into Round 10?</a></li>
-      <li><span class="d">7 Jan 26</span><a href="https://theabl.com.au/news/fire-form-who-is-hot-heading-into-round-9/">Fire Form: Who is hot heading into Round 9</a></li>
-      <li><span class="d">31 Dec 25</span><a href="https://theabl.com.au/news/fire-form8/">Fire Form: One key player from each ABL team important to Round 8 success</a></li>
-      <li><span class="d">23 Dec 25</span><a href="https://theabl.com.au/news/fireform7/">Fire Form Round 7: Four key players to watch this week</a></li>
-      <li><span class="d">18 Dec 25</span><a href="https://theabl.com.au/news/fire-form/?network=14">Fire Form: The most important player on each ABL team at the half-way point</a></li>
-      <li><span class="d">10 Dec 25</span><a href="https://theabl.com.au/news/fire-form-5/">Fire Form Round 5: A quick ABL catch up and who is hot entering Round 5</a></li>
-      <li><span class="d">3 Dec 25</span><a href="https://theabl.com.au/news/fireform3/">Fire Form Round 4: A quick ABL catch up and who is hot entering Round 4</a></li>
-      <li><span class="d">26 Nov 25</span><a href="https://theabl.com.au/news/fireform-round3/">Fire Form: One ABL player on each team on fire ahead of Round 3</a></li>
+      <h3 class="bf">2025-26 season</h3>
+      <div class="sub bf">Weekly <em>Fire Form</em> column tracking in-form players, plus the championship preview.</div>
+      <ul class="timeline">
+        <li class="bf"><span class="dot">JAN<br>22</span><time>22 Jan 2026</time><a href="https://theabl.com.au/news/destiny-vs-dynasty-the-2025-26-abl-championship-preview/">Destiny vs Dynasty: The 2025-26 ABL Championship Preview</a></li>
+        <li class="bf"><span class="dot">JAN<br>15</span><time>15 Jan 2026</time><a href="https://theabl.com.au/news/whose-hot-going-into-round-10/">Who's hot going into Round 10?</a></li>
+        <li class="bf"><span class="dot">JAN<br>7</span><time>7 Jan 2026</time><a href="https://theabl.com.au/news/fire-form-who-is-hot-heading-into-round-9/">Fire Form: Who is hot heading into Round 9</a></li>
+        <li class="bf"><span class="dot">DEC<br>31</span><time>31 Dec 2025</time><a href="https://theabl.com.au/news/fire-form8/">Fire Form: One key player from each ABL team important to Round 8 success</a></li>
+        <li class="bf"><span class="dot">DEC<br>23</span><time>23 Dec 2025</time><a href="https://theabl.com.au/news/fireform7/">Fire Form Round 7: Four key players to watch this week</a></li>
+        <li class="bf"><span class="dot">DEC<br>18</span><time>18 Dec 2025</time><a href="https://theabl.com.au/news/fire-form/?network=14">Fire Form: The most important player on each ABL team at the half-way point</a></li>
+        <li class="bf"><span class="dot">DEC<br>10</span><time>10 Dec 2025</time><a href="https://theabl.com.au/news/fire-form-5/">Fire Form Round 5: A quick ABL catch up and who is hot entering Round 5</a></li>
+        <li class="bf"><span class="dot">DEC<br>3</span><time>3 Dec 2025</time><a href="https://theabl.com.au/news/fireform3/">Fire Form Round 4: A quick ABL catch up and who is hot entering Round 4</a></li>
+        <li class="bf"><span class="dot">NOV<br>26</span><time>26 Nov 2025</time><a href="https://theabl.com.au/news/fireform-round3/">Fire Form: One ABL player on each team on fire ahead of Round 3</a></li>
       </ul>
     </div>
 
     <div class="season">
-      <h3>2023-24 season</h3>
-      <div class="sub">Debut season: advanced-statistics analysis, previews, and power rankings.</div>
-      <ul class="list">
-      <li><span class="d">31 Jan 24</span><a href="https://theabl.com.au/news/heat-ablcs/">ABLCS Preview &amp; Analysis: How a balanced Heat batting attack could win them the Claxton Shield</a></li>
-      <li><span class="d">24 Jan 24</span><a href="https://theabl.com.au/news/aces-playoffs/">Playoff Preview: Why the Melbourne Aces can win the Championship</a></li>
-      <li><span class="d">12 Jan 24</span><a href="https://theabl.com.au/news/shota/">How time in Australia played a role in turning Japanese pitcher Shota Imanaga into a global baseball star</a></li>
-      <li><span class="d">10 Jan 24</span><a href="https://theabl.com.au/news/round-9-preview-2/">Round 9 Preview &amp; Notes: Who is winning the Helms Award as the ABL's MVP?</a></li>
-      <li><span class="d">27 Dec 23</span><a href="https://theabl.com.au/news/skepton-rising/">Analysis: Where does rookie Queenslander Alex Skepton's incredible baseball season rank?</a></li>
-      <li><span class="d">19 Dec 23</span><a href="https://theabl.com.au/news/analysis-midway_report/">Analysis: A look at how runs are generated at the midway point of ABL 2023-24</a></li>
-      <li><span class="d">20 Nov 23</span><a href="https://theabl.com.au/news/10-things-rd1/">Ya Gotta Know: 10 Things from Round 1 of the ABL's 2023-24 season</a></li>
-      <li><span class="d">9 Nov 23</span><a href="https://theabl.com.au/news/top-5-aussies/">POWER RANKINGS: The top five Australian players in the ABL for the 2023-24 season</a></li>
+      <h3 class="bf">2023-24 season</h3>
+      <div class="sub bf">Debut season: advanced-statistics analysis, previews, and power rankings.</div>
+      <ul class="timeline">
+        <li class="bf"><span class="dot">JAN<br>31</span><time>31 Jan 2024</time><a href="https://theabl.com.au/news/heat-ablcs/">ABLCS Preview &amp; Analysis: How a balanced Heat batting attack could win them the Claxton Shield</a></li>
+        <li class="bf"><span class="dot">JAN<br>24</span><time>24 Jan 2024</time><a href="https://theabl.com.au/news/aces-playoffs/">Playoff Preview: Why the Melbourne Aces can win the Championship</a></li>
+        <li class="bf"><span class="dot">JAN<br>12</span><time>12 Jan 2024</time><a href="https://theabl.com.au/news/shota/">How time in Australia played a role in turning Japanese pitcher Shota Imanaga into a global baseball star</a></li>
+        <li class="bf"><span class="dot">JAN<br>10</span><time>10 Jan 2024</time><a href="https://theabl.com.au/news/round-9-preview-2/">Round 9 Preview &amp; Notes: Who is winning the Helms Award as the ABL's MVP?</a></li>
+        <li class="bf"><span class="dot">DEC<br>27</span><time>27 Dec 2023</time><a href="https://theabl.com.au/news/skepton-rising/">Analysis: Where does rookie Queenslander Alex Skepton's incredible baseball season rank?</a></li>
+        <li class="bf"><span class="dot">DEC<br>19</span><time>19 Dec 2023</time><a href="https://theabl.com.au/news/analysis-midway_report/">Analysis: A look at how runs are generated at the midway point of ABL 2023-24</a></li>
+        <li class="bf"><span class="dot">NOV<br>20</span><time>20 Nov 2023</time><a href="https://theabl.com.au/news/10-things-rd1/">Ya Gotta Know: 10 Things from Round 1 of the ABL's 2023-24 season</a></li>
+        <li class="bf"><span class="dot">NOV<br>9</span><time>9 Nov 2023</time><a href="https://theabl.com.au/news/top-5-aussies/">POWER RANKINGS: The top five Australian players in the ABL for the 2023-24 season</a></li>
       </ul>
     </div>
   </section>
 
-  </div>
-
-  <div class="part" id="def">
-    <div class="part-head rv">
-    <div class="part-kicker">Part two</div>
-    <div class="part-name">DEF Promotions</div>
-    <p class="part-sub">Video Editor and Writer &middot; Hong Kong, 2015 to 2019.
-      Promotional video and boxing journalism for a professional fight promoter.</p>
+  <!-- DEF video -->
+  <section id="def">
+    <div class="head-center bf">
+      <span class="pill">DEF Promotions</span>
+      <h2>Boxing video production</h2>
+      <p>Promotional video for boxing events and fighters in Hong Kong, 2015 to 2019. Produced in Final Cut Pro X.</p>
     </div>
-
-  <section class="panel rv" id="video">
-    <h2>Video production</h2>
-    <p class="lede">Promotional video for boxing events and fighters at DEF Promotions, Hong Kong.
-      Produced in Final Cut Pro X and aired at The Venetian Macao, Hong Kong-Macau Ferries, and the
-      Hong Kong Convention and Exhibition Centre, including work for collaborations with Top Rank Inc.
-      (USA) and Watanabe Promotions (Japan).</p>
-    <div class="videos">
-      <figure class="vid rv">
+    <div class="grid">
+      <article class="card bf">
         <div class="frame lite" data-yt="TbFRHSMYWdk" role="button" tabindex="0" aria-label="Play video: DEF Promotions Promotional Video"><img src="https://i.ytimg.com/vi/TbFRHSMYWdk/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/TbFRHSMYWdk/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <figcaption>DEF Promotions Promotional Video<span class="sub">Brand film for the promoter</span></figcaption>
-      </figure>
-      <figure class="vid rv">
+        <div class="card-body"><h3 class="card-title">DEF Promotions Promotional Video</h3><p class="card-desc">Brand film for the promoter.</p></div>
+        <div class="card-foot"><span class="badge sec">Brand film</span></div>
+      </article>
+      <article class="card bf">
         <div class="frame lite" data-yt="lqPZUTim54U" role="button" tabindex="0" aria-label="Play video: Clash of Champions III Promo"><img src="https://i.ytimg.com/vi/lqPZUTim54U/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/lqPZUTim54U/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <figcaption>Clash of Champions III Promo<span class="sub">Also directed replay selection and camera angles for the live broadcast</span></figcaption>
-      </figure>
-      <figure class="vid rv">
+        <div class="card-body"><h3 class="card-title">Clash of Champions III Promo</h3><p class="card-desc">Also directed replay selection and camera angles for the live broadcast.</p></div>
+        <div class="card-foot"><span class="badge sec">Event promo</span><span class="badge sec">Live broadcast</span></div>
+      </article>
+      <article class="card bf">
         <div class="frame lite" data-yt="tvOpBT2BQrE" role="button" tabindex="0" aria-label="Play video: Clash of Champions II Promo"><img src="https://i.ytimg.com/vi/tvOpBT2BQrE/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/tvOpBT2BQrE/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <figcaption>Clash of Champions II Promo<span class="sub">Event promotional spot</span></figcaption>
-      </figure>
-      <figure class="vid rv">
+        <div class="card-body"><h3 class="card-title">Clash of Champions II Promo</h3><p class="card-desc">Event promotional spot.</p></div>
+        <div class="card-foot"><span class="badge sec">Event promo</span></div>
+      </article>
+      <article class="card bf">
         <div class="frame lite" data-yt="VT4b0u7vuhQ" role="button" tabindex="0" aria-label="Play video: Battle Of Victors Promo"><img src="https://i.ytimg.com/vi/VT4b0u7vuhQ/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/VT4b0u7vuhQ/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <figcaption>Battle Of Victors Promo<span class="sub">Event promotional spot</span></figcaption>
-      </figure>
-      <figure class="vid rv">
+        <div class="card-body"><h3 class="card-title">Battle Of Victors Promo</h3><p class="card-desc">Event promotional spot.</p></div>
+        <div class="card-foot"><span class="badge sec">Event promo</span></div>
+      </article>
+      <article class="card bf">
         <div class="frame lite" data-yt="VJiTXASPP9s" role="button" tabindex="0" aria-label="Play video: Takuya Watanabe Promo"><img src="https://i.ytimg.com/vi/VJiTXASPP9s/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/VJiTXASPP9s/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
-        <figcaption>Takuya Watanabe Promo<span class="sub">Produced with Watanabe Promotions (Japan)</span></figcaption>
-      </figure>
+        <div class="card-body"><h3 class="card-title">Takuya Watanabe Promo</h3><p class="card-desc">Produced with Watanabe Promotions (Japan).</p></div>
+        <div class="card-foot"><span class="badge sec">Fighter promo</span></div>
+      </article>
     </div>
   </section>
 
-  <section class="panel rv" id="archive">
-    <h2>Selected writing</h2>
-    <p class="lede">Five of 37 articles on professional boxing, fighters, predictions, and fight
-      analysis, published 2017 to 2019. Each card opens with the article's own first line.</p>
-    <div class="feats">
-      <article class="feat rv">
-        <div class="meta"><span class="pill">Fighter profile</span><span>2018</span></div>
-        <a class="t" href="https://www.facebook.com/defpromotionshk/posts/2165475387025823">Reading a pressure fighter, movement by movement</a>
-        <p class="open">&ldquo;He stalks his prey with constant, but controlled aggression, his left arm pawing at his opponent like a metronome, trapping and lulling them.&rdquo;</p>
+  <!-- DEF writing -->
+  <section id="writing">
+    <div class="head-center bf">
+      <span class="pill">Boxing Writing</span>
+      <h2>Selected writing</h2>
+      <p>Five of 37 articles on professional boxing, fighters, predictions, and fight analysis, 2017 to 2019. Each card opens with the article's own first line.</p>
+    </div>
+    <div class="grid">
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Reading a pressure fighter, movement by movement</h3>
+          <div class="card-meta">2018 · Fighter profile</div>
+          <p class="card-desc open">&ldquo;He stalks his prey with constant, but controlled aggression, his left arm pawing at his opponent like a metronome, trapping and lulling them.&rdquo;</p>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://www.facebook.com/defpromotionshk/posts/2165475387025823"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read</a></div>
       </article>
-      <article class="feat rv">
-        <div class="meta"><span class="pill">Fight report</span><span>2019</span></div>
-        <a class="t" href="https://www.facebook.com/defpromotionshk/posts/2313684732204887">Anthony Joshua's defeat to Andy Ruiz Jr, from inside the noise</a>
-        <p class="open">&ldquo;&ldquo;You fat b*****d!&rdquo; roared throughout the arena. The British fans, as usual, were in full force. This fight was viewed as a joke.&rdquo;</p>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Anthony Joshua's defeat to Andy Ruiz Jr, from inside the noise</h3>
+          <div class="card-meta">2019 · Fight report</div>
+          <p class="card-desc open">&ldquo;&ldquo;You fat b*****d!&rdquo; roared throughout the arena. The British fans, as usual, were in full force. This fight was viewed as a joke.&rdquo;</p>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://www.facebook.com/defpromotionshk/posts/2313684732204887"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read</a></div>
       </article>
-      <article class="feat rv">
-        <div class="meta"><span class="pill">Essay</span><span>2019</span></div>
-        <a class="t" href="https://www.facebook.com/defpromotionshk/posts/2340387839534576">Why &ldquo;greatest of all time&rdquo; is an argument about values, not records</a>
-        <p class="open">&ldquo;As an avid boxing fan, I often get to interact with other people who are fans of the sport, whether they just casually follow the sport or follow it religiously like I do.&rdquo;</p>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Why &ldquo;greatest of all time&rdquo; is an argument about values, not records</h3>
+          <div class="card-meta">2019 · Essay</div>
+          <p class="card-desc open">&ldquo;As an avid boxing fan, I often get to interact with other people who are fans of the sport, whether they just casually follow the sport or follow it religiously like I do.&rdquo;</p>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://www.facebook.com/defpromotionshk/posts/2340387839534576"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read</a></div>
       </article>
-      <article class="feat rv">
-        <div class="meta"><span class="pill">Analysis</span><span>2018</span></div>
-        <a class="t" href="https://www.facebook.com/defpromotionshk/posts/2046081438965219">Canelo's six-month ban and what it says about drug testing in boxing</a>
-        <p class="open">&ldquo;Recently, Mexican superstar Saul &ldquo;Canelo&rdquo; Alvarez received a six-month ban after failing two drug tests in February. That&rsquo;s great right?&rdquo;</p>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Canelo's six-month ban and what it says about drug testing in boxing</h3>
+          <div class="card-meta">2018 · Analysis</div>
+          <p class="card-desc open">&ldquo;Recently, Mexican superstar Saul &ldquo;Canelo&rdquo; Alvarez received a six-month ban after failing two drug tests in February. That&rsquo;s great right?&rdquo;</p>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://www.facebook.com/defpromotionshk/posts/2046081438965219"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read</a></div>
       </article>
-      <article class="feat rv">
-        <div class="meta"><span class="pill">Event coverage</span><span>2018</span></div>
-        <a class="t" href="https://www.facebook.com/defpromotionshk/posts/2053446924895337">A DEF fighter's one-minute finish on a major Thailand undercard</a>
-        <p class="open">&ldquo;One. One minute. One combination. One nasty liver shot. One incredible fight.&rdquo;</p>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">A DEF fighter's one-minute finish on a major Thailand undercard</h3>
+          <div class="card-meta">2018 · Event coverage</div>
+          <p class="card-desc open">&ldquo;One. One minute. One combination. One nasty liver shot. One incredible fight.&rdquo;</p>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://www.facebook.com/defpromotionshk/posts/2053446924895337"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Read</a></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Full archive</h3>
+          <div class="card-meta">2017 - 2019</div>
+          <p class="card-desc">Index of all 37 boxing articles written for DEF Promotions.</p>
+        </div>
+        <div class="card-foot"><a class="badge" href="https://www.dropbox.com/scl/fi/89uxi66i5rm9fmlgcfa95/DEF-Articles.txt?rlkey=d6sauu2iwp73h2q85gb0z6dvh&amp;st=zprswf5u&amp;dl=0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>View index</a></div>
       </article>
     </div>
-    <ul class="list" style="margin-top:18px">
-      <li><span class="d">2017-19</span><a href="https://www.dropbox.com/scl/fi/89uxi66i5rm9fmlgcfa95/DEF-Articles.txt?rlkey=d6sauu2iwp73h2q85gb0z6dvh&amp;st=zprswf5u&amp;dl=0">Full index of all 37 boxing articles</a></li>
-    </ul>
   </section>
 
-  </div>
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="head-center bf" style="margin-bottom:0">
+      <span class="pill">Contact</span>
+      <h2>Get in Touch</h2>
+      <p>Email <a href="mailto:irvinchiu.yf@gmail.com">irvinchiu.yf@gmail.com</a> or send a message on
+      <a href="https://www.linkedin.com/in/irvinchiu/">LinkedIn</a>.</p>
+    </div>
+  </section>
 
-  <footer>
-    Irvin Chiu &middot; Sports writing, analytics, and media production &middot;
-    <a href="mailto:irvinchiu.yf@gmail.com">irvinchiu.yf@gmail.com</a>
-  </footer>
+</main>
+
+<!-- Dock -->
+<div class="dock-fade" aria-hidden="true"></div>
+<div class="dock-wrap">
+  <nav class="dock" aria-label="Site">
+    <a href="#top" data-tip="Home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <a class="nl" href="#work" data-tip="Selected work" aria-label="Selected work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></a>
+    <a class="nl" href="#broadcast" data-tip="Broadcast" aria-label="Broadcast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg></a>
+    <a class="nl" href="#articles" data-tip="Articles" aria-label="Articles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></a>
+    <a class="nl" href="#def" data-tip="Boxing" aria-label="Boxing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M3 7.5h4M3 12h18M3 16.5h4M17 3v18M17 7.5h4M17 16.5h4"/></svg></a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="mailto:irvinchiu.yf@gmail.com" data-tip="Email" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+    <a href="https://www.linkedin.com/in/irvinchiu/" data-tip="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+    <span class="sep" aria-hidden="true"></span>
+    <button id="theme" type="button" data-tip="Theme" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+  </nav>
 </div>
 
 <script>
+function isDark(){
+  var t = document.documentElement.getAttribute('data-theme');
+  if (t) return t === 'dark';
+  return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
 (function(){
-  // set the embed theme before the widget renders
+  // set the tweet embed theme before the widget renders
   var bq = document.getElementById('clair-tweet');
-  if (bq && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    bq.setAttribute('data-theme', 'dark');
-  }
+  if (bq && isDark()) bq.setAttribute('data-theme', 'dark');
 })();
 </script>
 <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
 
 <script>
 (function(){
-  var nav = document.getElementById('nav');
-  var links = [].slice.call(document.querySelectorAll('nav a.nl'));
-  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // shadow line on the nav once scrolled
-  var onScroll = function(){
-    nav.classList.toggle('stuck', window.scrollY > 8);
+  // theme toggle
+  document.getElementById('theme').addEventListener('click', function(){
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  // letter-by-letter blur-in for the hero heading
+  var h = document.querySelector('.bt');
+  if (h && !reduce) {
+    var chars = Array.from(h.getAttribute('data-text'));
+    h.setAttribute('aria-label', h.getAttribute('data-text'));
+    h.textContent = '';
+    chars.forEach(function(c, i){
+      var s = document.createElement('span');
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = c;
+      s.style.animationDelay = (i * 0.04) + 's';
+      h.appendChild(s);
+    });
+  }
+
+  // expandable work entries
+  document.querySelectorAll('.job').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    });
+  });
+
+  // blur-fade on enter (plays once)
+  var items = [].slice.call(document.querySelectorAll('.bf'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -40px 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  // highlight the active dock link
+  var links = [].slice.call(document.querySelectorAll('.dock a.nl'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function onScroll(){
     var best = -1, bestTop = -Infinity;
     for (var i = 0; i < secs.length; i++) {
-      if (!secs[i]) continue;
-      var top = secs[i].getBoundingClientRect().top - 90;
+      var top = secs[i].getBoundingClientRect().top - 120;
       if (top <= 0 && top > bestTop) { bestTop = top; best = i; }
     }
     links.forEach(function(a, i){ a.classList.toggle('on', i === best); });
-  };
+  }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  // reveal on scroll
-  // Click-to-play video facades. Nothing is requested from YouTube until the
-  // visitor presses play, and the resting state shows no YouTube chrome at all.
+  // click-to-play video facades: nothing loads from YouTube until play is pressed
   document.querySelectorAll('.frame.lite').forEach(function(el){
     function play(){
       var id = el.getAttribute('data-yt');
@@ -519,48 +696,6 @@ section.panel.rv.in{transform:none}
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
     });
   });
-
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = [].slice.call(document.querySelectorAll('.rv'));
-
-  if (reduce) {
-    items.forEach(function(el){ el.classList.add('in'); });
-    items = [];
-  }
-
-  // Reversible reveal. Every element is re-evaluated on each frame we care about,
-  // so nothing can get stuck hidden the way an IntersectionObserver could, and
-  // scrolling back up plays the animation in reverse.
-  // The two thresholds form a hysteresis band so an element parked near the
-  // boundary cannot flicker between states.
-  var SHOW_AT = 0.75;   // appears once its top passes 75% of viewport height
-  var HIDE_AT = 0.88;   // fades back out at 88%, well inside the screen so the exit is visible
-  var ticking = false;
-
-  function sweep(){
-    var vh = window.innerHeight;
-    for (var i = 0; i < items.length; i++) {
-      var el = items[i];
-      var top = el.getBoundingClientRect().top;
-      var on = el.classList.contains('in');
-      if (!on && top < vh * SHOW_AT) {
-        el.classList.add('in');
-      } else if (on && top > vh * HIDE_AT) {
-        el.classList.remove('in');
-      }
-    }
-    ticking = false;
-  }
-
-  function onScrollMotion(){
-    if (!ticking) { ticking = true; requestAnimationFrame(sweep); }
-  }
-
-  window.addEventListener('scroll', onScrollMotion, {passive:true});
-  window.addEventListener('resize', onScrollMotion, {passive:true});
-  window.addEventListener('load', sweep);
-  sweep();
-
 })();
 </script>
 </body>
