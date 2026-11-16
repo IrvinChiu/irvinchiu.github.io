@@ -471,7 +471,7 @@ html,body{overflow-x:clip}
 /* ---------- round 7: caption slides out from under the photo; carousel ---------- */
 @media (min-width:720px){
   .ig-img{z-index:2}
-  .ig-text{z-index:1;opacity:1;width:46%;right:auto;left:calc(27% + var(--t) * 27%);transform:none;top:4px;bottom:4px;box-shadow:0 8px 28px rgba(0,0,0,calc(.08 * var(--t)))}
+  .ig-text{z-index:1;opacity:1;width:46%;right:auto;left:calc(27% + var(--t) * 27%);transform:none;top:0;bottom:0;box-shadow:0 8px 28px rgba(0,0,0,calc(.08 * var(--t)))}
 }
 .ig-car{position:absolute}
 .ig-slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
