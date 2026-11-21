@@ -744,6 +744,22 @@ function isDark(){
     rvItems.forEach(function(el){ rvIO.observe(el); });
   }
 
+  // Instagram captions: long ones are clipped and only scroll after "Read more" is clicked, so they never swallow page scrolling
+  document.querySelectorAll('.ig-cap').forEach(function(cap){
+    if (cap.scrollHeight <= cap.clientHeight + 2) return;
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'ig-more'; btn.textContent = 'Read more';
+    cap.parentNode.insertBefore(btn, cap.nextSibling);
+    cap.classList.add('clip');
+    cap.removeAttribute('tabindex'); cap.removeAttribute('aria-label');
+    function on(){ cap.classList.add('scroll'); cap.classList.remove('clip'); cap.setAttribute('tabindex', '0'); btn.textContent = 'Done'; }
+    function off(){ cap.classList.remove('scroll'); cap.classList.add('clip'); cap.removeAttribute('tabindex'); btn.textContent = 'Read more'; }
+    btn.addEventListener('click', function(){ if (cap.classList.contains('scroll')) off(); else { on(); cap.focus({preventScroll:true}); } });
+    cap.addEventListener('click', function(){ if (!cap.classList.contains('scroll')) on(); });
+    cap.parentNode.addEventListener('mouseleave', function(){ if (cap.classList.contains('scroll')) off(); });
+    document.addEventListener('pointerdown', function(e){ if (cap.classList.contains('scroll') && !cap.parentNode.contains(e.target)) off(); });
+  });
+
   // Instagram carousels (posts with more than one photo)
   document.querySelectorAll('.ig-car').forEach(function(car){
     var track = car.querySelector('.ig-slides'), dots = [].slice.call(car.querySelectorAll('.ig-dots button'));
