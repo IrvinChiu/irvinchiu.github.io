@@ -203,15 +203,11 @@ a.badge:hover{opacity:.85}
   :root:not([data-theme="light"]) .icon-moon{display:block}
 }
 
-/* ---------- blur fade ---------- */
-.bf{opacity:0;transform:translateY(6px);
-  transition:opacity .4s ease-out,transform .4s ease-out;transition-delay:var(--d,0s)}
-.bf.in{opacity:1;transform:none}
+/* ---------- hero heading intro (plays once on load) ---------- */
 .bt .w{display:inline-block;white-space:nowrap}
 .bt .w span{display:inline-block;animation:bt .5s ease-out backwards;white-space:pre}
 @keyframes bt{from{opacity:0;filter:blur(8px);transform:translateY(6px)}}
 @media (prefers-reduced-motion: reduce){
-  .bf{opacity:1;filter:none;transform:none;transition:none}
   .bt .w span{animation:none;opacity:1;filter:none;transform:none}
   .dock a:hover,.dock button:hover{transform:none}
 }
@@ -445,11 +441,7 @@ html,body{overflow-x:clip}
 }
 @media (hover:none){ .ig-nav{opacity:1} }
 
-/* ================= motion: one-shot fades only =================
-   Nothing here runs per scroll frame. Elements fade up once, the first time they enter the viewport. */
-.rv{opacity:0;transform:translate3d(0,14px,0);transition:opacity .5s ease-out,transform .5s ease-out;transition-delay:var(--d,0s)}
-.rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+/* No scroll-triggered motion: content is always in place as you scroll. */
 @media (min-width:720px){ .ig-text{box-shadow:none} }
 
 .cook p{max-width:640px;font-size:16px}

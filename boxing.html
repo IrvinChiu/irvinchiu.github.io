@@ -125,17 +125,6 @@ function isDark(){
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
   });
-  var items = [].slice.call(document.querySelectorAll('.bf'));
-  if (reduce || !('IntersectionObserver' in window)) {
-    items.forEach(function(el){ el.classList.add('in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, {rootMargin:'0px 0px -40px 0px'});
-    items.forEach(function(el){ io.observe(el); });
-  }
 })();
 </script>
 </body>
