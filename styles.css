@@ -210,7 +210,7 @@ a.badge:hover{opacity:.85}
 .bt .w{display:inline-block;white-space:nowrap}
 .bt .w span{display:inline-block;opacity:0;filter:blur(8px);transform:translateY(6px);
   animation:bt .5s ease-out forwards;white-space:pre}
-@keyframes bt{to{opacity:1;filter:blur(0);transform:none}}
+@keyframes bt{to{opacity:1;filter:none;transform:none}}
 @media (prefers-reduced-motion: reduce){
   .bf{opacity:1;filter:none;transform:none;transition:none}
   .bt .w span{animation:none;opacity:1;filter:none;transform:none}
@@ -397,8 +397,14 @@ html,body{overflow-x:clip}
 .ig-img{border:1px solid var(--border)}
 .ig-text{justify-content:flex-start;gap:12px;padding:22px;border:1px solid var(--border);border-radius:16px;background:var(--card)}
 .ig-text h3{flex:none}
-.ig-cap{flex:1;min-height:0;width:100%;overflow-y:auto;padding-right:8px;font-size:15px;line-height:1.6;color:var(--muted);
+.ig-cap{flex:1;min-height:0;width:100%;overflow-y:hidden;padding-right:8px;font-size:15px;line-height:1.6;color:var(--muted);
   scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+/* captions never trap the mouse wheel: they only scroll after "Read more" is clicked, and release when the pointer leaves */
+.ig-cap.clip{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 40px),transparent)}
+.ig-cap.scroll{overflow-y:auto;-webkit-mask-image:none;mask-image:none;overscroll-behavior:contain}
+.ig-more{flex:none;align-self:flex-start;background:none;border:0;padding:0;margin:-4px 0 0;color:var(--muted);font:inherit;font-size:13px;
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.ig-more:hover,.ig-more:focus-visible{color:var(--fg)}
 .ig-cap p{margin:0 0 .8em}
 .ig-cap:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:6px}
 .ig-text .badge{flex:none}
