@@ -386,6 +386,9 @@ html,body{overflow-x:clip}
   .ig-img{width:50%;left:calc((1 - var(--t)) * 25%)}
   .ig-text{left:54%}
 }
+@media (min-width:1024px){
+  .ig-grid{width:100%;margin-left:0}
+}
 
 /* ---------- round 5 ---------- */
 @media (min-width:1024px){ .side{z-index:25} }
