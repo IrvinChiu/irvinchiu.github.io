@@ -3,7 +3,7 @@
   --border:#ebebeb; --secondary:#f4f4f4; --secondary-fg:#333333;
   --primary:#2b2b2b; --primary-fg:#fafafa;
   --card:#ffffff; --soft:#f6f6f6; --dock:rgba(255,255,255,.75);
-  --shadow:0 0 0 1px rgba(0,0,0,.03),0 2px 4px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.05);
+  --shadow:0 0 0 1px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.06);
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
@@ -12,7 +12,7 @@
     --border:#262626; --secondary:#1f1f1f; --secondary-fg:#ededed;
     --primary:#ededed; --primary-fg:#171717;
     --card:#141414; --soft:#181818; --dock:rgba(17,17,17,.72);
-    --shadow:0 0 0 1px rgba(255,255,255,.06),0 -20px 80px -20px rgba(255,255,255,.08) inset;
+    --shadow:0 0 0 1px rgba(255,255,255,.06);
     color-scheme:dark;
   }
 }
@@ -21,12 +21,12 @@
   --border:#262626; --secondary:#1f1f1f; --secondary-fg:#ededed;
   --primary:#ededed; --primary-fg:#171717;
   --card:#141414; --soft:#181818; --dock:rgba(17,17,17,.72);
-  --shadow:0 0 0 1px rgba(255,255,255,.06),0 -20px 80px -20px rgba(255,255,255,.08) inset;
+  --shadow:0 0 0 1px rgba(255,255,255,.06);
   color-scheme:dark;
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
 body{
   margin:0;background:var(--bg);color:var(--fg);
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -204,13 +204,12 @@ a.badge:hover{opacity:.85}
 }
 
 /* ---------- blur fade ---------- */
-.bf{opacity:0;filter:blur(6px);transform:translateY(6px);
-  transition:opacity .4s ease-out,filter .4s ease-out,transform .4s ease-out;transition-delay:var(--d,0s)}
-.bf.in{opacity:1;filter:blur(0);transform:none}
+.bf{opacity:0;transform:translateY(6px);
+  transition:opacity .4s ease-out,transform .4s ease-out;transition-delay:var(--d,0s)}
+.bf.in{opacity:1;transform:none}
 .bt .w{display:inline-block;white-space:nowrap}
-.bt .w span{display:inline-block;opacity:0;filter:blur(8px);transform:translateY(6px);
-  animation:bt .5s ease-out forwards;white-space:pre}
-@keyframes bt{to{opacity:1;filter:none;transform:none}}
+.bt .w span{display:inline-block;animation:bt .5s ease-out backwards;white-space:pre}
+@keyframes bt{from{opacity:0;filter:blur(8px);transform:translateY(6px)}}
 @media (prefers-reduced-motion: reduce){
   .bf{opacity:1;filter:none;transform:none;transition:none}
   .bt .w span{animation:none;opacity:1;filter:none;transform:none}
