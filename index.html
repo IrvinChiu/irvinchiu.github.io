@@ -673,59 +673,24 @@ function isDark(){
     });
   });
 
-  // blur-fade on enter (plays once)
-  var items = [].slice.call(document.querySelectorAll('.bf'));
-  if (reduce || !('IntersectionObserver' in window)) {
-    items.forEach(function(el){ el.classList.add('in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, {rootMargin:'0px 0px -40px 0px'});
-    items.forEach(function(el){ io.observe(el); });
-  }
-
-  // ---------- scroll effects ----------
-  // All motion is done in CSS (scroll-driven animations on the compositor), so it can't lag or jitter behind the
-  // page. JS only does one-off setup here.
-  var sections = [].slice.call(document.querySelectorAll('main > section'));
-  // wrap each section's content so it can shift sideways without moving the full-width bar behind it
-  sections.forEach(function(s){
-    var w = document.createElement('div'); w.className = 'sec-in';
-    while (s.firstChild) w.appendChild(s.firstChild);
-    s.appendChild(w);
-  });
-  // reveal classes: cards slide in from alternating sides, everything else fades up
-  var cardCount = new Map();
+  // ---------- reveals ----------
+  // Elements fade up once, the first time they enter the viewport. Nothing runs per scroll frame.
+  var rvItems = [].slice.call(document.querySelectorAll('main .bf'));
   var exK = 0;
-  [].slice.call(document.querySelectorAll('main .bf')).forEach(function(el){
+  rvItems.forEach(function(el){
     el.classList.remove('bf');
-    if (el.closest('#explore')) { el.classList.add('exi'); el.style.setProperty('--k', exK++); return; }
-    if (el.matches('.card, .qcard')) {
-      var n = cardCount.get(el.parentNode) || 0; cardCount.set(el.parentNode, n + 1);
-      el.classList.add(n % 2 === 0 ? 'rv-l' : 'rv-r');
-    } else {
-      el.classList.add('rv');
-    }
+    el.classList.add('rv');
+    if (el.closest('#explore')) el.style.setProperty('--d', (exK++ * 0.08) + 's');
   });
-  // Explore: the heading and each row fade in one by one as they come into view, and out one by one as they
-  // leave. Timed (not tied to scroll speed): anything that arrives in the same moment is staggered in order.
-  var exItems = [].slice.call(document.querySelectorAll('#explore .exi'));
-  if (exItems.length && 'IntersectionObserver' in window && !reduce) {
-    var lastY = window.scrollY;
-    var exIO = new IntersectionObserver(function(entries){
-      var down = window.scrollY >= lastY; lastY = window.scrollY;
-      var order = function(a, b){ return exItems.indexOf(a.target) - exItems.indexOf(b.target); };
-      var ins = entries.filter(function(e){ return e.isIntersecting; }).sort(order);
-      var outs = entries.filter(function(e){ return !e.isIntersecting; }).sort(order);
-      if (!down) { ins.reverse(); outs.reverse(); }
-      ins.forEach(function(e, i){ e.target.style.transitionDelay = (i * 220) + 'ms'; e.target.classList.add('in'); });
-      outs.forEach(function(e, i){ e.target.style.transitionDelay = (i * 140) + 'ms'; e.target.classList.remove('in'); });
-    }, {rootMargin: '-12% 0px -10% 0px', threshold: 0});
-    exItems.forEach(function(el){ exIO.observe(el); });
+  if (reduce || !('IntersectionObserver' in window)) {
+    rvItems.forEach(function(el){ el.classList.add('in'); });
   } else {
-    exItems.forEach(function(el){ el.classList.add('in'); });
+    var rvIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); rvIO.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px'});
+    rvItems.forEach(function(el){ rvIO.observe(el); });
   }
 
   // Instagram carousels (posts with more than one photo)
@@ -741,20 +706,18 @@ function isDark(){
     sync();
   });
 
-  // highlight the active dock link
+  // highlight the active dock link (observer, no scroll handler)
   var links = [].slice.call(document.querySelectorAll('a.nl'));
-  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
-  function onScroll(){
-    var best = -1, bestTop = -Infinity;
-    for (var i = 0; i < secs.length; i++) {
-      if (!secs[i]) continue;
-      var top = secs[i].getBoundingClientRect().top - 120;
-      if (top <= 0 && top > bestTop) { bestTop = top; best = i; }
-    }
-    links.forEach(function(a, i){ a.classList.toggle('on', i === best); });
+  if ('IntersectionObserver' in window) {
+    var navIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var id = '#' + e.target.id;
+        links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === id); });
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    links.forEach(function(a){ var t = document.querySelector(a.getAttribute('href')); if (t) navIO.observe(t); });
   }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
 
   // click-to-play video facades: nothing loads from YouTube until play is pressed
   document.querySelectorAll('.frame.lite').forEach(function(el){
