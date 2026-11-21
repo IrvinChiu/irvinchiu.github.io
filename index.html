@@ -76,6 +76,7 @@
       <div class="explore">
       <a class="ex-row bf" href="#work"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="ex-name">Work</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">Long-form baseball analysis for the ABL</span></a>
       <a class="ex-row bf" href="#database"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span><span class="ex-name">Database</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">ABL Stats, a play-by-play database I built</span></a>
+      <a class="ex-row bf" href="#clips"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg></span><span class="ex-name">Game Tools</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">ABL Clip Tools, built for covering games live</span></a>
       <a class="ex-row bf" href="#broadcast"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg></span><span class="ex-name">Broadcast</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">Analysis picked up on air</span></a>
       <a class="ex-row bf" href="#articles"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span><span class="ex-name">Articles</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">17 bylined articles across two seasons</span></a>
       <a class="ex-row bf" href="#def"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M3 7.5h4M3 12h18M3 16.5h4M17 3v18M17 7.5h4M17 16.5h4"/></svg></span><span class="ex-name">Boxing</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">Promo video and writing in Hong Kong</span></a>
@@ -243,6 +244,55 @@
         <div class="card-foot"><span class="badge sec">Run expectancy</span><span class="badge sec">wOBA</span><span class="badge sec">WAR</span></div>
       </article>
     </div>
+  </section>
+
+  <!-- ABL Clip Tools -->
+  <section id="clips">
+    <div class="sec-head bf">
+      <span class="kicker">Live Coverage Tool</span>
+      <h2 class="sec">ABL Clip Tools</h2>
+      <p>A private tool that follows a game as I cover it and handles the bookkeeping, so I can watch the game instead of typing.</p>
+    </div>
+    <div class="cook bf">
+      <p>Covering a game live means every highlight needs a clip title in the standard format the social media team uses. Typing
+        those by hand meant checking who the player was, what inning it was and what the outcome actually was, while the game kept going.</p>
+      <p>ABL Clip Tools follows the live game through the API and logs each outcome as it happens. It builds the title for me, and one
+        click copies it, ready to paste into our clip cutting tool.</p>
+      <p>Each play also comes with context: strikeouts in a row, hits in a row and home runs in a row, plus a flag when a player reaches a career
+        or season milestone. Win probability added and leverage show which plays mattered most.</p>
+      <p>It also helps me write the recap. During the game I add key plays to a recap list with a quick note on what happened, so by the
+        final out the context is already collected and I don't have to rely on memory. It can even write the recap automatically at the end of the game.</p>
+      <p>It runs on my own computer for my own use, so there is no public link. Here is what it looks like.</p>
+    </div>
+    <a class="shot bf" href="images/clip-tools.webp" target="_blank" rel="noopener" aria-label="View full-size screenshot of the live clips view">
+      <img src="images/clip-tools.webp" alt="ABL Clip Tools live clips view for a game, listing each play with a standardised clip title, description, win probability added, score and Copy and Recap buttons" loading="lazy" width="1320" height="1065">
+    </a>
+    <div class="grid" style="margin-top:20px">
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Clip titles, ready to paste</h3>
+          <p class="card-desc">Round, game, inning, player and outcome in the social team's standard format. One click copies it.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Copy</span><span class="badge sec">Copy all shown</span></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Context and milestones</h3>
+          <p class="card-desc">Streaks of strikeouts, hits and home runs, plus career and season milestones, flagged on the play itself.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Streaks</span><span class="badge sec">Milestones</span><span class="badge sec">WPA</span></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">A recap that writes itself</h3>
+          <p class="card-desc">Key plays go on a recap list with a quick note as they happen, so the recap is mostly assembled by the final out.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Recap list</span><span class="badge sec">Auto-write</span></div>
+      </article>
+    </div>
+    <a class="shot bf" href="images/clip-tools-recap.webp" target="_blank" rel="noopener" aria-label="View full-size screenshot of adding a play to the recap">
+      <img src="images/clip-tools-recap.webp" alt="Adding a play to the recap in ABL Clip Tools: a dialog with the play details and a box for a quick note on what happened" loading="lazy" width="960" height="460">
+    </a>
   </section>
 
   <!-- Broadcast -->
