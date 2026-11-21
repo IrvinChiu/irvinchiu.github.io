@@ -504,42 +504,24 @@ html,body{overflow-x:clip}
   .has-aside .dock-wrap .dock{pointer-events:auto}
 }
 
-/* bars: every section; full-bleed rectangle sized from the column offset, clipped to a card at the screen edges */
-:root{--ix-max:72px;--r-max:56px}
-@media (max-width:719px){ :root{--ix-max:20px} }
+/* bars: every other section gets a plain full-bleed band, no motion */
 .has-aside main{--ml:calc(max(0px,(100vw - 672px) / 2) + 24px)}
 @media (min-width:1024px){ .has-aside main{--ml:calc(max(0px,(100vw - 1160px) / 2) + 440px)} }
 .has-aside main>section::before{
   content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none;background:var(--bg);
   left:calc(-1 * var(--ml));width:100vw;border-radius:0;
 }
-@property --ixt{syntax:'<length>';inherits:false;initial-value:0px}
-@property --ixb{syntax:'<length>';inherits:false;initial-value:0px}
-@property --rt{syntax:'<length>';inherits:false;initial-value:0px}
-@property --rb{syntax:'<length>';inherits:false;initial-value:0px}
-@keyframes bar-in{from{--ixt:var(--ix-max);--rt:var(--r-max)}to{--ixt:0px;--rt:0px}}
-@keyframes bar-out{from{--ixb:0px;--rb:0px}to{--ixb:var(--ix-max);--rb:var(--r-max)}}
-
 @media (prefers-reduced-motion: no-preference){
 @supports (animation-timeline: view()){
-  .has-aside main>section::before{
-    clip-path:inset(0 max(var(--ixt),var(--ixb)) round var(--rt) var(--rt) var(--rb) var(--rb));
-    animation:bar-in linear both,bar-out linear both;
-    animation-timeline:view(),view();
-    animation-range:entry 5% entry 50%,exit 50% exit 95%;
-  }
-
-  /* cards slide in from alternating sides; everything else fades up. Entry only: they never fade out on the way down,
-     and on the way back up they only fade right at the bottom edge. */
+  /* every reveal is a short fade-up on entry only */
   @keyframes rv-fade{from{opacity:0}to{opacity:1}}
   @keyframes rv-up{from{transform:translate3d(0,28px,0)}to{transform:none}}
-  @keyframes rv-left{from{transform:translate3d(-38vw,0,0)}to{transform:none}}
-  @keyframes rv-right{from{transform:translate3d(38vw,0,0)}to{transform:none}}
+  @keyframes rv-left{from{transform:translate3d(0,28px,0)}to{transform:none}}
+  @keyframes rv-right{from{transform:translate3d(0,28px,0)}to{transform:none}}
   .rv,.rv-l,.rv-r{animation-timing-function:linear;animation-fill-mode:both;animation-timeline:view(),view();animation-range:entry 0% entry 11vh,entry 0% entry 20vh}
   .rv{animation-name:rv-fade,rv-up}
   .rv-l{animation-name:rv-fade,rv-left}
   .rv-r{animation-name:rv-fade,rv-right}
-  .rv-l,.rv-r{animation-timing-function:linear,cubic-bezier(.2,.7,.2,1)}
 }
 
 @supports (animation-timeline: scroll()){
