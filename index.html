@@ -75,6 +75,7 @@
       <div class="sec-head bf"><h2 class="sec">Explore</h2></div>
       <div class="explore">
       <a class="ex-row bf" href="#work"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="ex-name">Work</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">Long-form baseball analysis for the ABL</span></a>
+      <a class="ex-row bf" href="#database"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span><span class="ex-name">Database</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">ABL Stats, a play-by-play database I built</span></a>
       <a class="ex-row bf" href="#broadcast"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg></span><span class="ex-name">Broadcast</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">Analysis picked up on air</span></a>
       <a class="ex-row bf" href="#articles"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span><span class="ex-name">Articles</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">17 bylined articles across two seasons</span></a>
       <a class="ex-row bf" href="#def"><span class="ex-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M3 7.5h4M3 12h18M3 16.5h4M17 3v18M17 7.5h4M17 16.5h4"/></svg></span><span class="ex-name">Boxing</span><span class="ex-arrow" aria-hidden="true">&rarr;</span><span class="ex-desc">Promo video and writing in Hong Kong</span></a>
@@ -195,6 +196,54 @@
     </div>
   </section>
 
+
+  <!-- ABL Stats database -->
+  <section id="database">
+    <div class="sec-head bf">
+      <span class="kicker">Statistics Database</span>
+      <h2 class="sec">ABL Stats</h2>
+      <p>The tool behind the writing: a searchable Australian Baseball League database built on play-by-play and box score data.</p>
+    </div>
+    <div class="cook bf">
+      <p>I used to build and update my ABL database by hand in Excel, then dig through it manually to find interesting players
+        and the numbers behind them. It worked, but it was slow, and it only went as deep as the columns I had typed in.</p>
+      <p>So I rebuilt it. ABL Stats pulls play-by-play and box score data from the MLB Stats API and publishes it as a site,
+        which means every pitch result and plate appearance is queryable instead of just the season totals.
+        Leaders, records, matchups, individual plays and player comparisons are a few clicks away, with batting, pitching, team and season views,
+        a filter builder, and regular season and playoff splits.</p>
+      <p>The bigger change is custom advanced statistics. With 15 seasons of ABL play-by-play I can build run expectancy from the
+        league's own history, then derive stats like wOBA and WAR from it, rather than borrowing MLB weightings that don't always
+        translate to the ABL. Definitions, formulas and fitted weights are published on the site's Glossary tab.</p>
+      <p>All of it exists to do one thing: help me find stories worth writing.</p>
+      <a class="badge lg" href="https://abl-stats.pages.dev/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Open ABL Stats</a>
+    </div>
+    <a class="shot bf" href="https://abl-stats.pages.dev/" target="_blank" rel="noopener" aria-label="Open ABL Stats">
+      <img src="images/abl-stats.webp" alt="ABL Stats batting table for 2025-26, sorted by WAR, with wRAA, base running, RE24 and park factor columns" loading="lazy" width="1040" height="634">
+    </a>
+    <div class="grid" style="margin-top:20px">
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Play-by-play granularity</h3>
+          <p class="card-desc">Every plate appearance from the MLB Stats API, searchable by play, game, matchup and player.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Plays</span><span class="badge sec">Games</span><span class="badge sec">Finder</span></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Leaders, records and comparisons</h3>
+          <p class="card-desc">Sortable batting, pitching, team and season tables, with single-season performances and combined multi-season totals.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Leaders</span><span class="badge sec">Seasons</span><span class="badge sec">Park-adjust</span></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">ABL-specific advanced stats</h3>
+          <p class="card-desc">Run expectancy built from ABL history, feeding custom wOBA and WAR instead of imported MLB weights.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Run expectancy</span><span class="badge sec">wOBA</span><span class="badge sec">WAR</span></div>
+      </article>
+    </div>
+  </section>
 
   <!-- Broadcast -->
   <section id="broadcast">
