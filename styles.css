@@ -230,10 +230,6 @@ a.badge:hover{opacity:.85}
 .side-nav a:hover,.side-nav a.on{background:var(--secondary)}
 .side h1{font-size:34px;font-weight:600;letter-spacing:-.045em;line-height:1.08;margin:0;color:var(--fg)}
 .side-bottom{margin-top:28px}
-.side-icons{display:flex;gap:4px;margin:0 0 14px -6px}
-.side-icons a,.side-icons button{display:grid;place-items:center;width:32px;height:32px;border-radius:6px;border:0;background:none;color:var(--fg-2);cursor:pointer;transition:background .2s,color .2s}
-.side-icons a:hover,.side-icons button:hover{background:var(--secondary);color:var(--fg)}
-.side-icons svg{width:17px;height:17px}
 .side-name{font-size:22px;font-weight:500;letter-spacing:-.02em;color:var(--fg)}
 .side-role{font-size:14px;color:var(--muted);margin-top:2px}
 @media (min-width:1024px){
