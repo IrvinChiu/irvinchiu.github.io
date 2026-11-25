@@ -30,13 +30,6 @@
       <h1 class="bt" data-text="Hi, I'm Irvin. This is where my rabbit holes end up."">Hi, I'm Irvin. This is where my rabbit holes end up.</h1>
     </div>
     <div class="side-bottom">
-      <div class="side-icons">
-        <a href="mailto:irvin.chiu@baseball.com.au" title="irvin.chiu@baseball.com.au" aria-label="Baseball Australia email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></a>
-        <a href="mailto:irvinchiu.yf@gmail.com" title="irvinchiu.yf@gmail.com" aria-label="Personal email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
-        <a href="https://www.linkedin.com/in/irvinchiu/" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
-        <a href="https://www.instagram.com/chiu.able/" title="Instagram" aria-label="Instagram (cooking)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-        <button class="theme-btn" type="button" title="Toggle theme" aria-label="Toggle theme"><span class="icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button>
-      </div>
       <div class="side-name">Irvin Chiu</div>
       <div class="side-role">Digital Media Coordinator, Baseball Australia</div>
       <div class="side-role">London, UK</div>
@@ -55,7 +48,7 @@
         with social media and analytics, build statistics tools, and find stories hidden inside the numbers. It may only be a 
         side job, but it lets me fulfil a small part of 13-year-old me’s dream of working in professional sport.</p>
       <p>Others have become projects of my own: Chiu.Able, where I share what I learn about cooking; CLAIRITY, my investment 
-        research system; and a couple of works in progress involving golf swing analysis and supermarket price comparison.</p>
+        research system; Set the Par, my golf swing analyser; and a work in progress on supermarket price comparison.</p>
       <p>Not every rabbit hole needs to become a project. I also spend far too much time on sports, motorsport, GeoGuessr, advanced 
         statistics, Excel macros, knife sharpening, and the science of strength training to minimise time in the gym.</p>
       <p>The subjects are different, but the pattern is usually the same. I get curious, learn as much as I can, test ideas, try to 
@@ -254,16 +247,52 @@
       <p>A private tool that follows a game as I cover it and handles the bookkeeping, so I can watch the game instead of typing.</p>
     </div>
     <div class="cook bf">
+      <h3 class="card-title">The problem</h3>
       <p>Covering a game live means every highlight needs a clip title in the standard format the social media team uses. Typing
-        those by hand meant checking who the player was, what inning it was and what the outcome actually was, while the game kept going.</p>
+        those by hand meant tracking the inning, checking the box score to confirm the player, and confirming the outcome, all while
+        the game kept going. By the time I had cut the clip, I had often forgotten the caption idea I had when I saw the play.</p>
+      <h3 class="card-title">Live clips: highlight to socials in about a minute</h3>
       <p>ABL Clip Tools follows the live game through the API and logs each outcome as it happens. It builds the title for me, and one
-        click copies it, ready to paste into our clip cutting tool.</p>
+        click copies it, ready to paste into our clip cutting tool. I no longer need to keep track of the inning or search the box score
+        to double-check a player. When I copy a title, a small window asks for a social caption, so my idea is saved against that play
+        before I lose it. Captions are kept per game in a Social tab, where I can copy them and tick them off once they are posted. A
+        highlight can now go from the field to social media within a minute of it happening.</p>
       <p>Each play also comes with context: strikeouts in a row, hits in a row and home runs in a row, plus a flag when a player reaches a career
-        or season milestone. Win probability added and leverage show which plays mattered most.</p>
-      <p>It also helps me write the recap. During the game I add key plays to a recap list with a quick note on what happened, so by the
-        final out the context is already collected and I don't have to rely on memory.</p>
-      <p>It stays private and runs on my own computer, because during a game it calls the API very frequently. ABL Stats is different:
-        it only updates from the API once a day. So there is no public link, but here is what it looks like.</p>
+        or season milestone. Win probability added and leverage show which plays mattered most. A pre-game scan does the same job before
+        first pitch. It checks every rostered player on both teams for streaks, slumps, hot and cold form and milestones, and adds team
+        records, head-to-head and probable starters.</p>
+      <h3 class="card-title">Recaps: context captured as it happens</h3>
+      <p>During the game I add key plays to a recap list with a note on what happened, why it mattered and how I want it worded. By the
+        final out the context is already collected, so I don't have to rely on memory hours later.</p>
+      <p>I use AI as a guide, not a replacement. It learns from my own previous recaps, and every recap I finish and edit goes back into
+        its style library, so its drafts get closer to my voice over time. I still write the final version myself.</p>
+      <h3 class="card-title">The 30-minute post-game window</h3>
+      <p>The expectation is to have the graphics posted and the recap live within 30 minutes of the final out. That number isn't
+        arbitrary: news outlets and teams in other countries rely on these recaps. When a game goes down to the wire or a comeback
+        happens, everything can change at the last minute, and the checklist is long:</p>
+      <ul class="cook-list">
+        <li>finding photos</li>
+        <li>building the score graphic</li>
+        <li>cutting the recap banner to exact dimensions</li>
+        <li>posting to social media</li>
+        <li>creating the YouTube highlight</li>
+        <li>writing the recap</li>
+        <li>embedding the box score from the game ID tag</li>
+        <li>embedding the YouTube video</li>
+      </ul>
+      <p>Now I upload photos ahead of time, and when the game finishes the system picks the right ones based on which team won, for
+        both the graphic and the banner. It also edits the PSD template itself, filling in the team logos, the score and the day and
+        date. A final-score graphic and banner that once took a scramble now takes a click, and I can spend that time on the recap.</p>
+      <h3 class="card-title">Leaving no stone unturned</h3>
+      <p>I try to use every time-saving measure I can. The tool also builds the YouTube title instantly, along with three spoiler-free
+        description options. It adds publishing helpers: a link to the game page, a copy-as-hyperlink button, a URL slug from the
+        headline, and the game ID tag for the box score embed. None of these takes long on its own, but across multiple games they add
+        up. They are also the details most prone to human error, and because the public sees all of them, removing those errors is
+        worth as much as the minutes saved.</p>
+      <h3 class="card-title">Why it's private</h3>
+      <p>It runs on my own computer because during a game it calls the API very frequently. The polling adapts to the game: every 5
+        seconds in play, slower during warm-ups and rain delays, and not at all once a game is final. ABL Stats is different: it only
+        updates from the API once a day. So there is no public link, but here is what it looks like.</p>
     </div>
     <a class="shot bf" href="images/clip-tools.webp" target="_blank" rel="noopener" aria-label="View full-size screenshot of the live clips view">
       <img src="images/clip-tools.webp" alt="ABL Clip Tools live clips view for a game, listing each play with a standardised clip title, description, win probability added, score and Copy and Recap buttons" width="1320" height="1065">
@@ -271,24 +300,31 @@
     <div class="grid" style="margin-top:20px">
       <article class="card bf">
         <div class="card-body">
-          <h3 class="card-title">Clip titles, ready to paste</h3>
-          <p class="card-desc">Round, game, inning, player and outcome in the social team's standard format. One click copies it.</p>
+          <h3 class="card-title">Clip titles and captions</h3>
+          <p class="card-desc">Round, game, inning, player and outcome in the social team's standard format. One click copies it, and a caption prompt saves my idea against the play.</p>
         </div>
-        <div class="card-foot"><span class="badge sec">Copy</span><span class="badge sec">Copy all shown</span></div>
+        <div class="card-foot"><span class="badge sec">Copy</span><span class="badge sec">Copy all shown</span><span class="badge sec">Social tab</span></div>
       </article>
       <article class="card bf">
         <div class="card-body">
           <h3 class="card-title">Context and milestones</h3>
-          <p class="card-desc">Streaks of strikeouts, hits and home runs, plus career and season milestones, flagged on the play itself.</p>
+          <p class="card-desc">Streaks, slumps and milestones flagged on the play itself, plus a pre-game scan of every rostered player on both teams.</p>
         </div>
-        <div class="card-foot"><span class="badge sec">Streaks</span><span class="badge sec">Milestones</span><span class="badge sec">WPA</span></div>
+        <div class="card-foot"><span class="badge sec">Streaks</span><span class="badge sec">Milestones</span><span class="badge sec">WPA</span><span class="badge sec">Pre-game scan</span></div>
       </article>
       <article class="card bf">
         <div class="card-body">
           <h3 class="card-title">Key plays for the recap</h3>
-          <p class="card-desc">Key plays go on a recap list with a quick note as they happen, so the context is ready when it's time to write the recap.</p>
+          <p class="card-desc">Key plays go on a recap list with a note on what happened and why it mattered, and AI drafts in my own style from my past recaps.</p>
         </div>
-        <div class="card-foot"><span class="badge sec">Recap list</span><span class="badge sec">Quick notes</span></div>
+        <div class="card-foot"><span class="badge sec">Recap list</span><span class="badge sec">Quick notes</span><span class="badge sec">Style library</span></div>
+      </article>
+      <article class="card bf">
+        <div class="card-body">
+          <h3 class="card-title">Post-game graphics and publishing</h3>
+          <p class="card-desc">Photos picked by the winning team, the PSD template filled in, plus YouTube titles, descriptions, slugs and box score tags.</p>
+        </div>
+        <div class="card-foot"><span class="badge sec">Score graphic</span><span class="badge sec">Banner</span><span class="badge sec">YouTube</span><span class="badge sec">Game ID tag</span></div>
       </article>
     </div>
     <a class="shot bf" href="images/clip-tools-recap.webp" target="_blank" rel="noopener" aria-label="View full-size screenshot of adding a play to the recap">
